@@ -6,7 +6,9 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 # PixieBuild
 
-Next.js 16 (App Router) · React 19 · TypeScript strict · Tailwind v4 · shadcn/ui · npm
+Next.js 16 (App Router) · React 19 · TypeScript strict · Tailwind v4 · shadcn/ui on Base UI · npm
+
+Dark mode is class-based via `next-themes`, default `system`.
 
 ## Read first
 
