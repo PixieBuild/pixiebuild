@@ -1,4 +1,5 @@
 import PbLogo from "@/assets/pb-logo.svg";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 type ComingSoonProps = {
   title?: string;
@@ -37,6 +38,10 @@ export function ComingSoon({
         >
           <div className="bg-primary absolute inset-y-0 w-1/3 rounded-full motion-safe:animate-build-sweep" />
         </div>
+      </div>
+
+      <div className="absolute right-4 bottom-4 sm:right-6 sm:bottom-6">
+        <ThemeToggle />
       </div>
     </section>
   );
