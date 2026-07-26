@@ -127,3 +127,39 @@
     @apply font-sans;
   }
 }
+
+@keyframes build-sweep {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+@theme {
+  --animate-build-sweep: build-sweep 2.6s ease-in-out infinite;
+}
+
+/* Blueprint grid, faded out at the edges so it reads as texture, not a table. */
+@utility bg-blueprint {
+  --blueprint-line: color-mix(in oklch, var(--color-border) 65%, transparent);
+  background-image:
+    linear-gradient(to right, var(--blueprint-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--blueprint-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    ellipse 45% 38% at 50% 45%,
+    black 15%,
+    transparent 92%
+  );
+}
+
+/* Soft brand wash behind the content, so the mark sits in its own light. */
+@utility bg-brand-glow {
+  background-image: radial-gradient(
+    ellipse 36% 30% at 50% 42%,
+    color-mix(in oklch, var(--color-primary) 16%, transparent),
+    transparent 72%
+  );
+}
