@@ -163,3 +163,119 @@
     transparent 72%
   );
 }
+
+/* ---------------------------------------------------------------------------
+   PixieBuild design language
+
+   Dark-first. Hierarchy comes from type and space, never from decoration.
+   Depth comes from one implied light source above. Kept in its own blocks so
+   the shadcn-generated tokens above stay clean for `shadcn diff`.
+   --------------------------------------------------------------------------- */
+
+@theme {
+  /* Type. The gaps are deliberately wide — 13 to 18 to 44 to 72, with nothing
+     timid in between. Large sizes tighten tracking; small caps loosen it. */
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.09em;
+  --text-label--font-weight: 500;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.5;
+
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.65;
+
+  --text-title: 1.75rem;
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.02em;
+  --text-title--font-weight: 600;
+
+  --text-heading: 2.75rem;
+  --text-heading--line-height: 1.05;
+  --text-heading--letter-spacing: -0.03em;
+  --text-heading--font-weight: 600;
+
+  --text-display: 4.5rem;
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.04em;
+  --text-display--font-weight: 600;
+
+  /* Rhythm. One band height for every section, one page width for everything. */
+  --spacing-band: 7rem;
+  --container-page: 72rem;
+  --container-prose: 38rem;
+
+  /* Motion. Two curves only: one for things arriving, one for things responding. */
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-interface: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Elevation. Light sits above the surface, so the top edge catches it and the
+   shadow falls below. In light mode that edge is a white highlight; in dark it
+   is a faint white line — the same physical idea, inverted material. */
+:root {
+  --elevation-1: 0 1px 2px 0 oklch(0.148 0.004 228.8 / 0.05);
+  --elevation-2:
+    0 6px 20px -6px oklch(0.148 0.004 228.8 / 0.12),
+    0 2px 6px -2px oklch(0.148 0.004 228.8 / 0.05);
+  --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.9);
+}
+
+.dark {
+  --elevation-1: 0 1px 2px 0 oklch(0 0 0 / 0.5);
+  --elevation-2:
+    0 12px 32px -8px oklch(0 0 0 / 0.6),
+    0 2px 8px -2px oklch(0 0 0 / 0.4);
+  --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.07);
+}
+
+@theme inline {
+  --shadow-elev-1: var(--elevation-1);
+  --shadow-elev-2: var(--elevation-2);
+}
+
+/* The card primitive. Everything raised off the page uses this, so surfaces
+   stay consistent instead of each section inventing its own border. */
+@utility panel {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--elevation-1), var(--edge);
+}
+
+/* A hairline that reads as an edge rather than a rule. Used between bands. */
+@utility hairline {
+  border-color: color-mix(in oklch, var(--color-border) 70%, transparent);
+}
+
+/* Focus follows the cursor: hovering the row recedes every item except the one
+   under the pointer. The focal point is depth falloff, not an effect. */
+@utility strip-focus {
+  & > * {
+    transition:
+      opacity 200ms var(--ease-interface),
+      transform 200ms var(--ease-interface),
+      box-shadow 200ms var(--ease-interface);
+  }
+
+  &:hover > * {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+
+  &:hover > *:hover {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: var(--elevation-2), var(--edge);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    & > *,
+    &:hover > *,
+    &:hover > *:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+}

@@ -100,6 +100,32 @@ Split by section, loop by repetition.
 Reference: shadcn's `dashboard-01` block — nine files, no `NavItem`; `nav-main.tsx` maps ~30
 lines of JSX inline.
 
+## Project structure
+
+```
+src/
+├── app/              routes, layouts, and metadata files (icon, opengraph-image)
+│   └── <route>/
+│       └── _components/   UI used only by this route
+├── assets/           files imported into code — SVGs become components via SVGR
+├── components/       shared components
+│   └── ui/           shadcn primitives — installed, not hand-written
+├── lib/              utilities and business logic
+└── types/            ambient .d.ts declarations
+public/               files served by URL, referenced by path not import
+```
+
+- Add `src/hooks/` when the first shared hook appears; one `use-*.ts` per file.
+- `lib/` stays flat until a domain earns a folder — group only when a topic has several files.
+- An SVG belongs in `assets/` if code imports it, `public/` only if something fetches it by URL.
+- Do not add a top-level folder under `src/` without asking.
+
+## Naming
+
+- Files are kebab-case: `coming-soon.tsx`, `theme-toggle.tsx`, `use-media-query.ts`.
+- Components are PascalCase inside a kebab-case file — `ComingSoon` in `coming-soon.tsx`.
+- Hooks are `use-*.ts`, matching the hook they export.
+
 ## Routing and client/server boundaries
 
 - Server Components by default.
@@ -107,6 +133,8 @@ lines of JSX inline.
 - Keep route files thin.
 - Route-specific UI stays in `src/app/<route>/_components/`. Promote to `src/components/`
   only when a second route needs it.
+- A client component gets its own file so `"use client"` does not pull its parent across the
+  boundary. Keep client islands small and leaf-ward.
 
 ## Conventions
 
