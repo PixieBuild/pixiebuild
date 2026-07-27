@@ -9,6 +9,7 @@ const links = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
+  { label: "Pricing", href: "#pricing" },
 ];
 
 export function SiteHeader() {
