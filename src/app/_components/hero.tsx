@@ -15,7 +15,7 @@ export function Hero() {
 
       <SiteHeader />
 
-      <div className="relative mx-auto max-w-page px-6 pt-12 pb-14 md:pt-24 md:pb-20">
+      <div className="relative mx-auto max-w-page px-6 pt-12 pb-14 sm:pt-16 sm:pb-16 md:pt-24 md:pb-20">
         <p
           style={{ animationDelay: "0ms" }}
           className="hairline bg-background/55 text-muted-foreground motion-reduce:animate-none inline-flex animate-rise-in items-center gap-2.5 rounded-full border py-1.5 pr-4 pl-3 text-caption backdrop-blur-xl"
@@ -24,7 +24,10 @@ export function Hero() {
           Open for new projects
         </p>
 
-        <h1 className="mt-7 text-heading md:mt-12 md:text-display">
+        {/* Sized against the width the line has to fit, not against the
+            breakpoints: at 6.6vw the first sentence holds one line from 640px
+            up, and it lands on the display step at ~1090px. */}
+        <h1 className="mt-7 text-[clamp(2.75rem,6.6vw,4.5rem)] leading-[1.05] font-semibold tracking-[-0.035em] sm:mt-8 md:mt-12 md:leading-[1.15]">
           <span className="block">
             {headline.map((word, index) => (
               <Fragment key={word}>
@@ -51,7 +54,7 @@ export function Hero() {
           </span>
         </h1>
 
-        <div className="hairline mt-9 grid gap-8 md:mt-16 md:grid-cols-12 md:gap-8 md:border-t md:pt-8">
+        <div className="hairline mt-9 grid gap-8 sm:mt-11 sm:gap-10 md:mt-16 md:grid-cols-12 md:gap-8 md:border-t md:pt-8">
           <div className="md:col-span-6">
             <p
               style={{ animationDelay: "520ms" }}
@@ -63,7 +66,7 @@ export function Hero() {
 
             <div
               style={{ animationDelay: "580ms" }}
-              className="motion-reduce:animate-none mt-7 flex animate-rise-in flex-wrap gap-3"
+              className="motion-reduce:animate-none mt-7 flex animate-rise-in flex-wrap gap-3 sm:mt-8"
             >
               <Button
                 size="lg"
@@ -85,7 +88,7 @@ export function Hero() {
 
           <div
             style={{ animationDelay: "640ms" }}
-            className="motion-reduce:animate-none animate-rise-in md:col-span-4 md:col-start-9"
+            className="motion-reduce:animate-none animate-rise-in md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-9"
           >
             <p className="text-muted-foreground text-label uppercase">
               Who we build for
@@ -99,7 +102,7 @@ export function Hero() {
 
         <div
           style={{ animationDelay: "700ms" }}
-          className="text-muted-foreground motion-reduce:animate-none mt-11 flex animate-rise-in flex-wrap items-center gap-x-3 gap-y-2 text-label uppercase sm:gap-x-4 md:mt-16"
+          className="text-muted-foreground motion-reduce:animate-none mt-11 flex animate-rise-in flex-wrap items-center gap-x-3 gap-y-2 text-label uppercase sm:mt-12 sm:gap-x-4 md:mt-16"
         >
           <span className="whitespace-nowrap">Fast by default</span>
           <span aria-hidden className="bg-border size-1 shrink-0 rounded-full" />
