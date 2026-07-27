@@ -59,7 +59,14 @@ export function Hero() {
           </span>
         </h1>
 
-        <div className="hairline mt-9 sm:mt-11 md:mt-16 md:border-t md:pt-8">
+        <div className="mt-9 sm:mt-11 md:mt-16">
+          {/* Dissolves before it reaches the mark: a full-width rule reads as
+              cutting the glyph in half. */}
+          <span
+            aria-hidden
+            className="from-border to-transparent mb-8 hidden h-px bg-linear-to-r from-45% to-85% md:block"
+          />
+
           <p
             style={{ animationDelay: "520ms" }}
             className="text-muted-foreground motion-reduce:animate-none max-w-[40ch] animate-rise-in text-lead text-pretty"
