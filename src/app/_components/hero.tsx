@@ -15,12 +15,13 @@ export function Hero() {
       <SiteHeader />
 
       <div className="page-gutter relative mx-auto max-w-page pt-12 pb-14 sm:pt-16 sm:pb-16 md:pt-24 md:pb-20">
-        {/* Bottom-aligned under the headline: past 20rem it reaches back into
-            the type. Opacity on the element, not the colour — the dot is
-            var(--color-primary) and a text alpha would leave it solid. */}
+        {/* The bottom offsets put its edge on the strip's rule — pb plus half
+            the strip, not free values — and the size is then capped by the
+            headline above it. Opacity on the element, not the colour: the dot
+            is var(--color-primary) and a text alpha would leave it solid. */}
         <PbLogo
           aria-hidden
-          className="text-foreground pointer-events-none absolute right-0 bottom-6 size-48 opacity-[0.09] mask-[linear-gradient(to_top_left,black,transparent_78%)] sm:size-64 md:-right-6 md:size-80 dark:opacity-[0.06]"
+          className="text-foreground pointer-events-none absolute right-0 bottom-6 size-48 opacity-[0.09] mask-[linear-gradient(to_top_left,black,transparent_78%)] sm:bottom-18 md:right-0 md:bottom-22 md:size-64 lg:right-4 lg:size-72 xl:-right-12 2xl:-right-20 dark:opacity-[0.06]"
         />
         <p
           style={{ animationDelay: "0ms" }}
