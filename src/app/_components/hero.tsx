@@ -13,7 +13,7 @@ export function Hero() {
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <h1
             style={{ animationDelay: "0ms" }}
-            className="motion-reduce:animate-none max-w-[40ch] animate-rise-in text-[1.5rem] leading-[1.15] font-semibold tracking-[-0.03em] sm:text-[2rem] md:text-[2.375rem] lg:text-[2.75rem]"
+            className="motion-reduce:animate-none max-w-[40ch] animate-rise-in text-[1.8rem] leading-[1.15] font-semibold tracking-[-0.03em] sm:text-[2rem] md:text-[2.375rem] lg:text-[2.75rem]"
           >
             Beautifully engineered
             <br /> websites for{" "}
@@ -55,21 +55,22 @@ export function Hero() {
 
           <div
             style={{ animationDelay: "300ms" }}
-            className="text-muted-foreground motion-reduce:animate-none mt-10 flex animate-rise-in flex-col items-center gap-1.5 text-label uppercase min-[420px]:flex-row min-[420px]:gap-3 sm:gap-4"
+            className="text-muted-foreground motion-reduce:animate-none mt-10 flex animate-rise-in items-center justify-center gap-3 text-label uppercase sm:gap-4"
           >
             <span
               aria-hidden
-              className="via-border hidden h-px w-8 bg-linear-to-r from-transparent to-transparent sm:block sm:w-14"
+              className="via-border h-px w-6 bg-linear-to-r from-transparent to-transparent sm:w-14"
             />
-            <span className="whitespace-nowrap">Fast by default</span>
+            <span className="whitespace-nowrap">
+              Fast<span className="hidden sm:inline"> by default</span>
+            </span>
+            <span aria-hidden className="bg-border size-1 shrink-0 rounded-full" />
+            <span className="whitespace-nowrap">
+              Accessible<span className="hidden sm:inline"> by design</span>
+            </span>
             <span
               aria-hidden
-              className="bg-border hidden size-1 shrink-0 rounded-full min-[420px]:block"
-            />
-            <span className="whitespace-nowrap">Accessible by design</span>
-            <span
-              aria-hidden
-              className="via-border hidden h-px w-8 bg-linear-to-r from-transparent to-transparent sm:block sm:w-14"
+              className="via-border h-px w-6 bg-linear-to-r from-transparent to-transparent sm:w-14"
             />
           </div>
         </div>
