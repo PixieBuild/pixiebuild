@@ -137,13 +137,47 @@
   }
 }
 
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rule-in {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 @theme {
   --animate-build-sweep: build-sweep 2.6s ease-in-out infinite;
+  --animate-rise-in: rise-in 620ms var(--ease-entrance) both;
+  --animate-rule-in: rule-in 700ms var(--ease-entrance) both;
+}
+
+/* Accent rule sitting under a word in a heading. */
+@utility measure-mark {
+  position: absolute;
+  inset-inline: 0;
+  /* Bottom of the line box: below the descender, inside the leading. */
+  bottom: 0;
+  height: 2px;
+  transform-origin: left;
+  border-radius: 2px;
+  background-color: var(--color-primary);
 }
 
 /* Blueprint grid, faded out at the edges so it reads as texture, not a table. */
 @utility bg-blueprint {
-  --blueprint-line: color-mix(in oklch, var(--color-border) 65%, transparent);
+  --blueprint-line: color-mix(in oklch, var(--color-border) 32%, transparent);
   background-image:
     linear-gradient(to right, var(--blueprint-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--blueprint-line) 1px, transparent 1px);
@@ -153,6 +187,41 @@
     black 15%,
     transparent 92%
   );
+}
+
+/* The same grid drawn stronger, revealed in a disc around the pointer.
+   Position and opacity come from custom properties set by HeroBackdrop. */
+@utility bg-blueprint-reveal {
+  --reveal-x: 50%;
+  --reveal-y: 38%;
+  --reveal-opacity: 0;
+
+  background-image:
+    linear-gradient(to right, var(--reveal-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--reveal-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    240px circle at var(--reveal-x) var(--reveal-y),
+    black,
+    transparent 72%
+  );
+  opacity: var(--reveal-opacity);
+  transition: opacity 400ms var(--ease-interface);
+}
+
+/* A wide pool of brand light high in the frame, so the headline reads as lit. */
+@utility bg-hero-glow {
+  background-image:
+    radial-gradient(
+      ellipse 60% 42% at 50% 12%,
+      color-mix(in oklch, var(--color-primary) 22%, transparent),
+      transparent 68%
+    ),
+    radial-gradient(
+      ellipse 90% 60% at 50% -10%,
+      color-mix(in oklch, var(--color-foreground) 7%, transparent),
+      transparent 70%
+    );
 }
 
 /* Soft brand wash behind the content, so the mark sits in its own light. */
@@ -173,8 +242,6 @@
    --------------------------------------------------------------------------- */
 
 @theme {
-  /* Type. The gaps are deliberately wide — 13 to 18 to 44 to 72, with nothing
-     timid in between. Large sizes tighten tracking; small caps loosen it. */
   --text-label: 0.75rem;
   --text-label--line-height: 1.2;
   --text-label--letter-spacing: 0.09em;
@@ -196,30 +263,33 @@
   --text-heading--letter-spacing: -0.03em;
   --text-heading--font-weight: 600;
 
+  /* Never below 1.15, or descenders collide with the next line's ascenders. */
   --text-display: 4.5rem;
-  --text-display--line-height: 0.95;
+  --text-display--line-height: 1.15;
   --text-display--letter-spacing: -0.04em;
   --text-display--font-weight: 600;
 
-  /* Rhythm. One band height for every section, one page width for everything. */
   --spacing-band: 7rem;
   --container-page: 72rem;
   --container-prose: 38rem;
 
-  /* Motion. Two curves only: one for things arriving, one for things responding. */
+  /* One curve for things arriving, one for things responding. */
   --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-interface: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Elevation. Light sits above the surface, so the top edge catches it and the
-   shadow falls below. In light mode that edge is a white highlight; in dark it
-   is a faint white line — the same physical idea, inverted material. */
+/* Light sits above the surface: the top edge catches it, the shadow falls
+   below. Light mode renders that edge as white, dark mode as white at 7%. */
 :root {
   --elevation-1: 0 1px 2px 0 oklch(0.148 0.004 228.8 / 0.05);
   --elevation-2:
     0 6px 20px -6px oklch(0.148 0.004 228.8 / 0.12),
     0 2px 6px -2px oklch(0.148 0.004 228.8 / 0.05);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.9);
+
+  /* Defined here, not in the utility: a property set on the element itself
+     ignores .dark on an ancestor and could not be themed. */
+  --reveal-line: color-mix(in oklch, var(--color-primary) 14%, transparent);
 }
 
 .dark {
@@ -228,6 +298,8 @@
     0 12px 32px -8px oklch(0 0 0 / 0.6),
     0 2px 8px -2px oklch(0 0 0 / 0.4);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.07);
+
+  --reveal-line: color-mix(in oklch, var(--color-primary) 38%, transparent);
 }
 
 @theme inline {
@@ -235,8 +307,7 @@
   --shadow-elev-2: var(--elevation-2);
 }
 
-/* The card primitive. Everything raised off the page uses this, so surfaces
-   stay consistent instead of each section inventing its own border. */
+/* The card primitive. Every raised surface uses this. */
 @utility panel {
   background-color: var(--card);
   border: 1px solid var(--border);
@@ -249,8 +320,7 @@
   border-color: color-mix(in oklch, var(--color-border) 70%, transparent);
 }
 
-/* Focus follows the cursor: hovering the row recedes every item except the one
-   under the pointer. The focal point is depth falloff, not an effect. */
+/* Hovering the row recedes every item except the one under the pointer. */
 @utility strip-focus {
   & > * {
     transition:

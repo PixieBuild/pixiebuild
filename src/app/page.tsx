@@ -1,5 +1,9 @@
-import { ComingSoon } from "@/components/coming-soon";
+import { Hero } from "@/app/_components/hero";
 
 export default function Home() {
-  return <ComingSoon />;
+  return (
+    <main className="flex-1">
+      <Hero />
+    </main>
+  );
 }

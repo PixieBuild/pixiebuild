@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 import { Band } from "@/app/styleguide/_components/band";
-import { BrowserFrame } from "@/app/styleguide/_components/browser-frame";
-import { MiniSite } from "@/app/styleguide/_components/mini-site";
+import { BrowserFrame } from "@/components/browser-frame";
+import { MiniSite } from "@/components/mini-site";
 
 export const metadata: Metadata = {
   title: "Design language — PixieBuild",
