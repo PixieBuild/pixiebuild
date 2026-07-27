@@ -14,7 +14,7 @@ const links = [
 export function SiteFooter() {
   return (
     <footer className="hairline border-t py-16">
-      <div className="mx-auto flex max-w-page flex-col gap-12 px-6 md:flex-row md:justify-between md:gap-16">
+      <div className="page-gutter mx-auto flex max-w-page flex-col gap-12 md:flex-row md:justify-between md:gap-16">
         <div className="max-w-sm">
           <Link
             href="/"
@@ -45,7 +45,7 @@ export function SiteFooter() {
         </nav>
       </div>
 
-      <div className="hairline text-muted-foreground mx-auto mt-16 flex max-w-page flex-col gap-2 border-t px-6 pt-8 text-caption sm:flex-row sm:justify-between">
+      <div className="page-gutter hairline text-muted-foreground mx-auto mt-16 flex max-w-page flex-col gap-2 border-t pt-8 text-caption sm:flex-row sm:justify-between">
         <p>© 2026 PixieBuild</p>
         <p>Designed and built in-house.</p>
       </div>

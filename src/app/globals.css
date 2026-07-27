@@ -337,6 +337,25 @@
   --shadow-elev-2: var(--elevation-2);
 }
 
+/* The page gutter. Every band pairs it with max-w-page, so they share one
+   left edge. It grows between the mobile stack and the max width: below
+   72rem nothing else holds the content off the viewport edges. */
+@utility page-gutter {
+  padding-inline: 1.5rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+
+  @media (width >= 48rem) {
+    padding-inline: 3rem;
+  }
+
+  @media (width >= 64rem) {
+    padding-inline: 4rem;
+  }
+}
+
 /* The card primitive. Every raised surface uses this. */
 @utility panel {
   background-color: var(--card);

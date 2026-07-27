@@ -15,7 +15,7 @@ export function Hero() {
 
       <SiteHeader />
 
-      <div className="relative mx-auto max-w-page px-6 pt-12 pb-14 sm:pt-16 sm:pb-16 md:pt-24 md:pb-20">
+      <div className="page-gutter relative mx-auto max-w-page pt-12 pb-14 sm:pt-16 sm:pb-16 md:pt-24 md:pb-20">
         <p
           style={{ animationDelay: "0ms" }}
           className="hairline bg-background/55 text-muted-foreground motion-reduce:animate-none inline-flex animate-rise-in items-center gap-2.5 rounded-full border py-1.5 pr-4 pl-3 text-caption backdrop-blur-xl"

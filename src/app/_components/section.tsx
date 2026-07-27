@@ -20,7 +20,7 @@ export function Section({
 }: SectionProps) {
   return (
     <section id={id} className="hairline scroll-mt-24 border-t py-band">
-      <div className="mx-auto max-w-page px-6">
+      <div className="page-gutter mx-auto max-w-page">
         <header className="grid gap-6 md:grid-cols-12 md:items-end md:gap-10">
           <div className="reveal md:col-span-7">
             <p className="text-muted-foreground flex items-center gap-3 text-label uppercase">
