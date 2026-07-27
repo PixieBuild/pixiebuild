@@ -1,6 +1,12 @@
+import { Fragment } from "react";
+
 import { HeroBackdrop } from "@/app/_components/hero-backdrop";
 import { SiteHeader } from "@/app/_components/site-header";
 import { Button } from "@/components/ui/button";
+
+/* Split so the words land one after another, and so the rule can sit under
+   the word it is a pun on. */
+const headline = ["Beautiful", "is", "the", "baseline"];
 
 export function Hero() {
   return (
@@ -9,70 +15,99 @@ export function Hero() {
 
       <SiteHeader />
 
-      <div className="relative mx-auto max-w-page px-6 pt-28 pb-32 md:pt-40 md:pb-44">
-        <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <h1
-            style={{ animationDelay: "0ms" }}
-            className="motion-reduce:animate-none max-w-[40ch] animate-rise-in text-[1.8rem] leading-[1.15] font-semibold tracking-[-0.03em] sm:text-[2rem] md:text-[2.375rem] lg:text-[2.75rem]"
-          >
-            Beautifully engineered
-            <br /> websites for{" "}
-            {/* box-decoration-clone: when the phrase wraps, each fragment needs
-                its own ramp rather than a slice of a single one. */}
-            <span className="from-foreground to-primary box-decoration-clone bg-linear-to-r bg-clip-text text-transparent">
-              ambitious businesses
-            </span>
-          </h1>
+      <div className="relative mx-auto max-w-page px-6 pt-12 pb-14 md:pt-24 md:pb-20">
+        <p
+          style={{ animationDelay: "0ms" }}
+          className="hairline bg-background/55 text-muted-foreground motion-reduce:animate-none inline-flex animate-rise-in items-center gap-2.5 rounded-full border py-1.5 pr-4 pl-3 text-caption backdrop-blur-xl"
+        >
+          <span aria-hidden className="bg-primary size-1.5 rounded-full" />
+          Open for new projects
+        </p>
 
-          <p
-            style={{ animationDelay: "120ms" }}
-            className="text-muted-foreground motion-reduce:animate-none mt-6 max-w-[52ch] animate-rise-in text-base leading-relaxed sm:text-lead"
+        <h1 className="mt-7 text-heading md:mt-12 md:text-display">
+          <span className="block">
+            {headline.map((word, index) => (
+              <Fragment key={word}>
+                <span
+                  style={{ animationDelay: `${120 + index * 70}ms` }}
+                  className="motion-reduce:animate-none inline-block animate-rise-in"
+                >
+                  {word === "baseline" ? (
+                    <>
+                      <span className="text-drift inline-block">baseline</span>.
+                    </>
+                  ) : (
+                    word
+                  )}
+                </span>{" "}
+              </Fragment>
+            ))}
+          </span>
+          <span
+            style={{ animationDelay: "430ms" }}
+            className="text-muted-foreground motion-reduce:animate-none block animate-rise-in"
           >
-            We design and build custom websites and web applications that help
-            businesses earn trust, stand out, and grow online.
-          </p>
+            Fast is the point.
+          </span>
+        </h1>
 
-          <div
-            style={{ animationDelay: "220ms" }}
-            className="motion-reduce:animate-none mt-10 flex animate-rise-in flex-wrap items-center justify-center gap-3"
-          >
-            <Button
-              size="lg"
-              nativeButton={false}
-              render={<a href="#contact" />}
+        <div className="hairline mt-9 grid gap-8 md:mt-16 md:grid-cols-12 md:gap-8 md:border-t md:pt-8">
+          <div className="md:col-span-6">
+            <p
+              style={{ animationDelay: "520ms" }}
+              className="text-muted-foreground motion-reduce:animate-none max-w-[40ch] animate-rise-in text-lead text-pretty"
             >
-              Start a project
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              nativeButton={false}
-              render={<a href="#work" />}
+              Websites and web apps for startups and businesses — designed,
+              built and shipped in weeks.
+            </p>
+
+            <div
+              style={{ animationDelay: "580ms" }}
+              className="motion-reduce:animate-none mt-7 flex animate-rise-in flex-wrap gap-3"
             >
-              See our work
-            </Button>
+              <Button
+                size="lg"
+                nativeButton={false}
+                render={<a href="#contact" />}
+              >
+                Start a project
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                nativeButton={false}
+                render={<a href="#work" />}
+              >
+                See our work
+              </Button>
+            </div>
           </div>
 
           <div
-            style={{ animationDelay: "300ms" }}
-            className="text-muted-foreground motion-reduce:animate-none mt-10 flex animate-rise-in items-center justify-center gap-3 text-label uppercase sm:gap-4"
+            style={{ animationDelay: "640ms" }}
+            className="motion-reduce:animate-none animate-rise-in md:col-span-4 md:col-start-9"
           >
-            <span
-              aria-hidden
-              className="via-border h-px w-6 bg-linear-to-r from-transparent to-transparent sm:w-14"
-            />
-            <span className="whitespace-nowrap">
-              Fast<span className="hidden sm:inline"> by default</span>
-            </span>
-            <span aria-hidden className="bg-border size-1 shrink-0 rounded-full" />
-            <span className="whitespace-nowrap">
-              Accessible<span className="hidden sm:inline"> by design</span>
-            </span>
-            <span
-              aria-hidden
-              className="via-border h-px w-6 bg-linear-to-r from-transparent to-transparent sm:w-14"
-            />
+            <p className="text-muted-foreground text-label uppercase">
+              Who we build for
+            </p>
+            <p className="mt-3 max-w-[46ch] text-pretty md:mt-4">
+              Founders shipping a first product, and businesses whose website
+              stopped looking like the company behind it.
+            </p>
           </div>
+        </div>
+
+        <div
+          style={{ animationDelay: "700ms" }}
+          className="text-muted-foreground motion-reduce:animate-none mt-11 flex animate-rise-in flex-wrap items-center gap-x-3 gap-y-2 text-label uppercase sm:gap-x-4 md:mt-16"
+        >
+          <span className="whitespace-nowrap">Fast by default</span>
+          <span aria-hidden className="bg-border size-1 shrink-0 rounded-full" />
+          <span className="whitespace-nowrap">Accessible by design</span>
+          <span
+            aria-hidden
+            className="from-border hidden h-px min-w-6 flex-1 bg-linear-to-r to-transparent sm:block"
+          />
         </div>
       </div>
     </section>
