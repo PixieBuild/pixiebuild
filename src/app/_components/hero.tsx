@@ -21,7 +21,7 @@ export function Hero() {
             is var(--color-primary) and a text alpha would leave it solid. */}
         <PbLogo
           aria-hidden
-          className="text-foreground pointer-events-none absolute right-0 bottom-6 size-48 opacity-[0.09] mask-[linear-gradient(to_top_left,black,transparent_78%)] sm:bottom-18 md:right-0 md:bottom-22 md:size-64 lg:right-4 lg:size-72 xl:-right-12 2xl:-right-20 dark:opacity-[0.06]"
+          className="text-foreground pointer-events-none absolute right-0 bottom-0 size-48 opacity-[0.12] mask-[linear-gradient(to_top_left,black,transparent_78%)] sm:bottom-18 md:right-0 md:bottom-22 md:size-64 lg:right-4 lg:size-72 xl:-right-12 2xl:-right-20 dark:opacity-[0.1]"
         />
         <p
           style={{ animationDelay: "0ms" }}
