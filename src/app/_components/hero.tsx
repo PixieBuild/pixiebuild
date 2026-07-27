@@ -5,8 +5,6 @@ import { SiteHeader } from "@/app/_components/site-header";
 import PbLogo from "@/assets/pb-logo.svg";
 import { Button } from "@/components/ui/button";
 
-/* Split so the words land one after another, and so the rule can sit under
-   the word it is a pun on. */
 const headline = ["Beautiful", "is", "the", "baseline"];
 
 export function Hero() {
@@ -32,9 +30,7 @@ export function Hero() {
           Open for new projects
         </p>
 
-        {/* Sized against the width the line has to fit, not against the
-            breakpoints: at 6.6vw the first sentence holds one line from 640px
-            up, and it lands on the display step at ~1090px. */}
+        {/* 6.6vw is the ceiling that keeps the first sentence on one line. */}
         <h1 className="mt-7 text-[clamp(2.75rem,6.6vw,4.5rem)] leading-[1.05] font-semibold tracking-[-0.035em] sm:mt-8 md:mt-12 md:leading-[1.15]">
           <span className="block">
             {headline.map((word, index) => (

@@ -9,7 +9,6 @@ type SectionProps = {
   children: React.ReactNode;
 };
 
-/** Every band below the hero: numbered eyebrow, statement, and a lead beside it. */
 export function Section({
   id,
   index,

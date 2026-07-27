@@ -7,11 +7,8 @@ type MiniSiteProps = {
   cards: string[];
 };
 
-/**
- * A miniature but real page — laid out at full size, then scaled to half.
- * Everything inside uses the real type scale, which is why it reads as a
- * product rather than a wireframe of grey bars.
- */
+/* Laid out at full width and scaled to half, so the type inside stays on the
+   real scale rather than being set at miniature sizes. */
 export function MiniSite({
   brand,
   eyebrow,
