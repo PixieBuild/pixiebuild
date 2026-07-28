@@ -7,13 +7,13 @@ type BrowserFrameProps = {
 
 export function BrowserFrame({ label, children }: BrowserFrameProps) {
   return (
-    <div className="panel overflow-hidden">
-      <div className="hairline flex items-center gap-2 border-b px-4 py-3">
+    <div className="bg-card rounded-xl border shadow-panel overflow-hidden">
+      <div className="flex items-center gap-2 border-b px-4 py-3">
         {[0, 1, 2].map((dot) => (
           <span key={dot} className="bg-border size-2 rounded-full" />
         ))}
         {label ? (
-          <span className="bg-muted text-muted-foreground ml-2 truncate rounded-full px-3 py-1 text-caption">
+          <span className="bg-muted text-muted-foreground ml-2 truncate rounded-full px-3 py-1 text-sm">
             {label}
           </span>
         ) : null}

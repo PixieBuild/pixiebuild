@@ -14,7 +14,7 @@ export function Hero() {
 
       <SiteHeader />
 
-      <div className="page-gutter relative mx-auto max-w-page pt-12 pb-14 sm:pt-16 sm:pb-16 md:pt-24 md:pb-20">
+      <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-14 sm:px-8 sm:pt-16 sm:pb-16 md:px-12 md:pt-24 md:pb-20 lg:px-16">
         {/* The bottom offsets put its edge on the strip's rule — pb plus half
             the strip, not free values — and the size is then capped by the
             headline above it. Opacity on the element, not the colour: the dot
@@ -25,7 +25,7 @@ export function Hero() {
         />
         <p
           style={{ animationDelay: "0ms" }}
-          className="hairline bg-background/55 text-foreground motion-reduce:animate-none inline-flex animate-rise-in items-center gap-2.5 rounded-full border py-1.5 pr-4 pl-3 text-caption backdrop-blur-xl"
+          className="bg-background/55 text-foreground motion-reduce:animate-none inline-flex animate-rise-in items-center gap-2.5 rounded-full border py-1.5 pr-4 pl-3 text-sm backdrop-blur-xl"
         >
           <span aria-hidden className="bg-emerald-500 size-1.5 rounded-full" />
           Open for new projects
@@ -69,7 +69,7 @@ export function Hero() {
 
           <p
             style={{ animationDelay: "520ms" }}
-            className="text-muted-foreground motion-reduce:animate-none max-w-[40ch] animate-rise-in text-lead text-pretty"
+            className="text-muted-foreground motion-reduce:animate-none max-w-[40ch] animate-rise-in text-lg leading-relaxed text-pretty"
           >
             Websites and web apps for startups and businesses — designed, built
             and shipped in weeks.
@@ -99,7 +99,7 @@ export function Hero() {
 
         <div
           style={{ animationDelay: "640ms" }}
-          className="text-muted-foreground motion-reduce:animate-none mt-11 flex animate-rise-in flex-wrap items-center gap-x-3 gap-y-2 text-label uppercase sm:mt-12 sm:gap-x-4 md:mt-16"
+          className="text-muted-foreground motion-reduce:animate-none mt-11 flex animate-rise-in flex-wrap items-center gap-x-3 gap-y-2 text-xs font-medium tracking-widest uppercase sm:mt-12 sm:gap-x-4 md:mt-16"
         >
           <span className="whitespace-nowrap">Fast by default</span>
           <span

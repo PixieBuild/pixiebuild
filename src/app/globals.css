@@ -63,7 +63,7 @@
   --accent: oklch(0.52 0.105 223.128);
   --accent-foreground: oklch(0.984 0.019 200.873);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.925 0.005 214.3);
+  --border: oklch(0.925 0.005 214.3 / 70%);
   --input: oklch(0.925 0.005 214.3);
   --ring: oklch(0.723 0.014 214.4);
   --chart-1: oklch(0.905 0.182 98.111);
@@ -98,7 +98,7 @@
   --accent: oklch(0.45 0.085 224.283);
   --accent-foreground: oklch(0.984 0.019 200.873);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(1 0 0 / 7%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.56 0.021 213.5);
   --chart-1: oklch(0.905 0.182 98.111);
@@ -167,24 +167,13 @@
   }
 }
 
-@keyframes rule-in {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
 @theme {
   --animate-build-sweep: build-sweep 2.6s ease-in-out infinite;
   --animate-rise-in: rise-in 620ms var(--ease-entrance) both;
-  --animate-rule-in: rule-in 700ms var(--ease-entrance) both;
 }
 
-/* A tint travelling through one word of a heading. The ramp is far wider than
-   the word, so only a slice of it is ever visible — the word never turns fully
-   blue, it catches the accent and lets it go. One word per page. */
+/* The ramp is far wider than the word, so only a slice is ever visible and it
+   never turns fully blue. One word per page. */
 @utility text-drift {
   background-image: linear-gradient(
     100deg,
@@ -203,19 +192,6 @@
   }
 }
 
-/* Accent rule sitting under a word in a heading. */
-@utility measure-mark {
-  position: absolute;
-  inset-inline: 0;
-  /* Bottom of the line box: below the descender, inside the leading. */
-  bottom: 0;
-  height: 2px;
-  transform-origin: left;
-  border-radius: 2px;
-  background-color: var(--color-primary);
-}
-
-/* Blueprint grid, faded out at the edges so it reads as texture, not a table. */
 @utility bg-blueprint {
   --blueprint-line: color-mix(in oklch, var(--color-border) 32%, transparent);
   background-image:
@@ -229,8 +205,7 @@
   );
 }
 
-/* The same grid drawn stronger, revealed in a disc around the pointer.
-   Position and opacity come from custom properties set by HeroBackdrop. */
+/* Position and opacity come from custom properties set by HeroBackdrop. */
 @utility bg-blueprint-reveal {
   --reveal-x: 50%;
   --reveal-y: 38%;
@@ -249,7 +224,6 @@
   transition: opacity 400ms var(--ease-interface);
 }
 
-/* A wide pool of brand light high in the frame, so the headline reads as lit. */
 @utility bg-hero-glow {
   background-image:
     radial-gradient(
@@ -264,7 +238,6 @@
     );
 }
 
-/* Soft brand wash behind the content, so the mark sits in its own light. */
 @utility bg-brand-glow {
   background-image: radial-gradient(
     ellipse 36% 30% at 50% 42%,
@@ -282,44 +255,13 @@
    --------------------------------------------------------------------------- */
 
 @theme {
-  --text-label: 0.75rem;
-  --text-label--line-height: 1.2;
-  --text-label--letter-spacing: 0.09em;
-  --text-label--font-weight: 500;
-
-  --text-caption: 0.8125rem;
-  --text-caption--line-height: 1.5;
-
-  --text-lead: 1.125rem;
-  --text-lead--line-height: 1.65;
-
-  --text-title: 1.75rem;
-  --text-title--line-height: 1.2;
-  --text-title--letter-spacing: -0.02em;
-  --text-title--font-weight: 600;
-
-  --text-heading: 2.75rem;
-  --text-heading--line-height: 1.05;
-  --text-heading--letter-spacing: -0.03em;
-  --text-heading--font-weight: 600;
-
-  /* Never below 1.15, or descenders collide with the next line's ascenders. */
-  --text-display: 4.5rem;
-  --text-display--line-height: 1.15;
-  --text-display--letter-spacing: -0.04em;
-  --text-display--font-weight: 600;
-
-  --spacing-band: 7rem;
-  --container-page: 72rem;
-  --container-prose: 38rem;
-
-  /* One curve for things arriving, one for things responding. */
+  /* Values, not aliases: there is no utility for a custom cubic-bezier. */
   --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-interface: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Light sits above the surface: the top edge catches it, the shadow falls
-   below. Light mode renders that edge as white, dark mode as white at 7%. */
+/* One light source, above: the top edge catches it and the shadow falls below,
+   so both have to invert between themes. */
 :root {
   --elevation-1: 0 1px 2px 0 oklch(0.148 0.004 228.8 / 0.05);
   --elevation-2:
@@ -335,89 +277,27 @@
 .dark {
   --elevation-1: 0 1px 2px 0 oklch(0 0 0 / 0.5);
   --elevation-2:
-    0 12px 32px -8px oklch(0 0 0 / 0.6),
-    0 2px 8px -2px oklch(0 0 0 / 0.4);
+    0 12px 32px -8px oklch(0 0 0 / 0.6), 0 2px 8px -2px oklch(0 0 0 / 0.4);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.07);
 
   --reveal-line: color-mix(in oklch, var(--color-primary) 38%, transparent);
 }
 
 @theme inline {
+  /* Two shadows, one of them inset — a utility pair cannot express it. */
+  --shadow-panel: var(--elevation-1), var(--edge);
   --shadow-elev-1: var(--elevation-1);
   --shadow-elev-2: var(--elevation-2);
 }
 
-/* The page gutter. Every band pairs it with max-w-page, so they share one
-   left edge. It grows between the mobile stack and the max width: below
-   72rem nothing else holds the content off the viewport edges. */
-@utility page-gutter {
-  padding-inline: 1.5rem;
-
-  @media (width >= 40rem) {
-    padding-inline: 2rem;
-  }
-
-  @media (width >= 48rem) {
-    padding-inline: 3rem;
-  }
-
-  @media (width >= 64rem) {
-    padding-inline: 4rem;
-  }
-}
-
-/* The card primitive. Every raised surface uses this. */
-@utility panel {
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--elevation-1), var(--edge);
-}
-
-/* A hairline that reads as an edge rather than a rule. Used between bands. */
-@utility hairline {
-  border-color: color-mix(in oklch, var(--color-border) 70%, transparent);
-}
-
-/* The entrance, driven by scroll position rather than a timer. Progressive
-   enhancement: without scroll-driven animation support the element renders in
-   place, so content is never hidden behind a feature check. */
+/* Progressive enhancement: without scroll-driven animation support, or under
+   reduced motion, the element renders in place rather than staying hidden. */
 @utility reveal {
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       animation: rise-in linear both;
       animation-timeline: view();
       animation-range: entry 5% cover 22%;
-    }
-  }
-}
-
-/* Hovering the row recedes every item except the one under the pointer. */
-@utility strip-focus {
-  & > * {
-    transition:
-      opacity 200ms var(--ease-interface),
-      transform 200ms var(--ease-interface),
-      box-shadow 200ms var(--ease-interface);
-  }
-
-  &:hover > * {
-    opacity: 0.35;
-    transform: scale(0.96);
-  }
-
-  &:hover > *:hover {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: var(--elevation-2), var(--edge);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    & > *,
-    &:hover > *,
-    &:hover > *:hover {
-      transition: none;
-      transform: none;
     }
   }
 }
