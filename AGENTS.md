@@ -18,6 +18,8 @@ Before making changes, inspect:
 - nearby files in the same feature
 - `node_modules/next/dist/docs/` for the current Next.js version
 - the local `src/components/ui/` implementation if the task touches UI
+- `src/app/styleguide/page.tsx` before writing any UI — it is the index of the
+  tokens, utilities and patterns that already exist
 
 ## Core rules
 
@@ -28,6 +30,8 @@ Before making changes, inspect:
 - Touch only files that are required for the task.
 - Prefer existing patterns over inventing new ones.
 - Read the local source before using or changing a component.
+- Never invent a value the design language could own. If there is no slot for
+  it, add the token or utility in the same commit as the code that needed it.
 - Run `npm run lint` before calling the task done.
 
 **Ask first** — pause and present the options, your recommendation, and the tradeoff:
@@ -71,34 +75,28 @@ manual guess.
 
 ## Styling
 
-- Use semantic tokens (`bg-background`, `text-foreground`), never raw values.
-- No `#hex`, `rgb()`, `hsl()`, or `oklch()` in class names. Missing token → add it to `@theme`
-  in `src/app/globals.css` first, then use it.
-- Use `className` for layout and spacing; use props and variants for real component differences.
+Plain Tailwind v4 utilities, written in the JSX. Someone reading the markup should be able
+to see what it renders without looking anything up.
 
-Class strings live in the JSX, not in variables. In order:
+- Colour comes from the CSS variables — `bg-background`, `text-muted-foreground`,
+  `border-border`. That is what makes dark mode and a palette change work.
+- Never a literal colour in a class: no `#hex`, `rgb()`, `hsl()`, `oklch()`.
+- Responsive values are written out — `px-6 md:px-12 lg:px-16`, `text-4xl md:text-6xl` —
+  never hidden behind a class of our own.
+- Add a variable or an `@utility` only for CSS that utilities cannot express: keyframes,
+  masks, scroll timelines, layered gradients. Never as an alias for utilities that exist.
+- Layout that must stay identical across pages belongs in a component, not in a repeated
+  class string. Changing it should be one edit.
 
-- Used once or twice → inline it. No `const`.
-- Repeated across sibling markup → the repeated markup is the problem, not the class string.
-  Loop over data so the class is written once.
-- The same string needed in several places that one loop cannot cover → a `const` is fine.
-- A component with real visual variants → `cva`, the way shadcn primitives do it.
+Read `/styleguide` for the conventions: type sizes per role, the container and its padding
+ramp, radius, and motion.
 
 ## Components
 
-Split by section, loop by repetition.
-
-- One exported component per file. Keep the file focused on one UI responsibility.
-- A distinct section — its own data, its own concern — gets its own file. A `Navbar` file
-  that also declares `MobileMenu` and `UserMenu` is three concerns; split it.
-- The same thing repeated is data, not a component. Map over an array.
-- A tiny private helper may stay in the file if it is tightly coupled and used once.
-- Repetition alone never justifies extraction. Extract when it has a clear name, a clear
-  responsibility, or a second real caller.
-- Unsure? Leave it inline.
-
-Reference: shadcn's `dashboard-01` block — nine files, no `NavItem`; `nav-main.tsx` maps ~30
-lines of JSX inline.
+- One exported component per file, named to match the file.
+- Route-only UI lives in `src/app/<route>/_components/`; promote to `src/components/` when a
+  second route needs it.
+- The same thing repeated is data — map over an array rather than extracting a component.
 
 ## Project structure
 
