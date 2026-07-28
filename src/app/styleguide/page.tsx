@@ -1,493 +1,379 @@
+import { RiArrowRightUpLine, RiCheckLine, RiSpeedUpLine } from "@remixicon/react";
 import type { Metadata } from "next";
 
 import { Band } from "@/app/styleguide/_components/band";
-import { BrowserFrame } from "@/components/browser-frame";
-import { MiniSite } from "@/components/mini-site";
+import { readTokens } from "@/app/styleguide/_components/tokens";
+import PbLogo from "@/assets/pb-logo.svg";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export const metadata: Metadata = {
   title: "Design language — PixieBuild",
   robots: { index: false, follow: false },
 };
 
-const typeScale = [
+/* Names and values come from globals.css; only the sentence saying what a
+   token is for has to be written by hand. */
+const colourRoles: Record<string, string> = {
+  "--background": "The canvas.",
+  "--foreground": "Body copy and headings.",
+  "--card": "Raised surfaces — anything with a border and a shadow.",
+  "--popover": "Menus and anything floating above the page.",
+  "--primary": "The action we want taken, and the brand mark.",
+  "--secondary": "A filled control that is not the primary action.",
+  "--muted": "Recessed areas.",
+  "--muted-foreground": "Leads, captions, metadata — anything secondary.",
+  "--accent": "Hover and selected states inside menus.",
+  "--destructive": "Errors. Type and tint, not a filled surface.",
+  "--border": "Edges and dividers. Already softened, so plain `border` is right.",
+  "--input": "Field fills and their borders.",
+  "--ring": "The focus ring, and nothing else.",
+  "--chart-1": "Reserved for `shadcn add chart` — do not delete.",
+  "--sidebar": "Reserved for `shadcn add sidebar` — do not delete.",
+};
+
+const radiusUsage: Record<string, string> = {
+  "--radius": "The base every step below multiplies.",
+  "--radius-sm": "Smaller than a card and rarely right.",
+  "--radius-md": "Small blocks inside an artifact.",
+  "--radius-lg": "The same as the base.",
+  "--radius-xl": "Cards and raised surfaces.",
+  "--radius-2xl": "Textarea, accordion, menu items.",
+  "--radius-3xl": "Input, dropdown menu.",
+  "--radius-4xl": "Button.",
+};
+
+const shadowUsage: Record<string, string> = {
+  "--shadow-panel": "Cards and raised surfaces. Elevation plus the lit top edge.",
+  "--shadow-elev-1": "Floating chrome — the header, the toggle.",
+  "--shadow-elev-2": "Hover, or one featured card in a section.",
+};
+
+const motionUsage: Record<string, string> = {
+  "--ease-entrance": "Things arriving.",
+  "--ease-interface": "Hover, focus, press.",
+  "--animate-rise-in": "The entrance, once on load.",
+  "--animate-build-sweep": "The coming-soon progress sweep.",
+};
+
+const typeRoles = [
   {
-    name: "display",
-    spec: "72 · 0.95 · -0.04em · 600",
-    usage: "Hero only, once per page",
-    className: "text-display",
-    sample: "Built with intent",
-  },
-  {
-    name: "heading",
-    spec: "44 · 1.05 · -0.03em · 600",
-    usage: "Section headings",
-    className: "text-heading",
+    role: "Heading",
+    className: "font-heading text-3xl font-semibold tracking-tight md:text-4xl",
     sample: "Selected work",
+    note: "Opens a section. Steps up at md.",
   },
   {
-    name: "title",
-    spec: "28 · 1.2 · -0.02em · 600",
-    usage: "Card and sub-section titles",
-    className: "text-title",
+    role: "Subheading",
+    className: "font-heading text-xl font-semibold tracking-tight md:text-2xl",
     sample: "Custom web applications",
+    note: "h3-level, inside a section. Components that ship their own title styles keep theirs.",
   },
   {
-    name: "lead",
-    spec: "18 · 1.65",
-    usage: "The paragraph under a heading",
-    className: "text-lead",
+    role: "Body large",
+    className: "text-lg leading-relaxed",
     sample: "We design and build websites and applications for growing companies.",
+    note: "The paragraph under a heading. Same at every width — smaller and it stops reading as a lead.",
   },
   {
-    name: "base",
-    spec: "16 · 1.5",
-    usage: "Body copy — everything unexceptional",
+    role: "Body",
     className: "text-base",
     sample: "The default. If a decision has not been made, it is this.",
+    note: "Same at every width. Body text must never shrink on a phone.",
   },
   {
-    name: "caption",
-    spec: "13 · 1.5",
-    usage: "Metadata and secondary detail",
-    className: "text-caption",
+    role: "Body small",
+    className: "text-sm",
     sample: "Delivered in three weeks",
+    note: "Secondary detail and dense rows. Same at every width.",
   },
   {
-    name: "label",
-    spec: "12 · 1.2 · 0.09em · 500",
-    usage: "Uppercase eyebrows and tags",
-    className: "text-label uppercase",
+    role: "Label",
+    className: "text-xs font-medium tracking-widest uppercase",
     sample: "In development",
+    note: "Eyebrows and tags. Same at every width, always uppercase.",
   },
 ];
 
-const strip = [
+const layout = [
   {
-    brand: "Meridian",
-    eyebrow: "Grooming",
-    headline: "A chair, whenever you want one.",
-    body: "Booking, calendar and reviews for a barbershop that stopped answering the phone.",
-    cta: "Book",
-    cards: ["Services", "Booking", "Reviews"],
+    what: "Container",
+    classes: "mx-auto max-w-6xl",
+    note: "Every band, no exceptions.",
   },
   {
-    brand: "Ember & Oak",
-    eyebrow: "Coffee",
-    headline: "Roasted the long way round.",
-    body: "Brand story, roasting craft, menu and gallery for a café that reopened after twelve years.",
-    cta: "Visit",
-    cards: ["Story", "Menu", "Gallery"],
+    what: "Horizontal padding",
+    classes: "px-6 sm:px-8 md:px-12 lg:px-16",
+    note: "Until the container is capped, this is what holds content off the edge.",
   },
   {
-    brand: "Sable",
-    eyebrow: "Platform",
-    headline: "Every model, one endpoint.",
-    body: "A dashboard, a bento grid and live product UI for a team shipping inference at scale.",
-    cta: "Start",
-    cards: ["Models", "Usage", "Keys"],
+    what: "Band rhythm",
+    classes: "py-20 md:py-28",
+    note: "The vertical space between sections.",
+  },
+  {
+    what: "Columns",
+    classes: "grid gap-8 md:grid-cols-12",
+    note: "Between columns is gap; against the screen is padding.",
   },
 ];
 
-const bento = [
+const utilities = [
   {
-    title: "Company websites",
-    body: "Structure, copy and build for companies that have outgrown a one-pager.",
-    span: "sm:col-span-2",
-  },
-  {
-    title: "Landing pages",
-    body: "One page, one job, shipped fast.",
-    span: "sm:col-span-1",
-  },
-  {
-    title: "Custom applications",
-    body: "Dashboards, tools and internal software built to be maintained.",
-    span: "sm:col-span-3",
+    name: "reveal",
+    purpose:
+      "Scroll-driven entrance for a section. A view timeline — no JS, and it degrades to rendering in place.",
   },
 ];
 
-const borrowed = [
-  {
-    verdict: "Take",
-    items:
-      "Bento grids, believable UI artifacts as visuals, artifacts clipped by their container, dotted container rules, centre-weighted strips, two-tone headlines.",
-  },
-  {
-    verdict: "Leave",
-    items:
-      "Highlight-marker text in headings, coloured gradient number badges, spotlight sweeps, animated gradient borders, meteors, 3D tilt cards.",
-  },
-];
+export default async function StyleguidePage() {
+  const { colours, radii, shadows, motion } = await readTokens();
 
-const surfaces = [
-  {
-    name: "background",
-    className: "bg-background",
-    note: "The canvas. No border, no shadow.",
-  },
-  {
-    name: "panel",
-    className: "panel",
-    note: "Raised card: border, elevation-1, and a lit top edge.",
-  },
-  {
-    name: "panel + elev-2",
-    className: "panel shadow-elev-2",
-    note: "Reserved for hover, focus, or one featured card per section.",
-  },
-  {
-    name: "muted",
-    className: "bg-muted",
-    note: "Recessed. Inset areas and code.",
-  },
-];
-
-const curves = [
-  {
-    name: "ease-entrance",
-    value: "cubic-bezier(0.16, 1, 0.3, 1)",
-    usage: "Things arriving. Overshoots slightly, settles late.",
-    barClassName: "ease-entrance",
-  },
-  {
-    name: "ease-interface",
-    value: "cubic-bezier(0.25, 1, 0.5, 1)",
-    usage: "Hover, focus, press. Leaves fast, arrives calm.",
-    barClassName: "ease-interface",
-  },
-  {
-    name: "linear",
-    value: "for reference only — never ship this",
-    usage: "Mechanical. Included so the others are legible by contrast.",
-    barClassName: "ease-linear",
-  },
-];
-
-const durations = [
-  {
-    name: "150ms",
-    usage: "Colour and opacity — hover, focus rings",
-    barClassName: "duration-150",
-  },
-  {
-    name: "200ms",
-    usage: "The default. Transforms and reveals",
-    barClassName: "duration-200",
-  },
-  {
-    name: "300ms",
-    usage: "Ceiling. Anything slower reads as broken",
-    barClassName: "duration-300",
-  },
-];
-
-export default function StyleguidePage() {
   return (
     <main className="flex-1">
-      <header className="py-band">
-        <div className="mx-auto max-w-page px-6">
-          <p className="text-muted-foreground text-label uppercase">
+      <div className="bg-background/55 shadow-elev-1 fixed right-6 bottom-6 z-50 rounded-full border p-1 backdrop-blur-xl">
+        <ThemeToggle />
+      </div>
+
+      <header className="py-28">
+        <div className="mx-auto max-w-6xl px-6 sm:px-8 md:px-12 lg:px-16">
+          <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
             Internal reference
           </p>
-          <h1 className="mt-6 text-heading text-balance">Design language</h1>
-          <p className="text-muted-foreground mt-5 max-w-prose text-lead text-pretty">
-            The vocabulary every section is assembled from. Dark-first —
-            hierarchy comes from type and space, depth from a single light
-            source above. If something here is not enough to build a section,
-            the answer is to extend this page, not to invent locally.
+          <h1 className="mt-6 text-4xl font-semibold tracking-tight text-balance md:text-5xl">
+            Design language
+          </h1>
+          <p className="text-muted-foreground mt-5 max-w-prose text-lg leading-relaxed text-pretty">
+            Plain Tailwind utilities, plus the CSS variables underneath them.
+            Names and values are read straight out of globals.css, so adding a
+            token there is all it takes to appear here. Copy the class strings —
+            they are the documentation.
           </p>
         </div>
       </header>
 
       <Band
-        title="Type"
-        description="Seven steps with deliberately wide gaps. The jump from 18 to 44 is the hierarchy — a timid middle step would flatten it."
+        title="Colour"
+        description="Named by role, not by hue, so a change of palette is one edit. Colour is the one thing that always comes from a variable — that is what makes dark mode work."
       >
-        <div className="flex flex-col gap-10">
-          {typeScale.map((step) => (
+        <div className="flex flex-col">
+          {colours.map((token) => (
+            <div
+              key={token.name}
+              className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t py-4"
+            >
+              <span
+                style={{ backgroundColor: `var(${token.name})` }}
+                className="size-10 shrink-0 rounded-md border"
+              />
+              <span className="w-52 font-mono text-xs">{token.name}</span>
+              <span className="text-muted-foreground w-56 text-sm">
+                {token.light}
+              </span>
+              <span className="text-muted-foreground w-56 text-sm">
+                {token.dark}
+              </span>
+              <span className="text-muted-foreground min-w-0 text-sm text-pretty">
+                {colourRoles[token.name]}
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="text-muted-foreground mt-6 text-sm">
+          Light value, then dark. The swatch follows the theme.
+        </p>
+      </Band>
+
+      <Band
+        title="Typography"
+        description="Roboto for headings, Inter for body — the heading face is applied to h1–h6 in the base layer, so a heading never has to remember it. Read the class strings mobile-first: the plain value is the phone, md: is the step up. Where a role has no md:, that is a decision, not an omission."
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-xl border p-6">
+            <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
+              Roboto — font-heading
+            </p>
+            <p className="font-heading mt-4 text-4xl font-semibold tracking-tight">
+              Beautiful is the baseline
+            </p>
+            <p className="text-muted-foreground mt-4 text-sm text-pretty">
+              Applied to h1–h6 in the base layer. Nothing else needs the class.
+            </p>
+          </div>
+
+          <div className="rounded-xl border p-6">
+            <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
+              Inter — font-sans
+            </p>
+            <p className="font-sans mt-4 text-4xl font-semibold tracking-tight">
+              Beautiful is the baseline
+            </p>
+            <p className="text-muted-foreground mt-4 text-sm text-pretty">
+              Set on html. Everything that is not a heading inherits it.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-12 flex flex-col gap-10">
+          {typeRoles.map((role) => (
+            <div
+              key={role.role}
+              className="flex flex-col gap-3 border-t pt-6 md:flex-row md:items-baseline md:gap-10"
+            >
+              <div className="shrink-0 md:w-72">
+                <p className="text-sm font-medium">{role.role}</p>
+                <p className="text-muted-foreground mt-1 font-mono text-xs">
+                  {role.className}
+                </p>
+                <p className="text-muted-foreground mt-2 text-sm text-pretty">
+                  {role.note}
+                </p>
+              </div>
+              <p className={`${role.className} min-w-0 text-pretty`}>
+                {role.sample}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Band>
+
+      <Band
+        title="Layout"
+        description="Four decisions the whole site is built from. Written as utilities so the markup shows what it does — if one has to change everywhere, it belongs in a component."
+      >
+        <div className="flex flex-col">
+          {layout.map((item) => (
+            <div
+              key={item.what}
+              className="flex flex-col gap-1 border-t py-4 md:flex-row md:items-baseline md:gap-6"
+            >
+              <span className="w-44 shrink-0 text-sm font-medium">
+                {item.what}
+              </span>
+              <span className="text-muted-foreground w-72 shrink-0 font-mono text-xs">
+                {item.classes}
+              </span>
+              <span className="text-muted-foreground min-w-0 text-sm text-pretty">
+                {item.note}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 overflow-hidden rounded-xl border">
+          <div className="bg-muted px-6 py-6 sm:px-8 md:px-12 lg:px-16">
+            <div className="bg-card shadow-panel rounded-xl border py-8 text-center text-sm">
+              the padding ramp — resize the window
+            </div>
+          </div>
+        </div>
+      </Band>
+
+      <Band
+        title="Radius"
+        description="Every step multiplies one --radius, so the set moves together. Radius scales with the size of the thing."
+      >
+        <div className="flex flex-col">
+          {radii.map((step) => (
             <div
               key={step.name}
-              className="hairline flex flex-col gap-3 border-t pt-6 md:flex-row md:items-baseline md:gap-10"
+              className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t py-4"
             >
-              <div className="shrink-0 md:w-56">
-                <p className="text-caption font-medium">{step.name}</p>
-                <p className="text-muted-foreground mt-1 text-caption tabular-nums">
-                  {step.spec}
-                </p>
-                <p className="text-muted-foreground mt-1 text-caption">
-                  {step.usage}
-                </p>
-              </div>
-              <p className={`${step.className} min-w-0 text-pretty`}>
-                {step.sample}
-              </p>
+              <span
+                style={{ borderRadius: `var(${step.name})` }}
+                className="bg-muted size-10 shrink-0 border"
+              />
+              <span className="w-36 font-mono text-xs">{step.utility}</span>
+              <span className="text-muted-foreground w-20 text-sm tabular-nums">
+                {step.px}
+              </span>
+              <span className="text-muted-foreground min-w-0 text-sm text-pretty">
+                {radiusUsage[step.name]}
+              </span>
             </div>
           ))}
         </div>
+        <p className="text-muted-foreground mt-6 text-sm">
+          rounded-full is Tailwind&rsquo;s own, not a step — pills, tags, dots
+          and the header.
+        </p>
       </Band>
 
       <Band
-        title="Surfaces"
-        description="One card primitive, four states. Every raised thing on the site uses panel, so sections cannot each invent their own border."
-      >
-        <div className="grid gap-6 sm:grid-cols-2">
-          {surfaces.map((surface) => (
-            <div key={surface.name} className={`${surface.className} p-8`}>
-              <p className="text-caption font-medium">{surface.name}</p>
-              <p className="text-muted-foreground mt-2 text-caption text-pretty">
-                {surface.note}
-              </p>
-            </div>
-          ))}
-        </div>
-      </Band>
-
-      <Band
-        title="Accent"
-        description="One accent, rationed. Three appearances per page is the budget — the logo dot spends one of them. Past that it stops signalling anything."
+        title="Elevation"
+        description="One light source, above — the top edge catches it and the shadow falls below, which is why both invert between themes. Tailwind's own shadow-* cannot do that, which is the only reason these exist."
       >
         <div className="grid gap-6 sm:grid-cols-3">
-          <div className="panel overflow-hidden">
-            <div className="bg-primary h-28" />
-            <div className="p-6">
-              <p className="text-caption font-medium">primary</p>
-              <p className="text-muted-foreground mt-1 text-caption tabular-nums">
-                #0077B6
+          {shadows.map((token) => (
+            <div
+              key={token.name}
+              style={{ boxShadow: `var(${token.name})` }}
+              className="bg-card rounded-xl border p-6"
+            >
+              <p className="font-mono text-xs">
+                {token.name.replace("--shadow-", "shadow-")}
+              </p>
+              <p className="text-muted-foreground mt-2 text-sm text-pretty">
+                {shadowUsage[token.name]}
               </p>
             </div>
-          </div>
-          <div className="panel p-6 sm:col-span-2">
-            <p className="text-caption font-medium">Where it is allowed</p>
-            <ul className="text-muted-foreground mt-3 flex flex-col gap-2 text-caption">
-              <li>— The primary call to action, once per page</li>
-              <li>— The logo dot</li>
-              <li>— A single state indicator, where one exists</li>
-            </ul>
-            <p className="text-muted-foreground mt-4 text-caption text-pretty">
-              Not for headings, not for borders, not for icons, not for hover
-              states. Those use foreground and muted-foreground.
-            </p>
-          </div>
+          ))}
         </div>
+
       </Band>
 
       <Band
-        title="Motion"
-        description="Two curves, three durations, one reveal. Hover any panel below to play it — entrances fire once on the real site, so they need replaying to be judged. Everything respects reduced motion."
+        title="Utilities"
+        description="The only custom classes we keep: CSS that utilities cannot express — masks, scroll timelines, layered gradients, keyframes, easing curves. Reach for one of these before writing your own; never add an alias for utilities that already exist."
       >
-        <div className="group panel p-6">
-          <p className="text-caption font-medium">
-            Curves — hover to play all three together
-          </p>
-          <p className="text-muted-foreground mt-1 text-caption">
-            Same distance, same 700ms. Slowed well past shipping speed so the
-            difference is visible at all.
-          </p>
-          <div className="mt-6 flex flex-col gap-5">
-            {curves.map((curve) => (
-              <div key={curve.name}>
-                <div className="flex items-baseline justify-between gap-4">
-                  <p className="text-caption font-medium">{curve.name}</p>
-                  <p className="text-muted-foreground text-caption">
-                    {curve.value}
-                  </p>
-                </div>
-                <div className="bg-muted mt-2 h-1 overflow-hidden rounded-full">
-                  <div
-                    className={`bg-primary h-full w-0 rounded-full transition-[width] duration-700 group-hover:w-full ${curve.barClassName}`}
-                  />
-                </div>
-                <p className="text-muted-foreground mt-2 text-caption text-pretty">
-                  {curve.usage}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="group panel mt-6 p-6">
-          <p className="text-caption font-medium">
-            Durations — hover to play all three together
-          </p>
-          <p className="text-muted-foreground mt-1 text-caption">
-            All on ease-interface. These are real shipping speeds.
-          </p>
-          <div className="mt-6 flex flex-col gap-5">
-            {durations.map((duration) => (
-              <div key={duration.name}>
-                <div className="flex items-baseline justify-between gap-4">
-                  <p className="text-caption font-medium tabular-nums">
-                    {duration.name}
-                  </p>
-                  <p className="text-muted-foreground text-caption text-pretty">
-                    {duration.usage}
-                  </p>
-                </div>
-                <div className="bg-muted mt-2 h-1 overflow-hidden rounded-full">
-                  <div
-                    className={`bg-primary ease-interface h-full w-0 rounded-full transition-[width] group-hover:w-full ${duration.barClassName}`}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="group panel mt-6 p-6">
-          <p className="text-caption font-medium">
-            Entrance pattern — hover to replay
-          </p>
-          <p className="text-muted-foreground mt-1 text-caption text-pretty">
-            Fade and rise, 300ms on ease-entrance, 70ms apart. This is the only
-            reveal we use. On the real site it fires once on scroll, which is
-            why it needs a hover to be judgeable here.
-          </p>
-          <div className="mt-6 flex flex-col gap-3">
-            {[0, 1, 2].map((index) => (
-              <div
-                key={index}
-                style={{ transitionDelay: `${index * 70}ms` }}
-                className="bg-muted ease-entrance h-10 translate-y-3 rounded-md opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100"
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="panel ease-interface mt-6 p-6 transition-shadow duration-200 hover:shadow-elev-2">
-          <p className="text-caption text-pretty">
-            Interface response — hover this panel. 200ms on ease-interface,
-            lifting to elev-2. That is the entire interaction vocabulary.
-          </p>
-        </div>
-      </Band>
-
-      <Band
-        title="Composition"
-        description="The patterns the sections are assembled from. These are generic techniques — bento grids, product artifacts, dotted rules — not anyone's signature, which is why they can be used without reading as a copy."
-      >
-        <div className="flex flex-col gap-12">
-          <div>
-            <p className="text-muted-foreground text-label uppercase">
-              Two-tone headline
-            </p>
-            <p className="mt-4 text-title text-balance">
-              Microinteractions{" "}
-              <span className="text-muted-foreground">
-                that feel intentional, and never announce themselves.
+        <div className="flex flex-col">
+          {[
+            ...utilities,
+            ...motion.map((token) => ({
+              name: token.name.replace("--", ""),
+              purpose: motionUsage[token.name],
+            })),
+          ].map((utility) => (
+            <div
+              key={utility.name}
+              className="flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t py-4"
+            >
+              <span className="w-48 font-mono text-xs">{utility.name}</span>
+              <span className="text-muted-foreground min-w-0 text-sm text-pretty">
+                {utility.purpose}
               </span>
-            </p>
-            <p className="text-muted-foreground mt-3 max-w-prose text-caption text-pretty">
-              The subject stays at full weight, the qualifier drops to muted.
-              One line does the work of a heading plus a paragraph, and it
-              removes a whole layer of vertical spacing.
-            </p>
-          </div>
-
-          <div>
-            <p className="text-muted-foreground text-label uppercase">
-              Artifact frame
-            </p>
-            <div className="mt-4 grid gap-6 md:grid-cols-2">
-              <BrowserFrame label="meridian.pixiebuild.com">
-                <div className="h-64">
-                  <MiniSite {...strip[0]} />
-                </div>
-              </BrowserFrame>
-              <div className="flex items-center">
-                <p className="text-muted-foreground max-w-prose text-caption text-pretty">
-                  Not a screenshot — a real page laid out at full size and
-                  scaled to half, so the type inside is the same scale as the
-                  rest of the site. It is clipped by the frame rather than
-                  fitted to it, which is what makes it read as a window onto
-                  something bigger instead of a pasted rectangle.
-                </p>
-              </div>
             </div>
-          </div>
-
-          <div>
-            <p className="text-muted-foreground text-label uppercase">
-              Centre-weighted strip
-            </p>
-            <div className="strip-focus mt-4 flex items-stretch gap-5 overflow-hidden">
-              {strip.map((item) => (
-                <div key={item.brand} className="w-80 shrink-0">
-                  <BrowserFrame label={`${item.brand.toLowerCase()}.com`}>
-                    <div className="h-44">
-                      <MiniSite {...item} />
-                    </div>
-                  </BrowserFrame>
-                </div>
-              ))}
-            </div>
-            <p className="text-muted-foreground mt-4 max-w-prose text-caption text-pretty">
-              Hover the row — every card recedes except the one under the
-              cursor, which comes to full weight and lifts. The focal point
-              follows attention instead of being fixed, and the row reads as
-              continuing past the viewport rather than ending.
-            </p>
-          </div>
-
-          <div>
-            <p className="text-muted-foreground text-label uppercase">
-              Bento
-            </p>
-            <div className="mt-4 grid gap-4 sm:grid-cols-3">
-              {bento.map((cell, index) => (
-                <div
-                  key={cell.title}
-                  className={`panel overflow-hidden p-6 ${cell.span}`}
-                >
-                  <p className="text-caption font-medium">{cell.title}</p>
-                  <p className="text-muted-foreground mt-2 max-w-prose text-caption text-pretty">
-                    {cell.body}
-                  </p>
-                  <div className="-mb-20 mt-6">
-                    <BrowserFrame>
-                      <div className="h-40">
-                        <MiniSite {...strip[index % strip.length]} />
-                      </div>
-                    </BrowserFrame>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <p className="text-muted-foreground mt-4 max-w-prose text-caption text-pretty">
-              Uneven spans stop a grid reading as a table, and each artifact is
-              cropped by the bottom edge of its cell. That crop is the detail
-              that separates a bento from three cards in a row.
-            </p>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            {borrowed.map((row) => (
-              <div key={row.verdict} className="panel p-6">
-                <p className="text-caption font-medium">{row.verdict}</p>
-                <p className="text-muted-foreground mt-2 text-caption text-pretty">
-                  {row.items}
-                </p>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
+
+        <p className="text-muted-foreground mt-10 max-w-prose text-sm text-pretty">
+          The landing page also defines <span className="font-mono text-xs">
+            bg-blueprint
+          </span>, <span className="font-mono text-xs">bg-blueprint-reveal</span>,{" "}
+          <span className="font-mono text-xs">bg-hero-glow</span> and{" "}
+          <span className="font-mono text-xs">text-drift</span>. They are that
+          page&rsquo;s backdrop and its one typographic device — deliberately not
+          part of the system, and not to be reused elsewhere.
+        </p>
       </Band>
 
       <Band
-        title="Texture"
-        description="Two background treatments, both derived from tokens so they follow the accent and border colours rather than hardcoding their own."
+        title="Icons"
+        description="Remix Icon, already installed. Do not add a second icon library — if an icon is missing from Remix, draw it and put the SVG in src/assets."
       >
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="panel relative h-56 overflow-hidden">
-            <div className="bg-blueprint absolute inset-0" />
-            <p className="absolute bottom-6 left-6 text-caption font-medium">
-              bg-blueprint
-            </p>
+        <div className="flex flex-col gap-6">
+          <div className="text-muted-foreground flex items-center gap-4">
+            <RiSpeedUpLine className="size-4" />
+            <RiCheckLine className="size-4" />
+            <RiArrowRightUpLine className="size-4" />
+            <span className="text-sm">
+              size-4 inside buttons and rows, size-5 standalone
+            </span>
           </div>
-          <div className="panel relative h-56 overflow-hidden">
-            <div className="bg-brand-glow absolute inset-0" />
-            <p className="absolute bottom-6 left-6 text-caption font-medium">
-              bg-brand-glow
-            </p>
+          <div className="flex items-center gap-3">
+            <PbLogo className="size-6" />
+            <span className="text-muted-foreground text-sm">
+              the only custom mark — imported through SVGR, inherits currentColor
+            </span>
           </div>
         </div>
       </Band>
