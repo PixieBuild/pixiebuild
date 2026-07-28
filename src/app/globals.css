@@ -126,6 +126,16 @@
   html {
     @apply font-sans;
   }
+  /* Set here, not per heading: one that forgets the class falls back to Inter
+     with no visible error. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
 }
 
 @keyframes build-sweep {
