@@ -12,8 +12,8 @@ const stages = [
   },
   {
     step: "02",
-    lead: "Design and build",
-    rest: "as one pass — what gets drawn is what ships, down to the spacing.",
+    lead: "One workflow",
+    rest: "from design to code — decided and built in the same pass, never handed over.",
     artifact: <ArtifactBuild />,
   },
   {

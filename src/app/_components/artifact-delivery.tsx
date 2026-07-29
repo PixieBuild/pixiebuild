@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 const steps = [
   "Tested on real phones and laptops",
   "Live on your own domain",
-  "Files and accounts put in your name",
+  "Everything is transferred to your accounts",
   "We stay reachable for fixes",
 ];
 

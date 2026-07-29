@@ -2,6 +2,9 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
+/* One settled point per question, in the same order. */
+const settled = ["The one job it does", "Who it is for", "The date it goes live"];
+
 const questions = [
   {
     text: "What is the one thing this site has to do?",
@@ -76,12 +79,27 @@ export function ArtifactDiscovery() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={seen}
         transition={{ delay: still ? 0 : 1.2, duration: 0.4 }}
-        className="bg-foreground text-background shadow-elev-2 absolute top-1/2 right-0 w-40 -translate-y-1/2 rotate-[-0.5deg] rounded-lg px-3.5 py-3"
+        className="bg-foreground text-background shadow-elev-2 absolute top-1/2 right-0 w-44 -translate-y-1/2 rotate-[-0.5deg] rounded-lg px-3.5 py-3"
       >
         <span className="font-mono text-[0.625rem] opacity-60">Agreed</span>
-        <p className="mt-1 text-sm leading-snug font-medium">
-          Scope, structure and a date.
-        </p>
+
+        <ul className="mt-2 flex flex-col gap-1">
+          {settled.map((point, index) => (
+            <motion.li
+              key={point}
+              initial={still ? false : { opacity: 0, x: -4 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={seen}
+              transition={{
+                delay: still ? 0 : 1.45 + index * 0.18,
+                duration: 0.3,
+              }}
+              className="text-sm leading-snug font-medium"
+            >
+              {point}
+            </motion.li>
+          ))}
+        </ul>
       </motion.div>
     </div>
   );
