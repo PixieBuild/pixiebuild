@@ -32,7 +32,7 @@ const stages = [
 
 export function HowWeWork() {
   return (
-    <section id="process" className="scroll-mt-24 border-t py-20 md:py-28">
+    <section id="process" className="scroll-mt-24 py-20 md:py-28">
       <div className="mx-auto max-w-6xl px-6 sm:px-8 md:px-12 lg:px-16">
         <header className="max-w-3xl">
           <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
@@ -56,18 +56,11 @@ export function HowWeWork() {
                 index >= 2 ? "md:border-b-0" : ""
               }`}
             >
-              <div
-                style={{
-                  backgroundImage:
-                    "radial-gradient(var(--border) 1px, transparent 1px)",
-                  backgroundSize: "16px 16px",
-                }}
-                className="relative flex h-80 items-center justify-center overflow-hidden px-6 py-8 sm:h-96"
-              >
+              <div className="relative flex h-96 items-center justify-center overflow-hidden px-6 py-8">
                 {stage.artifact}
               </div>
 
-              <div className="flex items-baseline gap-4 border-t border-dashed p-6 sm:p-7">
+              <div className="bg-background/70 flex items-baseline gap-4 border-t border-dashed p-6 sm:p-7">
                 <span className="text-muted-foreground font-mono text-xs tabular-nums">
                   {stage.step}
                 </span>
