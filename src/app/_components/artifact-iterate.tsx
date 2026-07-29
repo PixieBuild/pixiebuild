@@ -72,9 +72,9 @@ export function ArtifactIterate() {
         <div
           aria-hidden
           style={{ left: `${split}%` }}
-          className="absolute inset-y-0 w-px bg-white/25"
+          className="bg-foreground/25 absolute inset-y-0 w-px"
         >
-          <span className="bg-background absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 rounded-full border shadow-sm" />
+          <span className="bg-background border-foreground/20 absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 rounded-full border shadow-sm" />
         </div>
 
         <span className="text-muted-foreground bg-background/70 absolute top-1/2 left-3 -translate-y-1/2 rounded-full px-2 py-0.5 font-mono text-[0.625rem] backdrop-blur-sm">
