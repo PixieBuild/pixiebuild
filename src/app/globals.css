@@ -205,18 +205,21 @@
   );
 }
 
-/* Page-wide grid, fixed to the viewport. Faded at the edges so it reads as
-   texture rather than a table drawn over the content. */
+/* Page-wide grid, fixed to the viewport. Full height with the sides feathered
+   — a radial mask on a fixed layer follows the scroll instead of the page, so
+   it reads as a patch travelling down the screen. --grid-line is themed in
+   :root, not declared here, for the same reason as --reveal-line. */
 @utility bg-grid {
-  --grid-line: color-mix(in oklch, var(--color-border) 16%, transparent);
   background-image:
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 64px 64px;
-  mask-image: radial-gradient(
-    ellipse 80% 62% at 50% 26%,
-    black 5%,
-    transparent 78%
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 14%,
+    black 86%,
+    transparent
   );
 }
 
@@ -287,6 +290,7 @@
 
   /* Defined here, not in the utility: a property set on the element itself
      ignores .dark on an ancestor and could not be themed. */
+  --grid-line: color-mix(in oklch, var(--color-primary) 5%, transparent);
   --reveal-line: color-mix(in oklch, var(--color-primary) 14%, transparent);
 }
 
@@ -296,7 +300,8 @@
     0 12px 32px -8px oklch(0 0 0 / 0.6), 0 2px 8px -2px oklch(0 0 0 / 0.4);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.07);
 
-  --reveal-line: color-mix(in oklch, var(--color-primary) 38%, transparent);
+  --grid-line: color-mix(in oklch, var(--color-primary) 5%, transparent);
+  --reveal-line: color-mix(in oklch, var(--color-primary) 26%, transparent);
 }
 
 @theme inline {
