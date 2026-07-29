@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 
-import { HeroBackdrop } from "@/app/_components/hero-backdrop";
 import { SiteHeader } from "@/app/_components/site-header";
 import PbLogo from "@/assets/pb-logo.svg";
 import { Button } from "@/components/ui/button";
@@ -10,7 +9,7 @@ const headline = ["Beautiful", "is", "the", "baseline"];
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <HeroBackdrop />
+      <div aria-hidden className="bg-hero-glow absolute inset-0" />
 
       <SiteHeader />
 

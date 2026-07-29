@@ -5,8 +5,9 @@ import { useEffect, useRef } from "react";
 /**
  * Properties are written onto the reveal layer itself, not a parent: the
  * utility declares its own defaults, which would shadow anything inherited.
+ * Both layers are fixed, so pointer coordinates are already layer-relative.
  */
-export function HeroBackdrop() {
+export function PageBackdrop() {
   const revealRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -23,9 +24,8 @@ export function HeroBackdrop() {
       if (frame) return;
       frame = requestAnimationFrame(() => {
         frame = 0;
-        const bounds = layer.getBoundingClientRect();
-        layer.style.setProperty("--reveal-x", `${event.clientX - bounds.left}px`);
-        layer.style.setProperty("--reveal-y", `${event.clientY - bounds.top}px`);
+        layer.style.setProperty("--reveal-x", `${event.clientX}px`);
+        layer.style.setProperty("--reveal-y", `${event.clientY}px`);
         layer.style.setProperty("--reveal-opacity", "1");
       });
     };
@@ -45,9 +45,8 @@ export function HeroBackdrop() {
   }, []);
 
   return (
-    <div aria-hidden className="absolute inset-0">
-      <div className="bg-hero-glow absolute inset-0" />
-      <div className="bg-blueprint absolute inset-0" />
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+      <div className="bg-grid absolute inset-0" />
       <div ref={revealRef} className="bg-blueprint-reveal absolute inset-0" />
     </div>
   );
