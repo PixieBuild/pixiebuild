@@ -25,9 +25,9 @@ export function ArtifactIterate() {
       onPointerMove={(event) => {
         if (event.buttons > 0) track(event.clientX);
       }}
-      className="bg-card shadow-panel relative w-full cursor-ew-resize touch-none overflow-hidden rounded-xl border select-none"
+      className="bg-card shadow-panel relative h-64 w-full cursor-ew-resize touch-none overflow-hidden rounded-xl border select-none"
     >
-      <div className="relative h-52">
+      <div className="relative h-full">
         <div className="absolute inset-0 flex items-center justify-center px-12">
           <div className="w-full max-w-56 rounded-lg border p-4">
             <p className="text-muted-foreground text-sm">Studio plan</p>

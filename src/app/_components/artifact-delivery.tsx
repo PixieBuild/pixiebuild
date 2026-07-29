@@ -45,7 +45,7 @@ export function ArtifactDelivery() {
   return (
     <div
       ref={area}
-      className="bg-card shadow-panel w-full rounded-xl border p-6"
+      className="bg-card shadow-panel h-64 w-full rounded-xl border p-6"
     >
       <div className="flex items-center justify-between">
         <span className="text-muted-foreground font-mono text-[0.625rem] tracking-widest uppercase">
