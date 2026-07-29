@@ -13,13 +13,13 @@ const stages = [
   {
     step: "02",
     lead: "Design and build",
-    rest: "as one pass — what gets drawn is what ships, by the same two people.",
+    rest: "as one pass — what gets drawn is what ships, down to the spacing.",
     artifact: <ArtifactBuild />,
   },
   {
     step: "03",
     lead: "Iteration",
-    rest: "you can see — you point at it, we push, you look again.",
+    rest: "you can compare — each round is a version to look at, not a description of one.",
     artifact: <ArtifactIterate />,
   },
   {
@@ -46,21 +46,23 @@ export function HowWeWork() {
           </h2>
         </header>
 
-        <div className="mt-14 grid overflow-hidden rounded-xl border border-dashed md:mt-16 md:grid-cols-2">
+        {/* Off foreground rather than the border token: border already carries
+            an alpha, so the dashes came out invisible in both themes. */}
+        <div className="border-foreground/20 dark:border-foreground/18 mt-14 grid overflow-hidden rounded-xl border border-dashed md:mt-16 md:grid-cols-2">
           {stages.map((stage, index) => (
             <div
               key={stage.step}
-              className={`flex flex-col border-dashed ${
+              className={`bg-background border-foreground/20 dark:border-foreground/18 flex flex-col border-dashed ${
                 index < stages.length - 1 ? "border-b" : ""
               } ${index % 2 === 0 ? "md:border-r" : ""} ${
                 index >= 2 ? "md:border-b-0" : ""
               }`}
             >
-              <div className="relative flex h-96 items-center justify-center overflow-hidden px-6 py-8">
+              <div className="bg-muted/25 relative flex h-96 items-center justify-center overflow-hidden px-6 py-8">
                 {stage.artifact}
               </div>
 
-              <div className="bg-background/70 flex items-baseline gap-4 border-t border-dashed p-6 sm:p-7">
+              <div className="border-foreground/20 dark:border-foreground/18 flex items-baseline gap-4 border-t border-dashed p-6 sm:p-7">
                 <span className="text-muted-foreground font-mono text-xs tabular-nums">
                   {stage.step}
                 </span>
