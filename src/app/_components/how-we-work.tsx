@@ -13,7 +13,7 @@ const stages = [
   {
     step: "02",
     lead: "Design and build",
-    rest: "in one pass, responsive from the first screen rather than the last.",
+    rest: "as one pass — what gets drawn is what ships, by the same two people.",
     artifact: <ArtifactBuild />,
   },
   {
