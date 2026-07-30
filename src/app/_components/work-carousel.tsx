@@ -94,7 +94,7 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
             <div
               key={`${project.name}-${index}`}
               style={{ zIndex: count - away }}
-              className="absolute inset-x-0 top-0 flex items-start justify-center"
+              className="pointer-events-none absolute inset-x-0 top-0 flex items-start justify-center"
             >
               <motion.article
                 initial={false}
@@ -154,6 +154,15 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
                     </div>
                   </div>
                 </div>
+
+                {!centre && away <= shown ? (
+                  <button
+                    type="button"
+                    onClick={() => setActive(index)}
+                    aria-label={`Show ${project.name}`}
+                    className="pointer-events-auto absolute inset-0 rounded-2xl"
+                  />
+                ) : null}
               </motion.article>
             </div>
           );
