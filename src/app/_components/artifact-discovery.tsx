@@ -2,8 +2,11 @@
 
 import { motion, useReducedMotion } from "motion/react";
 
-/* One settled point per question, in the same order. */
-const settled = ["The one job it does", "Who it is for", "The date it goes live"];
+const settled = [
+  "The one job it does",
+  "Who it is for",
+  "The date it goes live",
+];
 
 const questions = [
   {
@@ -56,7 +59,10 @@ export function ArtifactDiscovery() {
             initial={still ? false : { pathLength: 0 }}
             whileInView={{ pathLength: 1 }}
             viewport={seen}
-            transition={{ delay: still ? 0 : 0.7 + index * 0.12, duration: 0.45 }}
+            transition={{
+              delay: still ? 0 : 0.7 + index * 0.12,
+              duration: 0.45,
+            }}
           />
         ))}
       </svg>

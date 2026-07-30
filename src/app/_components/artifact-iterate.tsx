@@ -2,8 +2,6 @@
 
 import { useRef, useState } from "react";
 
-/* Both versions are cards of the same footprint, so the seam cuts between two
-   whole objects instead of through a line of text. */
 export function ArtifactIterate() {
   const [split, setSplit] = useState(52);
   const area = useRef<HTMLDivElement>(null);

@@ -126,8 +126,6 @@
   html {
     @apply font-sans;
   }
-  /* Set here, not per heading: one that forgets the class falls back to Inter
-     with no visible error. */
   h1,
   h2,
   h3,
@@ -172,8 +170,6 @@
   --animate-rise-in: rise-in 620ms var(--ease-entrance) both;
 }
 
-/* The ramp is far wider than the word, so only a slice is ever visible and it
-   never turns fully blue. One word per page. */
 @utility text-drift {
   background-image: linear-gradient(
     100deg,
@@ -182,7 +178,6 @@
     var(--color-foreground) 75%
   );
   background-size: 260% auto;
-  /* Prefixed first: Safari only dropped the requirement recently. */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -205,10 +200,6 @@
   );
 }
 
-/* Page-wide grid, fixed to the viewport. Full height with the sides feathered
-   — a radial mask on a fixed layer follows the scroll instead of the page, so
-   it reads as a patch travelling down the screen. --grid-line is themed in
-   :root, not declared here, for the same reason as --reveal-line. */
 @utility bg-grid {
   background-image:
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
@@ -223,8 +214,6 @@
   );
 }
 
-/* Position and opacity come from custom properties set by PageBackdrop. The
-   module has to match bg-grid or the two grids sit out of register. */
 @utility bg-blueprint-reveal {
   --reveal-x: 50%;
   --reveal-y: 38%;
@@ -265,22 +254,12 @@
   );
 }
 
-/* ---------------------------------------------------------------------------
-   PixieBuild design language
-
-   Dark-first. Hierarchy comes from type and space, never from decoration.
-   Depth comes from one implied light source above. Kept in its own blocks so
-   the shadcn-generated tokens above stay clean for `shadcn diff`.
-   --------------------------------------------------------------------------- */
 
 @theme {
-  /* Values, not aliases: there is no utility for a custom cubic-bezier. */
   --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-interface: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* One light source, above: the top edge catches it and the shadow falls below,
-   so both have to invert between themes. */
 :root {
   --elevation-1: 0 1px 2px 0 oklch(0.148 0.004 228.8 / 0.05);
   --elevation-2:
@@ -288,8 +267,6 @@
     0 2px 6px -2px oklch(0.148 0.004 228.8 / 0.05);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.9);
 
-  /* Defined here, not in the utility: a property set on the element itself
-     ignores .dark on an ancestor and could not be themed. */
   --grid-line: color-mix(in oklch, var(--color-primary) 5%, transparent);
   --reveal-line: color-mix(in oklch, var(--color-primary) 14%, transparent);
 }
@@ -305,14 +282,11 @@
 }
 
 @theme inline {
-  /* Two shadows, one of them inset — a utility pair cannot express it. */
   --shadow-panel: var(--elevation-1), var(--edge);
   --shadow-elev-1: var(--elevation-1);
   --shadow-elev-2: var(--elevation-2);
 }
 
-/* Progressive enhancement: without scroll-driven animation support, or under
-   reduced motion, the element renders in place rather than staying hidden. */
 @utility reveal {
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {

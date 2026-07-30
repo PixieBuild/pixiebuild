@@ -1,4 +1,8 @@
-import { RiArrowRightUpLine, RiCheckLine, RiSpeedUpLine } from "@remixicon/react";
+import {
+  RiArrowRightUpLine,
+  RiCheckLine,
+  RiSpeedUpLine,
+} from "@remixicon/react";
 import type { Metadata } from "next";
 
 import { Band } from "@/app/styleguide/_components/band";
@@ -24,7 +28,8 @@ const colourRoles: Record<string, string> = {
   "--muted-foreground": "Leads, captions, metadata — anything secondary.",
   "--accent": "Hover and selected states inside menus.",
   "--destructive": "Errors. Type and tint, not a filled surface.",
-  "--border": "Edges and dividers. Already softened, so plain `border` is right.",
+  "--border":
+    "Edges and dividers. Already softened, so plain `border` is right.",
   "--input": "Field fills and their borders.",
   "--ring": "The focus ring, and nothing else.",
   "--chart-1": "Reserved for `shadcn add chart` — do not delete.",
@@ -43,7 +48,8 @@ const radiusUsage: Record<string, string> = {
 };
 
 const shadowUsage: Record<string, string> = {
-  "--shadow-panel": "Cards and raised surfaces. Elevation plus the lit top edge.",
+  "--shadow-panel":
+    "Cards and raised surfaces. Elevation plus the lit top edge.",
   "--shadow-elev-1": "Floating chrome — the header, the toggle.",
   "--shadow-elev-2": "Hover, or one featured card in a section.",
 };
@@ -71,7 +77,8 @@ const typeRoles = [
   {
     role: "Body large",
     className: "text-lg leading-relaxed",
-    sample: "We design and build websites and applications for growing companies.",
+    sample:
+      "We design and build websites and applications for growing companies.",
     note: "The paragraph under a heading. Same at every width — smaller and it stops reading as a lead.",
   },
   {
@@ -318,7 +325,6 @@ export default async function StyleguidePage() {
             </div>
           ))}
         </div>
-
       </Band>
 
       <Band
@@ -346,13 +352,13 @@ export default async function StyleguidePage() {
         </div>
 
         <p className="text-muted-foreground mt-10 max-w-prose text-sm text-pretty">
-          The landing page also defines <span className="font-mono text-xs">
-            bg-blueprint
-          </span>, <span className="font-mono text-xs">bg-blueprint-reveal</span>,{" "}
+          The landing page also defines{" "}
+          <span className="font-mono text-xs">bg-blueprint</span>,{" "}
+          <span className="font-mono text-xs">bg-blueprint-reveal</span>,{" "}
           <span className="font-mono text-xs">bg-hero-glow</span> and{" "}
           <span className="font-mono text-xs">text-drift</span>. They are that
-          page&rsquo;s backdrop and its one typographic device — deliberately not
-          part of the system, and not to be reused elsewhere.
+          page&rsquo;s backdrop and its one typographic device — deliberately
+          not part of the system, and not to be reused elsewhere.
         </p>
       </Band>
 
@@ -372,7 +378,8 @@ export default async function StyleguidePage() {
           <div className="flex items-center gap-3">
             <PbLogo className="size-6" />
             <span className="text-muted-foreground text-sm">
-              the only custom mark — imported through SVGR, inherits currentColor
+              the only custom mark — imported through SVGR, inherits
+              currentColor
             </span>
           </div>
         </div>

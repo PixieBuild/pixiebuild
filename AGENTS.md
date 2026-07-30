@@ -136,13 +136,17 @@ public/               files served by URL, referenced by path not import
 
 ## Comments
 
-- A comment states a constraint the code cannot. Never narrate the reasoning behind a value.
-- Write for someone reading the file months from now, not for the person reviewing this change.
-  No "changed to", no "this is better because", no design rationale.
-- The test: if the comment were deleted, would something break or be reintroduced? If not,
-  delete it.
-- Worth keeping: why a value has a floor or ceiling, why a property lives in one place rather
-  than another, why an obvious simplification would break something.
+Comment logic, and only logic — a function, a calculation, a branch that is not obvious
+from reading it. Say what it does.
+
+**Never comment:**
+
+- markup, class strings, Tailwind values, CSS, layout or animation
+- why a number was chosen, or what a design decision achieves
+- anything a reader can see by reading the line below it
+
+Styling has no comments. If a value needs justifying, that belongs in the commit message,
+not the file. Default to writing none.
 
 ## Conventions
 

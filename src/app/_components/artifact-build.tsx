@@ -3,8 +3,6 @@
 import { motion, useInView, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-/* Annotations and outlines keep their space and only fade, so the handoff
-   never shifts the layout underneath. */
 export function ArtifactBuild() {
   const still = useReducedMotion();
   const frame = useRef<HTMLDivElement>(null);

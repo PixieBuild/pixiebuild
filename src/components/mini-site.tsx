@@ -7,8 +7,6 @@ type MiniSiteProps = {
   cards: string[];
 };
 
-/* Laid out at full width and scaled to half, so the type inside stays on the
-   real scale rather than being set at miniature sizes. */
 export function MiniSite({
   brand,
   eyebrow,
@@ -36,8 +34,12 @@ export function MiniSite({
       </div>
 
       <div className="px-8 pt-12 pb-8">
-        <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">{eyebrow}</p>
-        <h3 className="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-balance">{headline}</h3>
+        <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
+          {eyebrow}
+        </p>
+        <h3 className="mt-4 max-w-2xl text-4xl font-semibold tracking-tight text-balance">
+          {headline}
+        </h3>
         <p className="text-muted-foreground mt-4 max-w-xl text-lg leading-relaxed text-pretty">
           {body}
         </p>

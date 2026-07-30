@@ -46,8 +46,6 @@ export function HowWeWork() {
           </h2>
         </header>
 
-        {/* Off foreground rather than the border token: border already carries
-            an alpha, so the dashes came out invisible in both themes. */}
         <div className="border-foreground/20 dark:border-foreground/18 mt-14 grid overflow-hidden rounded-xl border border-dashed md:mt-16 md:grid-cols-2">
           {stages.map((stage, index) => (
             <div

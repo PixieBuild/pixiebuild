@@ -14,10 +14,6 @@ export function Hero() {
       <SiteHeader />
 
       <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-14 sm:px-8 sm:pt-16 sm:pb-16 md:px-12 md:pt-24 md:pb-20 lg:px-16">
-        {/* The bottom offsets put its edge on the strip's rule — pb plus half
-            the strip, not free values — and the size is then capped by the
-            headline above it. Opacity on the element, not the colour: the dot
-            is var(--color-primary) and a text alpha would leave it solid. */}
         <PbLogo
           aria-hidden
           className="text-foreground pointer-events-none absolute right-0 bottom-0 size-48 opacity-[0.12] mask-[linear-gradient(to_top_left,black,transparent_78%)] sm:bottom-18 md:right-0 md:bottom-22 md:size-64 lg:right-4 lg:size-72 xl:-right-12 2xl:-right-20 dark:opacity-[0.1]"
@@ -30,7 +26,6 @@ export function Hero() {
           Open for new projects
         </p>
 
-        {/* 6.6vw is the ceiling that keeps the first sentence on one line. */}
         <h1 className="mt-7 text-[clamp(2.75rem,6.6vw,4.5rem)] leading-[1.05] font-semibold tracking-[-0.035em] sm:mt-8 md:mt-12 md:leading-[1.15]">
           <span className="block">
             {headline.map((word, index) => (
@@ -59,8 +54,6 @@ export function Hero() {
         </h1>
 
         <div className="mt-9 sm:mt-11 md:mt-16">
-          {/* Dissolves before it reaches the mark: a full-width rule reads as
-              cutting the glyph in half. */}
           <span
             aria-hidden
             className="from-border to-transparent mb-8 hidden h-px bg-linear-to-r from-45% to-85% md:block"
