@@ -277,7 +277,7 @@
     0 12px 32px -8px oklch(0 0 0 / 0.6), 0 2px 8px -2px oklch(0 0 0 / 0.4);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.07);
 
-  --grid-line: color-mix(in oklch, var(--color-primary) 5%, transparent);
+  --grid-line: color-mix(in oklch, var(--color-primary) 4%, transparent);
   --reveal-line: color-mix(in oklch, var(--color-primary) 26%, transparent);
 }
 
