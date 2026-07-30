@@ -1,3 +1,4 @@
+import { Capabilities } from "@/app/_components/capabilities";
 import { Hero } from "@/app/_components/hero";
 import { HowWeWork } from "@/app/_components/how-we-work";
 import { PageBackdrop } from "@/app/_components/page-backdrop";
@@ -12,6 +13,7 @@ export default function Home() {
         <Hero />
         <HowWeWork />
         <SelectedWork />
+        <Capabilities />
       </main>
     </>
   );
