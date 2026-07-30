@@ -103,7 +103,7 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
                     ? {
                         x: `${slot * spread}%`,
                         scale: centre ? 1 : 0.82,
-                        opacity: away > shown ? 0 : centre ? 1 : 0.45,
+                        opacity: away > shown ? 0 : 1,
                         filter: centre ? "blur(0px)" : "blur(2px)",
                       }
                     : { x: "0%", scale: 0.92, opacity: 0, filter: "blur(6px)" }
@@ -129,6 +129,14 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
                   ) : (
                     <PagePlaceholder />
                   )}
+
+                  <motion.div
+                    aria-hidden
+                    initial={false}
+                    animate={{ opacity: centre ? 0 : 0.55 }}
+                    transition={{ duration: still ? 0 : 0.5 }}
+                    className="bg-background absolute inset-0"
+                  />
                 </div>
 
                 <div className="shadow-elev-2 absolute right-6 -bottom-7 hidden w-24 rounded-[1.45rem] bg-neutral-900 p-0.75 ring-1 ring-white/12 ring-inset sm:block lg:w-28">
@@ -150,6 +158,14 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
                       <span
                         aria-hidden
                         className="absolute top-1 left-1/2 h-1.5 w-6 -translate-x-1/2 rounded-full bg-black/75"
+                      />
+
+                      <motion.div
+                        aria-hidden
+                        initial={false}
+                        animate={{ opacity: centre ? 0 : 0.55 }}
+                        transition={{ duration: still ? 0 : 0.5 }}
+                        className="bg-background absolute inset-0"
                       />
                     </div>
                   </div>
