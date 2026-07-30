@@ -258,7 +258,6 @@
   );
 }
 
-
 @theme {
   --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-interface: cubic-bezier(0.25, 1, 0.5, 1);
@@ -271,8 +270,8 @@
     0 2px 6px -2px oklch(0.148 0.004 228.8 / 0.05);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.9);
 
-  --grid-line: color-mix(in oklch, var(--color-primary) 5%, transparent);
-  --reveal-line: color-mix(in oklch, var(--color-primary) 14%, transparent);
+  --grid-line: color-mix(in oklch, var(--color-primary) 3%, transparent);
+  --reveal-line: color-mix(in oklch, var(--color-primary) 12%, transparent);
 }
 
 .dark {
