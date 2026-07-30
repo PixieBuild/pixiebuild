@@ -32,7 +32,7 @@ const stages = [
 
 export function HowWeWork() {
   return (
-    <section id="process" className="scroll-mt-24 py-20 md:py-28">
+    <section id="process" className="scroll-mt-24 py-12 md:py-24">
       <div className="mx-auto max-w-6xl px-6 sm:px-8 md:px-12 lg:px-16">
         <header className="max-w-3xl">
           <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
