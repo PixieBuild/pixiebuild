@@ -210,7 +210,7 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
             onClick={() => handlePick(index)}
             aria-label={`Show ${project.name}`}
             aria-current={index === active % projects.length}
-            className="group cursor-pointer px-1 py-3"
+            className="group px-1 py-3"
           >
             <span className="bg-border group-hover:bg-muted-foreground group-aria-current:bg-foreground ease-interface block h-1 w-6 rounded-full transition-colors duration-300" />
           </button>
