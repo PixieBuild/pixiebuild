@@ -174,8 +174,11 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
           <div
             key={project.name}
             aria-hidden={project.name !== current.name}
-            style={{ opacity: project.name === current.name ? 1 : 0 }}
-            className="ease-interface col-start-1 row-start-1 flex flex-col gap-2 text-center transition-opacity duration-500"
+            style={{
+              opacity: project.name === current.name ? 1 : 0,
+              transitionDelay: project.name === current.name ? "300ms" : "0ms",
+            }}
+            className="ease-interface col-start-1 row-start-1 flex flex-col gap-2 text-center transition-opacity duration-300"
           >
             <div className="flex items-baseline justify-center gap-3">
               <h3 className="text-xl font-semibold tracking-tight">
