@@ -8,16 +8,13 @@ import { PagePlaceholder } from "@/app/_components/page-placeholder";
 
 export type Project = {
   name: string;
-  domain: string;
   sector: string;
+  tone: "light" | "dark";
   built: string;
   delivered: string[];
   year: string;
-  /* Paths under /public/work. A skeleton page stands in until one is set. */
   image?: string;
   phone?: string;
-  /* Serves the file untouched. Set it where the optimizer's re-encode costs
-     more than the bytes it saves — dense UI, fine type, flat colour. */
   unoptimized?: boolean;
 };
 
@@ -49,23 +46,19 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
      can advance a moment after someone chooses. */
   useEffect(() => {
     if (!seen || still || held) return;
-    const id = setTimeout(() => setActive((at) => (at + 1) % count), 4600);
+    const id = setTimeout(() => setActive(at => (at + 1) % count), 4600);
     return () => clearTimeout(id);
   }, [seen, still, held, count, active]);
 
-  /* Positions wrap, so the slots either side of centre are always filled and
-     the run has no start or end to reach. */
   const slotOf = (index: number) => {
     const raw = (index - active + count) % count;
     return raw > count / 2 ? raw - count : raw;
   };
 
-  /* A project can sit at two places on a doubled ring. Move to whichever copy
-     is nearer, so picking one never rewinds the deck further than it must. */
   const handlePick = (index: number) => {
     const copies = ring
       .map((_, at) => at)
-      .filter((at) => at % projects.length === index);
+      .filter(at => at % projects.length === index);
     setActive(
       copies.reduce((best, at) =>
         Math.abs(slotOf(at)) < Math.abs(slotOf(best)) ? at : best,
@@ -89,6 +82,7 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
           const slot = slotOf(index);
           const away = Math.abs(slot);
           const centre = slot === 0;
+          const pale = project.tone === "light";
 
           return (
             <div
@@ -139,9 +133,23 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
                   />
                 </div>
 
-                <div className="shadow-elev-2 absolute right-6 -bottom-7 hidden w-24 rounded-[1.45rem] bg-neutral-900 p-0.75 ring-1 ring-white/12 ring-inset sm:block lg:w-28">
-                  <div className="rounded-[1.25rem] p-0.75 ring-1 ring-white/10 ring-inset">
-                    <div className="bg-muted relative aspect-9/18 overflow-hidden rounded-[1.05rem]">
+                <div
+                  className={`shadow-elev-2 absolute right-6 -bottom-7 hidden w-24 rounded-[1.45rem] p-0.75 ring-1 ring-inset sm:block lg:w-28 ${
+                    pale
+                      ? "bg-neutral-200 ring-black/10"
+                      : "bg-neutral-900 ring-white/12"
+                  }`}
+                >
+                  <div
+                    className={`rounded-[1.25rem] p-0.75 ring-1 ring-inset ${
+                      pale ? "ring-black/10" : "ring-white/10"
+                    }`}
+                  >
+                    <div
+                      className={`relative aspect-9/18 overflow-hidden rounded-[1.05rem] ${
+                        pale ? "bg-neutral-200" : "bg-neutral-900"
+                      }`}
+                    >
                       {project.phone ? (
                         <Image
                           src={project.phone}
@@ -157,7 +165,9 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
 
                       <span
                         aria-hidden
-                        className="absolute top-1 left-1/2 h-1.5 w-6 -translate-x-1/2 rounded-full bg-black/75"
+                        className={`absolute top-1 left-1/2 size-1 -translate-x-1/2 rounded-full ${
+                          pale ? "bg-neutral-800" : "bg-black"
+                        }`}
                       />
 
                       <motion.div
@@ -186,7 +196,7 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
       </div>
 
       <div className="mx-auto mt-8 grid max-w-2xl px-6 sm:mt-14">
-        {projects.map((project) => (
+        {projects.map(project => (
           <div
             key={project.name}
             aria-hidden={project.name !== current.name}
@@ -196,14 +206,9 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
             }}
             className="ease-interface col-start-1 row-start-1 flex flex-col gap-2 text-center transition-opacity duration-300"
           >
-            <div className="flex items-baseline justify-center gap-3">
-              <h3 className="text-xl font-semibold tracking-tight">
-                {project.name}
-              </h3>
-              <span className="text-muted-foreground font-mono text-xs">
-                {project.domain}
-              </span>
-            </div>
+            <h3 className="text-xl font-semibold tracking-tight">
+              {project.name}
+            </h3>
 
             <p className="text-muted-foreground text-sm text-pretty">
               {project.built}

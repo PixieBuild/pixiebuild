@@ -3,7 +3,7 @@ import { WorkCarousel, type Project } from "@/app/_components/work-carousel";
 const projects: Project[] = [
   {
     name: "Ember & Oak",
-    domain: "emberandoak.com",
+    tone: "light",
     sector: "Coffee house",
     built:
       "A neighbourhood coffee house in Portland — the room, the craft and the menu, in the order a first visit asks for them.",
@@ -14,7 +14,7 @@ const projects: Project[] = [
   },
   {
     name: "Sable",
-    domain: "sable.dev",
+    tone: "dark",
     sector: "AI agents",
     built:
       "A marketing site for an agent platform, led by the product itself — the workspace is on screen before a word of copy explains it.",
@@ -25,7 +25,7 @@ const projects: Project[] = [
   },
   {
     name: "Flowboard",
-    domain: "flowboard.anuragkumar.dev",
+    tone: "dark",
     sector: "Task management",
     built:
       "A kanban tool where a task moves by dragging it — boards and columns you name yourself, subtasks and notes on every card.",
@@ -37,7 +37,7 @@ const projects: Project[] = [
   },
   {
     name: "Meridian",
-    domain: "meridian.co",
+    tone: "light",
     sector: "Grooming",
     built:
       "A grooming lounge where booking a chair is the first thing on the page, with the menu, the prices and the reviews right behind it.",
