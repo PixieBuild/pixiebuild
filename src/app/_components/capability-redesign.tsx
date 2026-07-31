@@ -90,7 +90,7 @@ export function CapabilityRedesign() {
                 </span>
               </div>
 
-              <div className="border-muted-foreground/30 relative h-full w-[34%] shrink-0 overflow-hidden border">
+              <div className="border-muted-foreground/30 relative h-full w-[34%] shrink-0 overflow-hidden border @max-[380px]:hidden">
                 <Image
                   src={photo}
                   alt=""
@@ -101,7 +101,7 @@ export function CapabilityRedesign() {
               </div>
             </div>
 
-            <div className="grid shrink-0 grid-cols-3 gap-1.5">
+            <div className="grid shrink-0 grid-cols-3 gap-1.5 @max-[380px]:hidden">
               {services.map((service) => (
                 <div
                   key={service.name}
@@ -173,7 +173,7 @@ export function CapabilityRedesign() {
                 </div>
               </div>
 
-              <div className="bg-muted relative h-full w-[38%] shrink-0 overflow-hidden rounded-xl @min-[420px]:w-[42%]">
+              <div className="bg-muted relative h-full w-[38%] shrink-0 overflow-hidden rounded-xl @max-[380px]:hidden @min-[420px]:w-[42%]">
                 <Image
                   src={photo}
                   alt=""
@@ -184,7 +184,7 @@ export function CapabilityRedesign() {
               </div>
             </div>
 
-            <div className="grid shrink-0 grid-cols-3 gap-2.5">
+            <div className="grid shrink-0 grid-cols-3 gap-2.5 @max-[380px]:hidden">
               {services.map((service) => (
                 <div
                   key={service.name}

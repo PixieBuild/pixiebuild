@@ -23,10 +23,6 @@ const others = [
     title: "Rose City Dental — General & Cosmetic Care",
     url: "rosecitydental.com",
   },
-  {
-    title: "Emergency Dental Clinic of Oregon",
-    url: "emergencydentaloregon.com",
-  },
 ];
 
 export function CapabilitySearch() {
@@ -38,9 +34,7 @@ export function CapabilitySearch() {
   const swap = { duration: still ? 0 : 0.45 };
   const move = { duration: still ? 0 : 0.65, ease: [0.25, 1, 0.5, 1] as const };
 
-  const results = risen
-    ? [mine, ...others]
-    : [others[0], others[1], mine, others[2]];
+  const results = risen ? [mine, ...others] : [...others, mine];
 
   return (
     <div ref={frame} className="size-full p-4 sm:p-6">

@@ -150,7 +150,7 @@ export function CapabilityCms() {
               <h4 className="text-sm leading-tight font-semibold tracking-tight @min-[420px]:text-base">
                 Dentistry without the dread.
               </h4>
-              <p className="text-muted-foreground mt-1.5 text-[0.5625rem]">
+              <p className="text-muted-foreground mt-1.5 text-[0.5625rem] @max-[380px]:hidden">
                 Same-day appointments and clear pricing in east Portland.
               </p>
             </div>

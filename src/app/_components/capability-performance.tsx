@@ -53,7 +53,7 @@ export function CapabilityPerformance() {
         </div>
 
         <div className="flex min-h-0 flex-1 items-center gap-5 @min-[420px]:gap-7">
-          <div className="relative size-24 shrink-0 @min-[420px]:size-28">
+          <div className="relative size-20 shrink-0 @min-[380px]:size-24 @min-[420px]:size-28">
             <motion.span
               animate={{ opacity: quick ? 0 : 1 }}
               transition={swap}
@@ -111,7 +111,9 @@ export function CapabilityPerformance() {
             {metrics.map((metric) => (
               <div
                 key={metric.label}
-                className="flex items-center gap-2.5 border-b pb-2 last:border-0 last:pb-0"
+                className={`flex items-center gap-2.5 border-b pb-2 last:border-0 last:pb-0 ${
+                  metric.label === "TBT" ? "@max-[380px]:hidden" : ""
+                }`}
               >
                 <span className="relative size-2 shrink-0">
                   <motion.span

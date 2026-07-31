@@ -40,14 +40,14 @@ const capabilities = [
     preview: <CapabilityCms />,
   },
   {
-    title: "Accessibility",
-    blurb: "Usable with a keyboard, a screen reader, and in bright sunlight.",
-    preview: <CapabilityAccessibility />,
-  },
-  {
     title: "UI/UX Improvements",
     blurb: "Fewer steps between someone arriving and someone finishing.",
     preview: <CapabilityInterface />,
+  },
+  {
+    title: "Accessibility",
+    blurb: "Usable with a keyboard, a screen reader, and in bright sunlight.",
+    preview: <CapabilityAccessibility />,
   },
 ];
 
@@ -76,7 +76,7 @@ export function CapabilityWall() {
     >
       <div className="sticky top-0 flex h-dvh items-center">
         <div className="grid w-full gap-6 sm:gap-8 lg:grid-cols-12 lg:items-center lg:gap-12">
-          <div className="order-2 lg:order-1 lg:col-span-5">
+          <div className="order-2 mx-auto w-full max-w-lg lg:order-1 lg:col-span-5 lg:mx-0 lg:max-w-none">
             <div className="grid">
               {capabilities.map((capability, index) => (
                 <motion.div
@@ -121,9 +121,9 @@ export function CapabilityWall() {
 
           <div
             aria-hidden
-            className="bg-card/40 order-1 overflow-hidden rounded-2xl border lg:order-2 lg:col-span-7"
+            className="bg-card/40 order-1 mx-auto w-full max-w-lg overflow-hidden rounded-2xl border lg:order-2 lg:col-span-7 lg:mx-0 lg:max-w-none"
           >
-            <div className="relative aspect-16/10 lg:aspect-4/3">
+            <div className="relative aspect-square sm:aspect-4/3">
               <motion.div
                 key={current.title}
                 initial={still ? false : { opacity: 0, y: 6 }}
