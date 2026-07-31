@@ -23,6 +23,10 @@ const others = [
     title: "Rose City Dental — General & Cosmetic Care",
     url: "rosecitydental.com",
   },
+  {
+    title: "Emergency Dental Clinic of Oregon",
+    url: "emergencydentaloregon.com",
+  },
 ];
 
 export function ServiceSearch() {
@@ -34,7 +38,9 @@ export function ServiceSearch() {
   const swap = { duration: still ? 0 : 0.45 };
   const move = { duration: still ? 0 : 0.65, ease: [0.25, 1, 0.5, 1] as const };
 
-  const results = risen ? [mine, ...others] : [...others, mine];
+  const results = risen
+    ? [mine, ...others]
+    : [others[0], others[1], mine, others[2]];
 
   return (
     <div ref={frame} className="size-full p-4 sm:p-6">
@@ -102,7 +108,7 @@ export function ServiceSearch() {
           </div>
         </div>
 
-        <div className="flex min-h-0 flex-1 flex-col justify-center gap-2.5">
+        <div className="mask-[linear-gradient(to_bottom,black_82%,transparent)] flex min-h-0 flex-1 flex-col gap-2.5 overflow-hidden">
           {results.map((result) => {
             const ours = result.url === mine.url;
 

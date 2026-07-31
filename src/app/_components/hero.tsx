@@ -8,7 +8,7 @@ const headline = ["Beautiful", "is", "the", "baseline"];
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section id="top" className="relative overflow-hidden">
       <div aria-hidden className="bg-hero-glow absolute inset-0" />
 
       <SiteHeader />
