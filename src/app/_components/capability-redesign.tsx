@@ -42,7 +42,7 @@ export function CapabilityRedesign() {
             <motion.span
               animate={{ opacity: fresh ? 1 : 0 }}
               transition={swap}
-              className="bg-primary text-primary-foreground col-start-1 row-start-1 rounded-full px-2.5 py-1 font-mono text-[0.625rem] font-medium tracking-widest uppercase"
+              className="bg-foreground text-background col-start-1 row-start-1 rounded-full px-2.5 py-1 font-mono text-[0.625rem] font-medium tracking-widest uppercase"
             >
               After
             </motion.span>
@@ -146,7 +146,7 @@ export function CapabilityRedesign() {
                 <span className="text-muted-foreground hidden text-[0.5625rem] @min-[420px]:inline">
                   Pricing
                 </span>
-                <span className="bg-primary text-primary-foreground rounded-full px-2.5 py-1 text-[0.5625rem] font-medium">
+                <span className="bg-teal-700 rounded-full px-2.5 py-1 text-[0.5625rem] font-medium text-white">
                   Book a visit
                 </span>
               </div>
@@ -164,7 +164,7 @@ export function CapabilityRedesign() {
                 </p>
 
                 <div className="mt-4 flex items-center gap-2 @min-[420px]:mt-5">
-                  <span className="bg-primary text-primary-foreground rounded-full px-3 py-1.5 text-[0.5625rem] font-medium">
+                  <span className="bg-teal-700 rounded-full px-3 py-1.5 text-[0.5625rem] font-medium text-white">
                     Book a visit
                   </span>
                   <span className="rounded-full border px-3 py-1.5 text-[0.5625rem] font-medium">
