@@ -6,9 +6,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 
 const links = [
+  { label: "Process", href: "#process" },
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
   { label: "Pricing", href: "#pricing" },
 ];
 
