@@ -29,6 +29,11 @@ const capabilities = [
     preview: <CapabilityPerformance />,
   },
   {
+    title: "UI/UX Improvements",
+    blurb: "Fewer steps between someone arriving and someone finishing.",
+    preview: <CapabilityInterface />,
+  },
+  {
     title: "SEO & AI Search",
     blurb:
       "Found by search engines, and by the assistants people now ask instead.",
@@ -38,11 +43,6 @@ const capabilities = [
     title: "CMS Integration",
     blurb: "Your team changes the site themselves, without waiting on us.",
     preview: <CapabilityCms />,
-  },
-  {
-    title: "UI/UX Improvements",
-    blurb: "Fewer steps between someone arriving and someone finishing.",
-    preview: <CapabilityInterface />,
   },
   {
     title: "Accessibility",
