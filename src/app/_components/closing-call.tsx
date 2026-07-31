@@ -16,7 +16,7 @@ export function ClosingCall() {
 
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           <Button size="lg" nativeButton={false} render={<a href="#contact" />}>
-            Start a project
+            Tell us about it
           </Button>
           <Button
             size="lg"
