@@ -14,12 +14,12 @@ const fields = [
 
 const slots = ["Today 4:30pm", "Tomorrow 9:00am", "Thu 11:15am"];
 
-export function CapabilityInterface() {
+export function ServiceInterface() {
   const frame = useRef<HTMLDivElement>(null);
   const seen = useInView(frame, { margin: "0px 0px -15% 0px" });
   const still = useReducedMotion();
-  const step = useLoop(2, 5200, seen && !still);
-  const shorter = step === 1;
+  const step = useLoop(2, 5200, seen && !still, 1400);
+  const shorter = still || step === 1;
   const swap = { duration: still ? 0 : 0.55, ease: [0.25, 1, 0.5, 1] as const };
 
   return (
@@ -35,6 +35,7 @@ export function CapabilityInterface() {
             </span>
             <span className="ml-auto grid shrink-0 justify-items-end">
               <motion.span
+                initial={false}
                 animate={{ opacity: shorter ? 0 : 1 }}
                 transition={swap}
                 className="bg-muted-foreground/15 text-muted-foreground col-start-1 row-start-1 rounded-full px-2 py-0.5 font-mono text-[0.5rem] font-medium tracking-widest uppercase"
@@ -42,6 +43,7 @@ export function CapabilityInterface() {
                 Before
               </motion.span>
               <motion.span
+                initial={false}
                 animate={{ opacity: shorter ? 1 : 0 }}
                 transition={swap}
                 className="bg-foreground text-background col-start-1 row-start-1 rounded-full px-2 py-0.5 font-mono text-[0.5rem] font-medium tracking-widest uppercase"
@@ -53,6 +55,7 @@ export function CapabilityInterface() {
 
           <div className="relative min-h-0 flex-1">
             <motion.div
+              initial={false}
               animate={{
                 opacity: shorter ? 0 : 1,
                 scale: shorter ? 0.98 : 1,
@@ -115,6 +118,7 @@ export function CapabilityInterface() {
             </motion.div>
 
             <motion.div
+              initial={false}
               animate={{
                 opacity: shorter ? 1 : 0,
                 scale: shorter ? 1 : 1.02,
@@ -189,6 +193,7 @@ export function CapabilityInterface() {
               </span>
               <span className="ml-auto grid justify-items-end">
                 <motion.span
+                  initial={false}
                   animate={{ opacity: shorter ? 0 : 1 }}
                   transition={swap}
                   className="col-start-1 row-start-1 font-mono text-xs tabular-nums"
@@ -196,6 +201,7 @@ export function CapabilityInterface() {
                   {stat.poor}
                 </motion.span>
                 <motion.span
+                  initial={false}
                   animate={{ opacity: shorter ? 1 : 0 }}
                   transition={swap}
                   className="text-primary col-start-1 row-start-1 font-mono text-xs tabular-nums"

@@ -16,14 +16,17 @@ const links = [
   { label: "Book a visit", spoken: "Button, book a visit" },
 ];
 
-const cta = { label: "See available times", spoken: "Button, see available times" };
+const cta = {
+  label: "See available times",
+  spoken: "Button, see available times",
+};
 const stops = [...links, cta];
 
-export function CapabilityAccessibility() {
+export function ServiceAccessibility() {
   const frame = useRef<HTMLDivElement>(null);
   const seen = useInView(frame, { margin: "0px 0px -15% 0px" });
   const still = useReducedMotion();
-  const at = useLoop(stops.length, 1500, seen && !still);
+  const at = useLoop(stops.length, 1500, seen && !still, 700);
   const ring = { duration: still ? 0 : 0.35, ease: [0.25, 1, 0.5, 1] as const };
 
   return (
@@ -73,6 +76,7 @@ export function CapabilityAccessibility() {
                       {here ? (
                         <motion.span
                           layoutId="focus"
+                          initial={false}
                           transition={ring}
                           className={`ring-primary pointer-events-none absolute -inset-1 ring-2 ${
                             action ? "rounded-full" : "rounded"
@@ -106,6 +110,7 @@ export function CapabilityAccessibility() {
                   {at === stops.length - 1 ? (
                     <motion.span
                       layoutId="focus"
+                      initial={false}
                       transition={ring}
                       className="ring-primary pointer-events-none absolute -inset-1 rounded-full ring-2"
                     />
@@ -147,6 +152,7 @@ export function CapabilityAccessibility() {
           <span className="grid min-w-0 flex-1">
             {stops.map((stop, index) => (
               <motion.span
+                initial={false}
                 key={stop.label}
                 animate={{ opacity: at === index ? 1 : 0 }}
                 transition={{ duration: still ? 0 : 0.2 }}

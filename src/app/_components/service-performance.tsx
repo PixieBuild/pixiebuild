@@ -19,12 +19,12 @@ const metrics = [
   { label: "TBT", poor: "890 ms", good: "40 ms" },
 ];
 
-export function CapabilityPerformance() {
+export function ServicePerformance() {
   const frame = useRef<HTMLDivElement>(null);
   const seen = useInView(frame, { margin: "0px 0px -15% 0px" });
   const still = useReducedMotion();
-  const step = useLoop(2, 4600, seen && !still);
-  const quick = step === 1;
+  const step = useLoop(2, 4600, seen && !still, 1100);
+  const quick = still || step === 1;
 
   const score = useMotionValue(quick ? 98 : 41);
   const shown = useTransform(score, (value) => Math.round(value));
@@ -55,11 +55,13 @@ export function CapabilityPerformance() {
         <div className="flex min-h-0 flex-1 items-center gap-5 @min-[420px]:gap-7">
           <div className="relative size-20 shrink-0 @min-[380px]:size-24 @min-[420px]:size-28">
             <motion.span
+              initial={false}
               animate={{ opacity: quick ? 0 : 1 }}
               transition={swap}
               className="absolute inset-2 rounded-full bg-amber-500/10"
             />
             <motion.span
+              initial={false}
               animate={{ opacity: quick ? 1 : 0 }}
               transition={swap}
               className="absolute inset-2 rounded-full bg-emerald-500/10"
@@ -75,6 +77,7 @@ export function CapabilityPerformance() {
                 strokeWidth="6"
               />
               <motion.circle
+                initial={false}
                 cx="50"
                 cy="50"
                 r="43"
@@ -87,6 +90,7 @@ export function CapabilityPerformance() {
                 transition={swap}
               />
               <motion.circle
+                initial={false}
                 cx="50"
                 cy="50"
                 r="43"
@@ -117,11 +121,13 @@ export function CapabilityPerformance() {
               >
                 <span className="relative size-2 shrink-0">
                   <motion.span
+                    initial={false}
                     animate={{ opacity: quick ? 0 : 1 }}
                     transition={swap}
                     className="absolute inset-0 rounded-xs bg-amber-500"
                   />
                   <motion.span
+                    initial={false}
                     animate={{ opacity: quick ? 1 : 0 }}
                     transition={swap}
                     className="absolute inset-0 rounded-full bg-emerald-500"
@@ -134,6 +140,7 @@ export function CapabilityPerformance() {
 
                 <span className="ml-auto grid justify-items-end">
                   <motion.span
+                    initial={false}
                     animate={{ opacity: quick ? 0 : 1 }}
                     transition={swap}
                     className="col-start-1 row-start-1 font-mono text-[0.625rem] tabular-nums @min-[420px]:text-[0.6875rem]"
@@ -141,6 +148,7 @@ export function CapabilityPerformance() {
                     {metric.poor}
                   </motion.span>
                   <motion.span
+                    initial={false}
                     animate={{ opacity: quick ? 1 : 0 }}
                     transition={swap}
                     className="col-start-1 row-start-1 font-mono text-[0.625rem] tabular-nums @min-[420px]:text-[0.6875rem]"
@@ -159,6 +167,7 @@ export function CapabilityPerformance() {
           </span>
           <span className="ml-auto grid justify-items-end">
             <motion.span
+              initial={false}
               animate={{ opacity: quick ? 0 : 1 }}
               transition={swap}
               className="col-start-1 row-start-1 rounded-full bg-amber-500/15 px-2 py-0.5 text-[0.5625rem] font-medium text-amber-600 dark:text-amber-400"
@@ -166,6 +175,7 @@ export function CapabilityPerformance() {
               Failed
             </motion.span>
             <motion.span
+              initial={false}
               animate={{ opacity: quick ? 1 : 0 }}
               transition={swap}
               className="col-start-1 row-start-1 rounded-full bg-emerald-500/15 px-2 py-0.5 text-[0.5625rem] font-medium text-emerald-600 dark:text-emerald-400"

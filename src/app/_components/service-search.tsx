@@ -25,12 +25,12 @@ const others = [
   },
 ];
 
-export function CapabilitySearch() {
+export function ServiceSearch() {
   const frame = useRef<HTMLDivElement>(null);
   const seen = useInView(frame, { margin: "0px 0px -15% 0px" });
   const still = useReducedMotion();
-  const step = useLoop(2, 4800, seen && !still);
-  const risen = step === 1;
+  const step = useLoop(2, 4800, seen && !still, 1300);
+  const risen = still || step === 1;
   const swap = { duration: still ? 0 : 0.45 };
   const move = { duration: still ? 0 : 0.65, ease: [0.25, 1, 0.5, 1] as const };
 
@@ -56,6 +56,7 @@ export function CapabilitySearch() {
 
           <div className="mt-1.5 grid">
             <motion.p
+              initial={false}
               animate={{ opacity: risen ? 0 : 1 }}
               transition={swap}
               className="text-muted-foreground col-start-1 row-start-1 text-[0.5625rem] leading-relaxed"
@@ -64,6 +65,7 @@ export function CapabilitySearch() {
               calling ahead, as availability varies by day.
             </motion.p>
             <motion.p
+              initial={false}
               animate={{ opacity: risen ? 1 : 0 }}
               transition={swap}
               className="col-start-1 row-start-1 text-[0.5625rem] leading-relaxed"
@@ -75,6 +77,7 @@ export function CapabilitySearch() {
 
           <div className="mt-2 grid justify-items-start">
             <motion.span
+              initial={false}
               animate={{ opacity: risen ? 0 : 1 }}
               transition={swap}
               className="bg-background text-muted-foreground col-start-1 row-start-1 rounded border px-1.5 py-0.5 font-mono text-[0.5rem]"
@@ -82,6 +85,7 @@ export function CapabilitySearch() {
               citydirectory.com
             </motion.span>
             <motion.span
+              initial={false}
               animate={{ opacity: risen ? 1 : 0 }}
               transition={swap}
               className="bg-background col-start-1 row-start-1 flex items-center gap-1 rounded border px-1.5 py-0.5 font-mono text-[0.5rem]"
@@ -139,6 +143,7 @@ export function CapabilitySearch() {
                 {ours ? (
                   <span className="ml-auto grid shrink-0 justify-items-end">
                     <motion.span
+                      initial={false}
                       animate={{ opacity: risen ? 0 : 1 }}
                       transition={swap}
                       className="text-muted-foreground col-start-1 row-start-1 font-mono text-[0.5rem] tabular-nums"
@@ -146,6 +151,7 @@ export function CapabilitySearch() {
                       #3
                     </motion.span>
                     <motion.span
+                      initial={false}
                       animate={{ opacity: risen ? 1 : 0 }}
                       transition={swap}
                       className="text-primary col-start-1 row-start-1 font-mono text-[0.5rem] tabular-nums"

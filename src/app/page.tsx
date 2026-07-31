@@ -1,8 +1,8 @@
-import { Capabilities } from "@/app/_components/capabilities";
 import { Hero } from "@/app/_components/hero";
 import { HowWeWork } from "@/app/_components/how-we-work";
 import { PageBackdrop } from "@/app/_components/page-backdrop";
 import { SelectedWork } from "@/app/_components/selected-work";
+import { Services } from "@/app/_components/services";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
         <Hero />
         <HowWeWork />
         <SelectedWork />
-        <Capabilities />
+        <Services />
       </main>
     </>
   );

@@ -15,12 +15,12 @@ const services = [
   { name: "Emergencies", note: "Seen same day" },
 ];
 
-export function CapabilityRedesign() {
+export function ServiceRedesign() {
   const frame = useRef<HTMLDivElement>(null);
   const seen = useInView(frame, { margin: "0px 0px -15% 0px" });
   const still = useReducedMotion();
-  const step = useLoop(2, 4600, seen && !still);
-  const fresh = step === 1;
+  const step = useLoop(2, 4600, seen && !still, 1300);
+  const fresh = still || step === 1;
   const swap = { duration: still ? 0 : 0.6, ease: [0.25, 1, 0.5, 1] as const };
 
   return (
@@ -33,6 +33,7 @@ export function CapabilityRedesign() {
           <span className="bg-muted ml-1.5 h-2.5 w-full max-w-24 min-w-6 rounded-full" />
           <span className="ml-auto grid shrink-0 justify-items-end">
             <motion.span
+              initial={false}
               animate={{ opacity: fresh ? 0 : 1 }}
               transition={swap}
               className="bg-muted-foreground/15 text-muted-foreground col-start-1 row-start-1 rounded-full px-2.5 py-1 font-mono text-[0.625rem] font-medium tracking-widest uppercase"
@@ -40,6 +41,7 @@ export function CapabilityRedesign() {
               Before
             </motion.span>
             <motion.span
+              initial={false}
               animate={{ opacity: fresh ? 1 : 0 }}
               transition={swap}
               className="bg-foreground text-background col-start-1 row-start-1 rounded-full px-2.5 py-1 font-mono text-[0.625rem] font-medium tracking-widest uppercase"
@@ -51,6 +53,7 @@ export function CapabilityRedesign() {
 
         <div className="relative min-h-0 flex-1">
           <motion.div
+            initial={false}
             aria-hidden
             animate={{
               opacity: fresh ? 0 : 1,
@@ -107,7 +110,9 @@ export function CapabilityRedesign() {
                   key={service.name}
                   className="border-muted-foreground/25 rounded-xs border p-1.5"
                 >
-                  <span className="text-[0.5rem] font-bold">{service.name}</span>
+                  <span className="text-[0.5rem] font-bold">
+                    {service.name}
+                  </span>
                   <span className="text-muted-foreground mt-0.5 block text-[0.4375rem] underline">
                     Read more »
                   </span>
@@ -117,6 +122,7 @@ export function CapabilityRedesign() {
           </motion.div>
 
           <motion.div
+            initial={false}
             aria-hidden
             animate={{
               opacity: fresh ? 1 : 0,

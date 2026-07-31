@@ -8,17 +8,17 @@ import { useEffect, useRef, useState } from "react";
 const logo = "/previews/willow-logo.webp";
 const notice = "Open late on Thursdays until 8pm";
 
-export function CapabilityCms() {
+export function ServiceCms() {
   const frame = useRef<HTMLDivElement>(null);
   const seen = useInView(frame, { margin: "0px 0px -15% 0px" });
   const still = useReducedMotion();
-  const [typed, setTyped] = useState(notice.length);
-  const [live, setLive] = useState(true);
+  const [typed, setTyped] = useState(0);
+  const [live, setLive] = useState(false);
 
   useEffect(() => {
     if (!seen || still) return;
 
-    let at = notice.length;
+    let at = 0;
     let timer: ReturnType<typeof setTimeout>;
 
     const type = () => {
@@ -41,11 +41,13 @@ export function CapabilityCms() {
       timer = setTimeout(type, 700);
     };
 
-    timer = setTimeout(restart, 1600);
+    timer = setTimeout(type, 450);
     return () => clearTimeout(timer);
   }, [seen, still]);
 
-  const written = typed === notice.length;
+  const shown = still ? notice.length : typed;
+  const published = still || live;
+  const written = shown === notice.length;
   const swap = { duration: still ? 0 : 0.35 };
 
   return (
@@ -58,14 +60,16 @@ export function CapabilityCms() {
             </span>
             <span className="grid justify-items-end">
               <motion.span
-                animate={{ opacity: live ? 0 : 1 }}
+                initial={false}
+                animate={{ opacity: published ? 0 : 1 }}
                 transition={swap}
                 className="bg-muted text-muted-foreground col-start-1 row-start-1 rounded-full px-1.5 py-0.5 text-[0.5rem] font-medium"
               >
                 Draft
               </motion.span>
               <motion.span
-                animate={{ opacity: live ? 1 : 0 }}
+                initial={false}
+                animate={{ opacity: published ? 1 : 0 }}
                 transition={swap}
                 className="col-start-1 row-start-1 rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[0.5rem] font-medium text-emerald-600 dark:text-emerald-400"
               >
@@ -76,8 +80,9 @@ export function CapabilityCms() {
 
           <div className="bg-muted/50 mt-2 flex h-8 items-center rounded-md border px-2.5">
             <span className="truncate text-[0.625rem]">
-              {notice.slice(0, typed)}
+              {notice.slice(0, shown)}
               <motion.span
+                initial={false}
                 animate={{ opacity: still || written ? 0 : [1, 1, 0, 0] }}
                 transition={{ duration: 0.9, repeat: still ? 0 : Infinity }}
                 className="bg-foreground ml-px inline-block h-3 w-px align-middle"
@@ -90,12 +95,13 @@ export function CapabilityCms() {
               Dana · Reception
             </span>
             <motion.span
-              animate={{ scale: still ? 1 : written && !live ? 0.94 : 1 }}
+              animate={{ scale: still ? 1 : written && !published ? 0.94 : 1 }}
               transition={{ duration: 0.2 }}
               className="bg-primary text-primary-foreground flex items-center gap-1 rounded-full px-2.5 py-1 text-[0.5625rem] font-medium"
             >
               <motion.span
-                animate={{ opacity: live ? 1 : 0, width: live ? 10 : 0 }}
+                initial={false}
+                animate={{ opacity: published ? 1 : 0, width: published ? 10 : 0 }}
                 transition={swap}
                 className="overflow-hidden"
               >
@@ -117,7 +123,8 @@ export function CapabilityCms() {
           </div>
 
           <motion.div
-            animate={{ height: live ? 22 : 0, opacity: live ? 1 : 0 }}
+            initial={false}
+            animate={{ height: published ? 22 : 0, opacity: published ? 1 : 0 }}
             transition={{ duration: still ? 0 : 0.4, ease: [0.25, 1, 0.5, 1] }}
             className="flex shrink-0 items-center justify-center gap-1.5 overflow-hidden bg-teal-700/10"
           >
