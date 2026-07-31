@@ -6,6 +6,7 @@ import { PageBackdrop } from "@/app/_components/page-backdrop";
 import { Pricing } from "@/app/_components/pricing";
 import { SelectedWork } from "@/app/_components/selected-work";
 import { Services } from "@/app/_components/services";
+import { SiteDock } from "@/app/_components/site-dock";
 import { SiteFooter } from "@/app/_components/site-footer";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
       </main>
 
       <SiteFooter />
+      <SiteDock />
     </>
   );
 }
