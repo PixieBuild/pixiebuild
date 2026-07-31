@@ -14,8 +14,6 @@ import { CapabilityInterface } from "@/app/_components/capability-interface";
 import { CapabilityPerformance } from "@/app/_components/capability-performance";
 import { CapabilityRedesign } from "@/app/_components/capability-redesign";
 import { CapabilitySearch } from "@/app/_components/capability-search";
-import { CapabilityStrategy } from "@/app/_components/capability-strategy";
-import { CapabilitySystem } from "@/app/_components/capability-system";
 
 const capabilities = [
   {
@@ -47,19 +45,9 @@ const capabilities = [
     preview: <CapabilityAccessibility />,
   },
   {
-    title: "Product Strategy",
-    blurb: "Decide what to build before a month goes into building it.",
-    preview: <CapabilityStrategy />,
-  },
-  {
     title: "UI/UX Improvements",
     blurb: "Fewer steps between someone arriving and someone finishing.",
     preview: <CapabilityInterface />,
-  },
-  {
-    title: "Design Systems",
-    blurb: "One set of parts, so the next page starts three quarters done.",
-    preview: <CapabilitySystem />,
   },
 ];
 

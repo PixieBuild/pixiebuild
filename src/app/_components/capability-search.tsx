@@ -1,81 +1,169 @@
 "use client";
 
+import { RiSearchLine, RiSparkling2Fill } from "@remixicon/react";
 import { motion, useInView, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import { useRef } from "react";
 
 import { useLoop } from "@/hooks/use-loop";
 
-const others = ["directory listing", "old blog post", "competitor", "forum"];
+const logo = "/previews/willow-logo.webp";
+
+const mine = {
+  title: "Willow Dental — Family & Emergency Dentistry",
+  url: "willowdental.com",
+};
+
+const others = [
+  {
+    title: "The 12 Best Dentists in Portland (2026)",
+    url: "citydirectory.com › portland › dentists",
+  },
+  {
+    title: "Rose City Dental — General & Cosmetic Care",
+    url: "rosecitydental.com",
+  },
+  {
+    title: "Emergency Dental Clinic of Oregon",
+    url: "emergencydentaloregon.com",
+  },
+];
 
 export function CapabilitySearch() {
   const frame = useRef<HTMLDivElement>(null);
   const seen = useInView(frame, { margin: "0px 0px -15% 0px" });
   const still = useReducedMotion();
-  const step = useLoop(2, 4000, seen && !still);
+  const step = useLoop(2, 4800, seen && !still);
   const risen = step === 1;
+  const swap = { duration: still ? 0 : 0.45 };
+  const move = { duration: still ? 0 : 0.65, ease: [0.25, 1, 0.5, 1] as const };
 
-  const order = risen
-    ? ["you", ...others.slice(0, 3)]
-    : [...others.slice(0, 3), "you"];
+  const results = risen
+    ? [mine, ...others]
+    : [others[0], others[1], mine, others[2]];
 
   return (
-    <div
-      ref={frame}
-      className="flex size-full flex-col justify-center gap-4 p-6 sm:p-8"
-    >
-      <motion.div
-        animate={{ opacity: risen ? 1 : 0.25, y: risen ? 0 : -4 }}
-        transition={{ duration: 0.5 }}
-        className="bg-card shadow-panel rounded-lg border p-3"
-      >
-        <div className="flex items-center gap-2">
-          <span className="bg-primary size-1.5 rounded-full" />
-          <span className="text-muted-foreground font-mono text-[0.5625rem] tracking-widest uppercase">
-            AI answer
+    <div ref={frame} className="size-full p-4 sm:p-6">
+      <div className="bg-card shadow-elev-1 @container flex size-full flex-col gap-3 overflow-hidden rounded-xl border p-4 @min-[420px]:gap-4 @min-[420px]:p-5">
+        <div className="bg-muted/60 flex shrink-0 items-center gap-2 rounded-full border px-3 py-1.5">
+          <RiSearchLine className="text-muted-foreground size-3 shrink-0" />
+          <span className="truncate text-[0.625rem]">
+            emergency dentist east portland
           </span>
         </div>
-        <div className="mt-2 flex flex-col gap-1.5">
-          <span className="bg-muted-foreground/30 h-1.5 w-[85%] rounded-full" />
-          <span className="bg-muted-foreground/30 h-1.5 w-[60%] rounded-full" />
-        </div>
-        <div className="mt-2.5 flex items-center gap-1.5">
-          <span className="bg-primary/15 text-primary rounded px-1.5 py-0.5 font-mono text-[0.5625rem]">
-            yoursite.com
-          </span>
-        </div>
-      </motion.div>
 
-      <div className="flex flex-col gap-2">
-        {order.map((item, place) => {
-          const mine = item === "you";
+        <div className="border-primary/25 bg-primary/5 shrink-0 rounded-lg border p-2.5">
+          <div className="flex items-center gap-1.5">
+            <RiSparkling2Fill className="text-primary size-2.5" />
+            <span className="text-primary font-mono text-[0.5rem] tracking-widest uppercase">
+              AI overview
+            </span>
+          </div>
 
-          return (
-            <motion.div
-              key={item}
-              layout
-              transition={{ duration: still ? 0 : 0.6, ease: [0.25, 1, 0.5, 1] }}
-              className={`flex items-center gap-3 rounded-lg border px-3 py-2.5 ${
-                mine ? "border-primary/40 bg-primary/5" : "bg-card/50"
-              }`}
+          <div className="mt-1.5 grid">
+            <motion.p
+              animate={{ opacity: risen ? 0 : 1 }}
+              transition={swap}
+              className="text-muted-foreground col-start-1 row-start-1 text-[0.5625rem] leading-relaxed"
             >
-              <span
-                className={`font-mono text-[0.625rem] tabular-nums ${
-                  mine ? "text-primary" : "text-muted-foreground"
+              Several Portland clinics list emergency hours. Directories suggest
+              calling ahead, as availability varies by day.
+            </motion.p>
+            <motion.p
+              animate={{ opacity: risen ? 1 : 0 }}
+              transition={swap}
+              className="col-start-1 row-start-1 text-[0.5625rem] leading-relaxed"
+            >
+              Willow Dental sees emergency patients the same day at its east
+              Portland practice, with prices published up front.
+            </motion.p>
+          </div>
+
+          <div className="mt-2 grid justify-items-start">
+            <motion.span
+              animate={{ opacity: risen ? 0 : 1 }}
+              transition={swap}
+              className="bg-background text-muted-foreground col-start-1 row-start-1 rounded border px-1.5 py-0.5 font-mono text-[0.5rem]"
+            >
+              citydirectory.com
+            </motion.span>
+            <motion.span
+              animate={{ opacity: risen ? 1 : 0 }}
+              transition={swap}
+              className="bg-background col-start-1 row-start-1 flex items-center gap-1 rounded border px-1.5 py-0.5 font-mono text-[0.5rem]"
+            >
+              <Image
+                src={logo}
+                alt=""
+                width={256}
+                height={256}
+                className="size-2.5"
+              />
+              willowdental.com
+            </motion.span>
+          </div>
+        </div>
+
+        <div className="flex min-h-0 flex-1 flex-col justify-center gap-2.5">
+          {results.map((result) => {
+            const ours = result.url === mine.url;
+
+            return (
+              <motion.div
+                key={result.url}
+                layout
+                transition={move}
+                className={`flex items-center gap-2 rounded-md px-2 py-1.5 ${
+                  ours ? "bg-primary/5 ring-primary/25 ring-1" : ""
                 }`}
               >
-                {place + 1}
-              </span>
-              <span className="flex flex-1 flex-col gap-1.5">
-                <span
-                  className={`h-1.5 rounded-full ${
-                    mine ? "bg-primary/70 w-24" : "bg-muted-foreground/35 w-16"
-                  }`}
-                />
-                <span className="bg-muted-foreground/20 h-1 w-32 rounded-full" />
-              </span>
-            </motion.div>
-          );
-        })}
+                {ours ? (
+                  <Image
+                    src={logo}
+                    alt=""
+                    width={256}
+                    height={256}
+                    className="size-3 shrink-0"
+                  />
+                ) : (
+                  <span className="bg-muted-foreground/25 size-3 shrink-0 rounded-full" />
+                )}
+
+                <span className="flex min-w-0 flex-col">
+                  <span
+                    className={`truncate text-[0.5625rem] @min-[420px]:text-[0.625rem] ${
+                      ours ? "font-medium" : ""
+                    }`}
+                  >
+                    {result.title}
+                  </span>
+                  <span className="text-muted-foreground truncate font-mono text-[0.5rem]">
+                    {result.url}
+                  </span>
+                </span>
+
+                {ours ? (
+                  <span className="ml-auto grid shrink-0 justify-items-end">
+                    <motion.span
+                      animate={{ opacity: risen ? 0 : 1 }}
+                      transition={swap}
+                      className="text-muted-foreground col-start-1 row-start-1 font-mono text-[0.5rem] tabular-nums"
+                    >
+                      #3
+                    </motion.span>
+                    <motion.span
+                      animate={{ opacity: risen ? 1 : 0 }}
+                      transition={swap}
+                      className="text-primary col-start-1 row-start-1 font-mono text-[0.5rem] tabular-nums"
+                    >
+                      #1
+                    </motion.span>
+                  </span>
+                ) : null}
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
