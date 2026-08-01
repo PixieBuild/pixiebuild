@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import { MobileNav } from "@/app/_components/mobile-nav";
+import { ContactButton } from "@/components/contact-button";
+import { MobileNav } from "@/components/mobile-nav";
 import PbLogo from "@/assets/pb-logo.svg";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Button } from "@/components/ui/button";
 
 const links = [
   { label: "Process", href: "#process" },
@@ -44,14 +44,9 @@ export function SiteHeader() {
 
         <div className="flex shrink-0 items-center gap-1.5">
           <ThemeToggle />
-          <Button
-            className="hidden md:inline-flex"
-            size="sm"
-            nativeButton={false}
-            render={<a href="#contact" />}
-          >
+          <ContactButton className="hidden md:inline-flex" size="sm">
             Start a project
-          </Button>
+          </ContactButton>
           <span className="md:hidden">
             <MobileNav links={links} />
           </span>

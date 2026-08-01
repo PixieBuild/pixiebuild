@@ -1,6 +1,6 @@
 import { RiArrowRightLine } from "@remixicon/react";
 
-import { Button } from "@/components/ui/button";
+import { ContactButton } from "@/components/contact-button";
 
 const projects = [
   {
@@ -57,13 +57,10 @@ export function Pricing() {
                 </p>
               </div>
 
-              <a
-                href="#contact"
-                className="bg-primary text-primary-foreground ease-interface hover:bg-primary/85 flex items-center justify-center gap-2 py-4 text-sm font-medium transition-colors duration-300"
-              >
+              <ContactButton className="h-auto gap-2 rounded-none py-4 text-sm font-medium">
                 {project.action}
                 <RiArrowRightLine className="ease-interface size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </a>
+              </ContactButton>
             </div>
           ))}
         </div>
@@ -79,15 +76,9 @@ export function Pricing() {
             </p>
           </div>
 
-          <Button
-            size="lg"
-            variant="outline"
-            nativeButton={false}
-            render={<a href="#contact" />}
-            className="shrink-0"
-          >
+          <ContactButton size="lg" variant="outline" className="shrink-0">
             Book a discovery call
-          </Button>
+          </ContactButton>
         </div>
 
         <p className="text-muted-foreground mx-auto mt-10 max-w-lg text-center text-xs leading-relaxed text-pretty">
@@ -97,13 +88,13 @@ export function Pricing() {
 
         <p className="mt-14 text-center text-lg tracking-tight text-balance md:mt-16">
           Not sure which one fits?{" "}
-          <a
-            href="#contact"
-            className="text-primary group/link decoration-primary/40 hover:decoration-primary ease-interface inline-flex items-center gap-1 font-medium underline decoration-1 underline-offset-4 transition-colors duration-300"
+          <ContactButton
+            variant="link"
+            className="text-primary group/link decoration-primary/40 hover:decoration-primary ease-interface h-auto gap-1 p-0 text-lg font-medium underline decoration-1 underline-offset-4"
           >
             Tell us what you have in mind
             <RiArrowRightLine className="ease-interface size-4 transition-transform duration-300 group-hover/link:translate-x-0.5" />
-          </a>{" "}
+          </ContactButton>{" "}
           <span className="text-muted-foreground">
             and we will work it out together.
           </span>

@@ -6,8 +6,9 @@ import { PageBackdrop } from "@/app/_components/page-backdrop";
 import { Pricing } from "@/app/_components/pricing";
 import { SelectedWork } from "@/app/_components/selected-work";
 import { Services } from "@/app/_components/services";
-import { SiteDock } from "@/app/_components/site-dock";
-import { SiteFooter } from "@/app/_components/site-footer";
+import { ContactDialog } from "@/components/contact-dialog";
+import { SiteDock } from "@/components/site-dock";
+import { SiteFooter } from "@/components/site-footer";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
 
       <SiteFooter />
       <SiteDock />
+      <ContactDialog />
     </>
   );
 }

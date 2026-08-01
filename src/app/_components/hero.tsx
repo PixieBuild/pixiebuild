@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 
-import { SiteHeader } from "@/app/_components/site-header";
+import { ContactButton } from "@/components/contact-button";
+import { SiteHeader } from "@/components/site-header";
 import PbLogo from "@/assets/pb-logo.svg";
 import { Button } from "@/components/ui/button";
 
@@ -71,13 +72,7 @@ export function Hero() {
             style={{ animationDelay: "580ms" }}
             className="motion-reduce:animate-none mt-7 flex animate-rise-in flex-wrap gap-3 sm:mt-8"
           >
-            <Button
-              size="lg"
-              nativeButton={false}
-              render={<a href="#contact" />}
-            >
-              Start a project
-            </Button>
+            <ContactButton size="lg">Start a project</ContactButton>
             <Button
               size="lg"
               variant="outline"

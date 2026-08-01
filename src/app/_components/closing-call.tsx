@@ -1,3 +1,4 @@
+import { ContactButton } from "@/components/contact-button";
 import { Button } from "@/components/ui/button";
 
 export function ClosingCall() {
@@ -15,9 +16,7 @@ export function ClosingCall() {
         </p>
 
         <div className="mt-9 flex flex-wrap justify-center gap-3">
-          <Button size="lg" nativeButton={false} render={<a href="#contact" />}>
-            Tell us about it
-          </Button>
+          <ContactButton size="lg">Tell us about it</ContactButton>
           <Button
             size="lg"
             variant="outline"
