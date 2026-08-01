@@ -39,8 +39,8 @@ const routes = [
 ];
 
 export function ContactDialog() {
-  const open = useAppStore((state) => state.contactOpen);
-  const setOpen = useAppStore((state) => state.setContactOpen);
+  const open = useAppStore(state => state.contactOpen);
+  const setOpen = useAppStore(state => state.setContactOpen);
   const [pick, setPick] = useState<"call" | "brief" | null>(null);
 
   const handleOpenChange = (next: boolean) => {
@@ -50,7 +50,7 @@ export function ContactDialog() {
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-background grid h-[min(90dvh,46rem)] grid-rows-[auto_1fr] gap-0 overflow-hidden p-0 sm:max-w-5xl">
+      <DialogContent className="bg-background grid h-[min(90dvh,46rem)] grid-rows-[auto_1fr] gap-0 overflow-hidden p-0 sm:max-w-[90%] lg:max-w-5xl">
         <header className="flex items-start gap-3 border-b px-5 py-4 sm:px-6 sm:py-5">
           {pick ? (
             <Button
@@ -78,7 +78,7 @@ export function ContactDialog() {
         <div className="grid min-h-0 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:divide-x">
           {pick === null ? (
             <div className="flex min-h-0 flex-col gap-4 p-5 md:hidden">
-              {routes.map((route) => (
+              {routes.map(route => (
                 <button
                   key={route.id}
                   type="button"
