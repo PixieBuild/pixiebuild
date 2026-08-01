@@ -76,7 +76,13 @@ export function CalEmbed({ calLink, namespace }: CalEmbedProps) {
           className={`ease-interface transition-opacity duration-300 ${
             ready ? "opacity-100" : "opacity-0"
           }`}
-          style={{ width: "100%", height: "100%", overflow: "hidden" }}
+          /* Runs wider than the frame that clips it, so the booker's own
+             scrollbar falls outside the visible edge. */
+          style={{
+            width: "calc(100% + 16px)",
+            height: "100%",
+            overflow: "hidden",
+          }}
           config={{
             layout: "month_view",
             useSlotsViewOnSmallScreen: "true",

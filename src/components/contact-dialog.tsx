@@ -26,22 +26,28 @@ const routes = [
     id: "call" as const,
     icon: RiCalendarLine,
     title: "Book a call",
-    hint: "Pick a slot that suits you and we will meet on video.",
+    hint: "Fifteen minutes on video, at a time that suits you.",
     meta: "15 minutes",
+    action: "Pick a time",
   },
   {
     id: "brief" as const,
     icon: RiSendPlaneLine,
     title: "Send a brief",
-    hint: "Tell us what you are building and we reply by email.",
+    hint: "A few lines about the project, and we reply by email.",
     meta: "Four fields",
+    action: "Start writing",
   },
 ];
 
 export function ContactDialog() {
-  const open = useAppStore(state => state.contactOpen);
-  const setOpen = useAppStore(state => state.setContactOpen);
+  const open = useAppStore((state) => state.contactOpen);
+  const setOpen = useAppStore((state) => state.setContactOpen);
   const [pick, setPick] = useState<"call" | "brief" | null>(null);
+
+  /* Only ever set on a phone, where one route fills the dialog and the header
+     has to say which one you are in. */
+  const chosen = routes.find((route) => route.id === pick);
 
   const handleOpenChange = (next: boolean) => {
     setOpen(next);
@@ -66,62 +72,101 @@ export function ContactDialog() {
 
           <div className="min-w-0">
             <DialogTitle className="text-lg font-semibold tracking-tight">
-              Let&apos;s talk about it
+              {chosen ? chosen.title : "Choose how you'd like to start"}
             </DialogTitle>
             <DialogDescription className="text-muted-foreground mt-1 text-sm text-pretty">
-              Book a fifteen minute call, or send the idea over and we will
-              reply.
+              {chosen
+                ? chosen.hint
+                : "Either one reaches us. Take whichever suits you."}
             </DialogDescription>
           </div>
         </header>
 
-        <div className="grid min-h-0 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:divide-x">
+        <div className="relative grid min-h-0 md:grid-cols-2 md:divide-x">
+          <span
+            aria-hidden
+            className="bg-primary text-primary-foreground ring-background absolute top-1/2 left-1/2 z-10 hidden size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full font-mono text-[0.5625rem] font-medium tracking-widest uppercase ring-4 md:flex"
+          >
+            or
+          </span>
+
           {pick === null ? (
             <div className="flex min-h-0 flex-col gap-4 p-5 md:hidden">
-              {routes.map(route => (
+              {routes.map((route) => (
                 <button
                   key={route.id}
                   type="button"
                   onClick={() => setPick(route.id)}
-                  className="bg-card hover:border-primary/40 ease-interface flex flex-1 flex-col justify-between rounded-2xl border p-5 text-left transition-colors duration-300"
+                  className="bg-card hover:border-primary/40 ease-interface flex flex-1 flex-col justify-center rounded-2xl border p-6 text-left transition-colors duration-300"
                 >
-                  <span className="bg-primary/10 text-primary flex size-11 items-center justify-center rounded-xl">
-                    <route.icon className="size-5" />
-                  </span>
-
-                  <span className="mt-6">
-                    <span className="block text-lg font-semibold tracking-tight">
-                      {route.title}
+                  <span className="flex items-center justify-between gap-3">
+                    <span className="bg-primary/10 text-primary flex size-12 shrink-0 items-center justify-center rounded-2xl">
+                      <route.icon className="size-6" />
                     </span>
-                    <span className="text-muted-foreground mt-1.5 block text-sm leading-relaxed text-pretty">
-                      {route.hint}
+                    <span className="text-muted-foreground font-mono text-[0.625rem] tracking-widest uppercase">
+                      {route.meta}
                     </span>
                   </span>
 
-                  <span className="text-muted-foreground mt-5 flex items-center gap-1.5 font-mono text-[0.625rem] tracking-widest uppercase">
-                    {route.meta}
-                    <RiArrowRightLine className="size-3.5" />
+                  <span className="mt-5 block text-xl font-semibold tracking-tight">
+                    {route.title}
+                  </span>
+                  <span className="text-muted-foreground mt-2 block text-sm leading-relaxed text-pretty">
+                    {route.hint}
+                  </span>
+
+                  <span className="text-primary mt-5 flex items-center gap-1.5 text-sm font-medium">
+                    {route.action}
+                    <RiArrowRightLine className="size-4" />
                   </span>
                 </button>
               ))}
             </div>
           ) : null}
 
-          <div
-            className={`min-h-0 min-w-0 flex-col overflow-hidden ${
+          <section
+            className={`min-h-0 min-w-0 flex-col ${
               pick === "call" ? "flex" : "hidden"
             } md:flex`}
           >
-            <CalEmbed namespace="15min" calLink={calLink} />
-          </div>
+            <div className="hidden shrink-0 items-start gap-3 px-5 pt-5 sm:px-6 sm:pt-6 md:flex">
+              <span className="bg-primary/10 text-primary flex size-9 shrink-0 items-center justify-center rounded-lg">
+                <RiCalendarLine className="size-4" />
+              </span>
+              <div className="min-w-0">
+                <h3 className="font-semibold tracking-tight">Book a call</h3>
+                <p className="text-muted-foreground mt-0.5 text-sm text-pretty">
+                  {routes[0].hint}
+                </p>
+              </div>
+            </div>
 
-          <div
-            className={`scrollbar-quiet min-h-0 min-w-0 flex-col overflow-y-auto p-5 sm:p-6 ${
+            <div className="mt-4 min-h-0 flex-1 overflow-hidden">
+              <CalEmbed namespace="15min" calLink={calLink} />
+            </div>
+          </section>
+
+          <section
+            className={`scrollbar-quiet min-h-0 min-w-0 flex-col overflow-y-auto ${
               pick === "brief" ? "flex" : "hidden"
             } md:flex`}
           >
-            <ContactForm />
-          </div>
+            <div className="hidden shrink-0 items-start gap-3 px-5 pt-5 sm:px-6 sm:pt-6 md:flex">
+              <span className="bg-primary/10 text-primary flex size-9 shrink-0 items-center justify-center rounded-lg">
+                <RiSendPlaneLine className="size-4" />
+              </span>
+              <div className="min-w-0">
+                <h3 className="font-semibold tracking-tight">Send a brief</h3>
+                <p className="text-muted-foreground mt-0.5 text-sm text-pretty">
+                  {routes[1].hint}
+                </p>
+              </div>
+            </div>
+
+            <div className="px-5 pt-5 pb-5 sm:px-6 sm:pb-6">
+              <ContactForm />
+            </div>
+          </section>
         </div>
       </DialogContent>
     </Dialog>
