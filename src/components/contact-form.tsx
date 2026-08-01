@@ -25,11 +25,25 @@ export function ContactForm() {
     defaultValues: { name: "", email: "", kind: "Website", brief: "" },
   });
 
-  const onSubmit = (values: ContactBrief) => {
-    console.log("Project brief", values);
+  const onSubmit = async (values: ContactBrief) => {
+    try {
+      const reply = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      if (!reply.ok) throw new Error(await reply.text());
+    } catch {
+      form.setError("root", {
+        message: "That did not send. Try again, or email hello@pixiebuild.com.",
+      });
+    }
   };
 
-  if (form.formState.isSubmitSuccessful) {
+  const sent = form.formState.isSubmitSuccessful && !form.formState.errors.root;
+
+  if (sent) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
         <span className="bg-primary/10 text-primary flex size-11 items-center justify-center rounded-full">
@@ -130,13 +144,19 @@ export function ContactForm() {
           )}
         />
 
+        {form.formState.errors.root ? (
+          <p className="text-destructive text-sm">
+            {form.formState.errors.root.message}
+          </p>
+        ) : null}
+
         <Button
           type="submit"
           size="lg"
           disabled={form.formState.isSubmitting}
           className="w-full"
         >
-          Send it over
+          {form.formState.isSubmitting ? "Sending…" : "Send it over"}
         </Button>
       </FieldGroup>
     </form>
