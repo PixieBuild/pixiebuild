@@ -75,7 +75,6 @@ export function ContactForm() {
               <Input
                 {...field}
                 id={field.name}
-                type="email"
                 autoComplete="email"
                 aria-invalid={fieldState.invalid}
               />
@@ -93,7 +92,7 @@ export function ContactForm() {
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor={field.name}>What are you after?</FieldLabel>
               <div id={field.name} className="flex flex-wrap gap-2">
-                {projectKinds.map((kind) => (
+                {projectKinds.map(kind => (
                   <button
                     key={kind}
                     type="button"
