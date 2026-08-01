@@ -30,7 +30,7 @@ export function ArtifactIterate() {
           <div className="w-full max-w-56 rounded-lg border p-4">
             <p className="text-muted-foreground text-sm">Studio plan</p>
             <p className="text-muted-foreground mt-1 text-sm tabular-nums">
-              $12,000
+              $1,500
             </p>
             <p className="text-muted-foreground mt-3 text-xs leading-relaxed">
               Design and build, four weeks.
@@ -54,7 +54,7 @@ export function ArtifactIterate() {
             </div>
             <p className="mt-2 flex items-baseline gap-1.5">
               <span className="text-2xl font-semibold tracking-tight tabular-nums">
-                $12,000
+                $1,500
               </span>
               <span className="text-muted-foreground text-xs">/ project</span>
             </p>

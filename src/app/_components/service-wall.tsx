@@ -122,6 +122,7 @@ export function ServiceWall() {
 
           <div
             aria-hidden
+            data-nosnippet
             className="bg-card/40 order-1 mx-auto w-full max-w-lg overflow-hidden rounded-2xl border lg:order-2 lg:col-span-7 lg:mx-0 lg:max-w-none"
           >
             <div className="relative aspect-square sm:aspect-4/3">
