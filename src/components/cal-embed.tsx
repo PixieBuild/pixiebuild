@@ -11,18 +11,16 @@ type CalEmbedProps = {
 
 /**
  * Cal applies these inside its own document, where our tokens do not resolve,
- * so it takes values. They mirror --primary and --background from globals.css
- * and have to be changed alongside them.
+ * so it takes values. These mirror --background from globals.css and have to be
+ * changed alongside it.
  */
-const skin = {
+const surface = {
   light: {
-    "cal-brand": "#0077b6",
     "cal-bg": "#ffffff",
     "cal-bg-muted": "#ffffff",
     "cal-bg-subtle": "#ffffff",
   },
   dark: {
-    "cal-brand": "#0077b6",
     "cal-bg": "#090b0c",
     "cal-bg-muted": "#090b0c",
     "cal-bg-subtle": "#090b0c",
@@ -43,8 +41,17 @@ export function CalEmbed({ calLink, namespace }: CalEmbedProps) {
     (async () => {
       const cal = await getCalApi({ namespace });
 
+      /* The embed only mounts with the dialog, so the brand can be read off
+         the page as it opens — including whatever the dock has set. */
+      const brand = getComputedStyle(document.documentElement)
+        .getPropertyValue("--primary")
+        .trim();
+
       cal("ui", {
-        cssVarsPerTheme: skin,
+        cssVarsPerTheme: {
+          light: { ...surface.light, "cal-brand": brand },
+          dark: { ...surface.dark, "cal-brand": brand },
+        },
         hideEventTypeDetails: false,
         layout: "month_view",
         theme: resolvedTheme === "dark" ? "dark" : "light",

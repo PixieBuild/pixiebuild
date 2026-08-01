@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RiCheckLine } from "@remixicon/react";
+import { RiCheckLine, RiMailLine, RiWhatsappLine } from "@remixicon/react";
 import { Controller, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -159,6 +159,32 @@ export function ContactForm() {
           {form.formState.isSubmitting ? "Sending…" : "Send it over"}
         </Button>
       </FieldGroup>
+
+      <div className="mt-6 flex items-center justify-end gap-3">
+        <span className="text-muted-foreground font-mono text-[0.625rem] tracking-widest uppercase">
+          Or reach us
+        </span>
+
+        <a
+          href="mailto:hello@pixiebuild.com"
+          aria-label="Email hello@pixiebuild.com"
+          title="hello@pixiebuild.com"
+          className="text-muted-foreground hover:text-foreground hover:border-primary/40 ease-interface flex size-9 items-center justify-center rounded-full border transition-colors duration-300"
+        >
+          <RiMailLine className="size-4" />
+        </a>
+
+        <a
+          href="https://wa.me/917759017655"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="WhatsApp +91 77590 17655"
+          title="+91 77590 17655"
+          className="text-muted-foreground hover:text-foreground hover:border-primary/40 ease-interface flex size-9 items-center justify-center rounded-full border transition-colors duration-300"
+        >
+          <RiWhatsappLine className="size-4" />
+        </a>
+      </div>
     </form>
   );
 }
