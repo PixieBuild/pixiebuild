@@ -1,3 +1,5 @@
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import "./globals.css";
 import { DM_Sans, Geist, Inter, Manrope, Roboto } from "next/font/google";
@@ -93,6 +95,9 @@ export default function RootLayout({
         >
           {children}
         </ThemeProvider>
+
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
