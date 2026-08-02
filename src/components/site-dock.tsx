@@ -2,6 +2,7 @@
 
 import { RiCheckLine } from "@remixicon/react";
 import { motion, useScroll } from "motion/react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import {
@@ -130,13 +131,17 @@ export function SiteDock() {
             {at.label}
           </DropdownMenuTrigger>
           <DropdownMenuContent side="top" sideOffset={12} className="w-44 p-1.5">
-            {places
-              .filter((place) => place.id !== "top")
-              .map((place) => (
+            {places.map((place) => {
+              /* Routing to / from / is not a navigation, so nothing scrolls
+                 on its own. */
+              const home = place.id === "top";
+
+              return (
                 <DropdownMenuItem
                   key={place.id}
                   nativeButton={false}
-                  render={<a href={`#${place.id}`} />}
+                  render={home ? <Link href="/" /> : <a href={`#${place.id}`} />}
+                  onClick={home ? () => window.scrollTo({ top: 0 }) : undefined}
                   className="justify-between rounded-2xl px-3 py-2.5"
                 >
                   {place.label}
@@ -144,7 +149,8 @@ export function SiteDock() {
                     <RiCheckLine className="text-primary size-4" />
                   ) : null}
                 </DropdownMenuItem>
-              ))}
+              );
+            })}
           </DropdownMenuContent>
         </DropdownMenu>
 
