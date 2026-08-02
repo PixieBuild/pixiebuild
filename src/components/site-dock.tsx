@@ -130,19 +130,21 @@ export function SiteDock() {
             {at.label}
           </DropdownMenuTrigger>
           <DropdownMenuContent side="top" sideOffset={12} className="w-44 p-1.5">
-            {places.map((place) => (
-              <DropdownMenuItem
-                key={place.id}
-                nativeButton={false}
-                render={<a href={`#${place.id}`} />}
-                className="justify-between rounded-2xl px-3 py-2.5"
-              >
-                {place.label}
-                {place.id === at.id ? (
-                  <RiCheckLine className="text-primary size-4" />
-                ) : null}
-              </DropdownMenuItem>
-            ))}
+            {places
+              .filter((place) => place.id !== "top")
+              .map((place) => (
+                <DropdownMenuItem
+                  key={place.id}
+                  nativeButton={false}
+                  render={<a href={`#${place.id}`} />}
+                  className="justify-between rounded-2xl px-3 py-2.5"
+                >
+                  {place.label}
+                  {place.id === at.id ? (
+                    <RiCheckLine className="text-primary size-4" />
+                  ) : null}
+                </DropdownMenuItem>
+              ))}
           </DropdownMenuContent>
         </DropdownMenu>
 
