@@ -196,43 +196,50 @@ export function WorkCarousel({ projects }: WorkCarouselProps) {
       </div>
 
       <div className="mx-auto mt-8 grid max-w-2xl px-6 sm:mt-14">
-        {projects.map(project => (
-          <div
-            key={project.name}
-            aria-hidden={project.name !== current.name}
-            style={{
-              opacity: project.name === current.name ? 1 : 0,
-              transitionDelay: project.name === current.name ? "300ms" : "0ms",
-            }}
-            className="ease-interface col-start-1 row-start-1 flex flex-col gap-2 text-center transition-opacity duration-300"
-          >
-            <h3 className="text-xl font-semibold tracking-tight">
-              {project.name}
-            </h3>
+        {projects.map(project => {
+          const showing = project.name === current.name;
 
-            <p className="text-muted-foreground text-sm text-pretty">
-              {project.built}
-            </p>
+          return (
+            <div
+              key={project.name}
+              aria-hidden={!showing}
+              style={{
+                opacity: showing ? 1 : 0,
+                visibility: showing ? "visible" : "hidden",
+                transition: showing
+                  ? "opacity 300ms var(--ease-interface) 300ms, visibility 0s 300ms"
+                  : "opacity 300ms var(--ease-interface), visibility 0s 300ms",
+              }}
+              className="col-start-1 row-start-1 flex flex-col gap-2 text-center"
+            >
+              <h3 className="text-xl font-semibold tracking-tight">
+                {project.name}
+              </h3>
 
-            <ul className="text-muted-foreground flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[0.6875rem]">
-              {project.delivered.map((item, place) => (
-                <li key={item} className="flex items-center gap-3">
-                  {place > 0 ? (
-                    <span
-                      aria-hidden
-                      className="bg-border size-1 rounded-full"
-                    />
-                  ) : null}
-                  {item}
+              <p className="text-muted-foreground text-sm text-pretty">
+                {project.built}
+              </p>
+
+              <ul className="text-muted-foreground flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[0.6875rem]">
+                {project.delivered.map((item, place) => (
+                  <li key={item} className="flex items-center gap-3">
+                    {place > 0 ? (
+                      <span
+                        aria-hidden
+                        className="bg-border size-1 rounded-full"
+                      />
+                    ) : null}
+                    {item}
+                  </li>
+                ))}
+                <li className="flex items-center gap-3">
+                  <span aria-hidden className="bg-border size-1 rounded-full" />
+                  {project.year}
                 </li>
-              ))}
-              <li className="flex items-center gap-3">
-                <span aria-hidden className="bg-border size-1 rounded-full" />
-                {project.year}
-              </li>
-            </ul>
-          </div>
-        ))}
+              </ul>
+            </div>
+          );
+        })}
       </div>
 
       <div className="mt-5 flex items-center justify-center gap-2 sm:mt-8">
