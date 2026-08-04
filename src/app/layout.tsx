@@ -2,7 +2,14 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import "./globals.css";
-import { DM_Sans, Geist, Inter, Manrope, Roboto } from "next/font/google";
+import {
+  DM_Sans,
+  Geist,
+  Instrument_Serif,
+  Inter,
+  Manrope,
+  Roboto,
+} from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -16,6 +23,12 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-instrument-serif",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -68,6 +81,7 @@ export default function RootLayout({
         geist.variable,
         manrope.variable,
         dmSans.variable,
+        instrumentSerif.variable,
         robotoHeading.variable
       )}
     >

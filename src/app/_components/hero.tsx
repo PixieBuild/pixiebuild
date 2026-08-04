@@ -1,8 +1,8 @@
 import { Fragment } from "react";
 
 import { ContactButton } from "@/components/contact-button";
+import { HeroBuild } from "@/app/_components/hero-build";
 import { SiteHeader } from "@/components/site-header";
-import PbLogo from "@/assets/pb-logo.svg";
 import { Button } from "@/components/ui/button";
 
 const headline = ["Beautiful", "is", "the", "baseline"];
@@ -14,20 +14,19 @@ export function Hero() {
 
       <SiteHeader />
 
-      <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-14 sm:px-8 sm:pt-16 sm:pb-16 md:px-12 md:pt-24 md:pb-20 lg:px-16">
-        <PbLogo
-          aria-hidden
-          className="text-foreground pointer-events-none absolute right-0 bottom-0 size-48 opacity-[0.12] mask-[linear-gradient(to_top_left,black,transparent_78%)] sm:bottom-18 md:right-0 md:bottom-22 md:size-64 lg:right-4 lg:size-72 xl:-right-12 2xl:-right-20 dark:opacity-[0.1]"
-        />
+      <div className="relative mx-auto max-w-6xl px-6 pt-16 pb-14 sm:px-8 sm:pb-16 md:px-12 md:pb-20 lg:px-16 xl:pt-24">
         <p
           style={{ animationDelay: "0ms" }}
           className="bg-background/55 text-foreground motion-reduce:animate-none inline-flex animate-rise-in items-center gap-2.5 rounded-full border py-1.5 pr-4 pl-3 text-sm backdrop-blur-xl"
         >
-          <span aria-hidden className="bg-emerald-500 size-1.5 rounded-full" />
-          Open for new projects
+          <span aria-hidden className="relative flex size-1.5">
+            <span className="bg-emerald-500 motion-safe:animate-ping absolute inline-flex size-full rounded-full opacity-60" />
+            <span className="bg-emerald-500 relative inline-flex size-1.5 rounded-full" />
+          </span>
+          Now booking new projects
         </p>
 
-        <h1 className="mt-7 text-[clamp(2.75rem,6.6vw,4.5rem)] leading-[1.05] font-semibold tracking-[-0.035em] sm:mt-8 md:mt-12 md:leading-[1.15]">
+        <h1 className="mt-5 text-[clamp(2.25rem,4.8vw,3.25rem)] leading-[1.05] font-semibold tracking-[-0.035em] sm:mt-6 md:mt-7 md:leading-[1.08]">
           <span className="block">
             {headline.map((word, index) => (
               <Fragment key={word}>
@@ -54,50 +53,31 @@ export function Hero() {
           </span>
         </h1>
 
-        <div className="mt-9 sm:mt-11 md:mt-16">
-          <span
-            aria-hidden
-            className="from-border to-transparent mb-8 hidden h-px bg-linear-to-r from-45% to-85% md:block"
-          />
-
-          <p
-            style={{ animationDelay: "520ms" }}
-            className="text-muted-foreground motion-reduce:animate-none max-w-[40ch] animate-rise-in text-lg leading-relaxed text-pretty"
-          >
-            Websites and web apps for startups and businesses — designed, built
-            and shipped in weeks.
-          </p>
-
-          <div
-            style={{ animationDelay: "580ms" }}
-            className="motion-reduce:animate-none mt-7 flex animate-rise-in flex-wrap gap-3 sm:mt-8"
-          >
-            <ContactButton size="lg">Start a project</ContactButton>
-            <Button
-              size="lg"
-              variant="outline"
-              nativeButton={false}
-              render={<a href="#work" />}
-            >
-              See our work
-            </Button>
-          </div>
-        </div>
+        <p
+          style={{ animationDelay: "520ms" }}
+          className="text-muted-foreground motion-reduce:animate-none mt-4 max-w-[40ch] animate-rise-in text-lg leading-relaxed text-pretty sm:mt-5"
+        >
+          Websites and web apps for startups and businesses — designed, built
+          and shipped in weeks.
+        </p>
 
         <div
-          style={{ animationDelay: "640ms" }}
-          className="text-muted-foreground motion-reduce:animate-none mt-11 flex animate-rise-in flex-wrap items-center gap-x-3 gap-y-2 text-xs font-medium tracking-widest uppercase sm:mt-12 sm:gap-x-4 md:mt-16"
+          style={{ animationDelay: "580ms" }}
+          className="motion-reduce:animate-none mt-6 flex animate-rise-in flex-wrap gap-3 sm:mt-7"
         >
-          <span className="whitespace-nowrap">Fast by default</span>
-          <span
-            aria-hidden
-            className="bg-border size-1 shrink-0 rounded-full"
-          />
-          <span className="whitespace-nowrap">Accessible by design</span>
-          <span
-            aria-hidden
-            className="from-border hidden h-px min-w-6 flex-1 bg-linear-to-r to-transparent sm:block"
-          />
+          <ContactButton size="lg">Start a project</ContactButton>
+          <Button
+            size="lg"
+            variant="outline"
+            nativeButton={false}
+            render={<a href="#work" />}
+          >
+            See our work
+          </Button>
+        </div>
+
+        <div className="mt-9 sm:mt-10 md:mt-11">
+          <HeroBuild />
         </div>
       </div>
     </section>
