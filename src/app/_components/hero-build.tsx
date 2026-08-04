@@ -84,7 +84,7 @@ export function HeroBuild() {
 
             <div className="bg-concept-canvas border-concept-line mx-auto flex h-7 w-80 items-center justify-center gap-2 rounded-full border">
               <RiLockLine className="text-concept-muted size-3" />
-              <span className="text-concept-muted text-[13px]">
+              <span className="text-concept-muted text-[0.8125em]">
                 calaverde.com
               </span>
             </div>
@@ -110,7 +110,7 @@ export function HeroBuild() {
             <div className="relative flex h-21 items-center justify-between px-14">
               <span
                 style={{ animationDelay: `${beat.wordmark}ms` }}
-                className="font-concept-display text-concept-chalk ease-interface motion-reduce:animate-none animate-build-place cursor-pointer text-[26px] tracking-[0.24em] transition-opacity duration-150 hover:opacity-75"
+                className="font-concept-display text-concept-chalk ease-interface motion-reduce:animate-none animate-build-place cursor-pointer text-[1.625em] tracking-[0.24em] transition-opacity duration-150 hover:opacity-75"
               >
                 CALA VERDE
               </span>
@@ -122,7 +122,7 @@ export function HeroBuild() {
                     style={{
                       animationDelay: `${beat.link + index * beat.linkStep}ms`,
                     }}
-                    className="text-concept-chalk/75 hover:text-concept-chalk ease-interface after:bg-concept-chalk motion-reduce:animate-none relative animate-build-place cursor-pointer text-[13px] transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100"
+                    className="text-concept-chalk/75 hover:text-concept-chalk ease-interface after:bg-concept-chalk motion-reduce:animate-none relative animate-build-place cursor-pointer text-[0.8125em] transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100"
                   >
                     {link}
                   </span>
@@ -131,7 +131,7 @@ export function HeroBuild() {
                   style={{
                     animationDelay: `${beat.link + links.length * beat.linkStep}ms`,
                   }}
-                  className="border-concept-chalk/40 text-concept-chalk hover:bg-concept-chalk hover:text-concept-scrim hover:border-concept-chalk ease-interface motion-reduce:animate-none ml-2 animate-build-place cursor-pointer rounded-full border px-5 py-2 text-[13px] font-medium transition-colors duration-200"
+                  className="border-concept-chalk/40 text-concept-chalk hover:bg-concept-chalk hover:text-concept-scrim hover:border-concept-chalk ease-interface motion-reduce:animate-none ml-2 animate-build-place cursor-pointer rounded-full border px-5 py-2 text-[0.8125em] font-medium transition-colors duration-200"
                 >
                   Book a stay
                 </span>
@@ -141,7 +141,7 @@ export function HeroBuild() {
             <div className="relative px-14 pt-20">
               <span
                 style={{ animationDelay: `${beat.eyebrow}ms` }}
-                className="text-concept-chalk/70 motion-reduce:animate-none flex animate-build-place items-center gap-3 text-[11px] font-medium tracking-[0.3em] uppercase"
+                className="text-concept-chalk/70 motion-reduce:animate-none flex animate-build-place items-center gap-3 text-[0.6875em] font-medium tracking-[0.3em] uppercase"
               >
                 <span aria-hidden className="bg-concept-chalk/40 h-px w-8" />
                 Liguria, Italy — Est. 1961
@@ -149,7 +149,7 @@ export function HeroBuild() {
 
               <p
                 style={{ animationDelay: `${beat.headline}ms` }}
-                className="font-concept-display text-concept-chalk motion-reduce:animate-none mt-7 animate-build-place text-[76px] leading-[0.98]"
+                className="font-concept-display text-concept-chalk motion-reduce:animate-none mt-7 animate-build-place text-[4.75em] leading-[0.98]"
               >
                 Where the sea
                 <br />
@@ -158,7 +158,7 @@ export function HeroBuild() {
 
               <p
                 style={{ animationDelay: `${beat.copy}ms` }}
-                className="text-concept-chalk/80 motion-reduce:animate-none mt-6 max-w-[44ch] animate-build-place text-[17px] leading-relaxed"
+                className="text-concept-chalk/80 motion-reduce:animate-none mt-6 max-w-[44ch] animate-build-place text-[1.0625em] leading-relaxed"
               >
                 Eleven rooms above the harbour, a kitchen that opens at seven,
                 and a sea pool cut into the rock.
@@ -167,20 +167,20 @@ export function HeroBuild() {
 
             <div
               style={{ animationDelay: `${beat.rating}ms` }}
-              className="border-concept-chalk/20 bg-concept-scrim/30 text-concept-chalk motion-reduce:animate-none absolute right-14 bottom-19 flex animate-build-place items-center gap-2.5 rounded-full border px-4 py-2 backdrop-blur-md"
+              className="border-concept-chalk/20 bg-concept-scrim/30 text-concept-chalk motion-reduce:animate-none absolute right-14 bottom-19 flex animate-build-place items-center gap-2.5 rounded-full border px-4 py-2 backdrop-blur-[0.75em]"
             >
               <span className="text-concept-gold flex gap-0.5">
                 {[0, 1, 2, 3, 4].map(star => (
                   <RiStarFill key={star} className="size-3" />
                 ))}
               </span>
-              <span className="text-[13px]">4.9 · 412 guest reviews</span>
+              <span className="text-[0.8125em]">4.9 · 412 guest reviews</span>
             </div>
           </div>
 
           <div
             style={{ animationDelay: `${beat.booking}ms` }}
-            className="bg-concept-canvas border-concept-line concept-lift motion-reduce:animate-none relative z-10 mx-14 -mt-12 flex h-24 animate-build-place items-center rounded-lg border pr-3 pl-8"
+            className="bg-concept-canvas border-concept-line concept-lift motion-reduce:animate-none relative z-10 mx-14 -mt-12 flex h-24 animate-build-place items-center rounded-[0.45em] border pr-3 pl-8"
           >
             {stay.map((field, index) => (
               <div
@@ -190,14 +190,14 @@ export function HeroBuild() {
                   index > 0 && "border-concept-line border-l pl-8",
                 )}
               >
-                <p className="text-concept-muted text-[11px] font-medium tracking-[0.18em] uppercase">
+                <p className="text-concept-muted text-[0.6875em] font-medium tracking-[0.18em] uppercase">
                   {field.label}
                 </p>
-                <p className="mt-1.5 text-[17px] font-medium">{field.value}</p>
+                <p className="mt-1.5 text-[1.0625em] font-medium">{field.value}</p>
               </div>
             ))}
 
-            <span className="bg-concept-clay text-concept-chalk hover:bg-concept-clay/85 ease-interface group flex h-15 shrink-0 cursor-pointer items-center gap-2 rounded-md px-8 text-[15px] font-medium transition-colors duration-200">
+            <span className="bg-concept-clay text-concept-chalk hover:bg-concept-clay/85 ease-interface group flex h-15 shrink-0 cursor-pointer items-center gap-2 rounded-[0.36em] px-8 text-[0.9375em] font-medium transition-colors duration-200">
               Check availability
               <RiArrowRightUpLine className="ease-interface size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
@@ -208,8 +208,8 @@ export function HeroBuild() {
               style={{ animationDelay: `${beat.section}ms` }}
               className="motion-reduce:animate-none flex animate-build-place items-end justify-between"
             >
-              <p className="font-concept-display text-[26px]">The house</p>
-              <span className="text-concept-clay hover:text-concept-clay/75 ease-interface group flex cursor-pointer items-center gap-1.5 text-xs font-medium tracking-[0.18em] uppercase transition-colors duration-200">
+              <p className="font-concept-display text-[1.625em]">The house</p>
+              <span className="text-concept-clay hover:text-concept-clay/75 ease-interface group flex cursor-pointer items-center gap-1.5 text-[0.75em] font-medium tracking-[0.18em] uppercase transition-colors duration-200">
                 Explore everything
                 <RiArrowRightUpLine className="ease-interface size-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
@@ -224,17 +224,17 @@ export function HeroBuild() {
                   }}
                   className="motion-reduce:animate-none group animate-build-place cursor-pointer"
                 >
-                  <div className="h-36 overflow-hidden rounded-md">
+                  <div className="h-36 overflow-hidden rounded-[0.36em]">
                     <div
                       style={{ backgroundImage: `url("${item.image}")` }}
                       className="ease-interface size-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="mt-3.5 flex items-baseline justify-between gap-3">
-                    <p className="group-hover:text-concept-clay ease-interface text-base font-medium transition-colors duration-200">
+                    <p className="group-hover:text-concept-clay ease-interface text-[1em] font-medium transition-colors duration-200">
                       {item.title}
                     </p>
-                    <p className="text-concept-muted text-[13px]">
+                    <p className="text-concept-muted text-[0.8125em]">
                       {item.meta}
                     </p>
                   </div>
