@@ -1,3 +1,4 @@
+import { RiArrowRightUpLine } from "@remixicon/react";
 import { Fragment } from "react";
 
 import { ContactButton } from "@/components/contact-button";
@@ -7,26 +8,27 @@ import { Button } from "@/components/ui/button";
 
 const headline = ["Beautiful", "is", "the", "baseline"];
 
+const practice = [
+  "Landing pages",
+  "Company websites",
+  "Custom web applications",
+];
+
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div aria-hidden className="bg-hero-glow absolute inset-0" />
-
       <SiteHeader />
 
       <div className="relative mx-auto max-w-6xl px-6 pt-16 pb-14 sm:px-8 sm:pb-16 md:px-12 md:pb-20 lg:px-16 xl:pt-24">
         <p
           style={{ animationDelay: "0ms" }}
-          className="bg-background/55 text-foreground motion-reduce:animate-none inline-flex animate-rise-in items-center gap-2.5 rounded-full border py-1.5 pr-4 pl-3 text-sm backdrop-blur-xl"
+          className="text-muted-foreground motion-reduce:animate-none flex animate-rise-in items-center gap-3 text-xs font-medium tracking-widest uppercase"
         >
-          <span aria-hidden className="relative flex size-1.5">
-            <span className="bg-emerald-500 motion-safe:animate-ping absolute inline-flex size-full rounded-full opacity-60" />
-            <span className="bg-emerald-500 relative inline-flex size-1.5 rounded-full" />
-          </span>
+          <span aria-hidden className="bg-border h-px w-8" />
           Now booking new projects
         </p>
 
-        <h1 className="mt-5 text-[clamp(2.25rem,4.8vw,3.25rem)] leading-[1.05] font-semibold tracking-[-0.035em] sm:mt-6 md:mt-7 md:leading-[1.08]">
+        <h1 className="font-display mt-6 text-5xl leading-[1.05] sm:mt-7 md:mt-8 md:text-7xl lg:text-8xl">
           <span className="block">
             {headline.map((word, index) => (
               <Fragment key={word}>
@@ -36,7 +38,10 @@ export function Hero() {
                 >
                   {word === "baseline" ? (
                     <>
-                      <span className="text-drift inline-block">baseline</span>.
+                      <span className="text-primary inline-block italic">
+                        baseline
+                      </span>
+                      .
                     </>
                   ) : (
                     word
@@ -55,7 +60,7 @@ export function Hero() {
 
         <p
           style={{ animationDelay: "520ms" }}
-          className="text-muted-foreground motion-reduce:animate-none mt-4 max-w-[40ch] animate-rise-in text-lg leading-relaxed text-pretty sm:mt-5"
+          className="text-muted-foreground motion-reduce:animate-none mt-6 max-w-[44ch] animate-rise-in text-lg leading-relaxed text-pretty sm:mt-7"
         >
           Websites and web apps for startups and businesses — designed, built
           and shipped in weeks.
@@ -68,16 +73,28 @@ export function Hero() {
           <ContactButton size="lg">Start a project</ContactButton>
           <Button
             size="lg"
-            variant="outline"
+            variant="link"
             nativeButton={false}
             render={<a href="#work" />}
           >
             See our work
+            <RiArrowRightUpLine />
           </Button>
         </div>
 
         <div className="mt-9 sm:mt-10 md:mt-11">
           <HeroBuild />
+
+          <div className="text-muted-foreground mt-4 flex items-baseline justify-between gap-6">
+            <p className="text-sm">
+              Concept build — Cala Verde, a boutique hotel in Liguria.
+            </p>
+            <ul className="hidden shrink-0 items-center gap-6 text-xs font-medium tracking-widest uppercase md:flex">
+              {practice.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

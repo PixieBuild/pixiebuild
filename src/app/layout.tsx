@@ -8,13 +8,10 @@ import {
   Instrument_Serif,
   Inter,
   Manrope,
-  Roboto,
 } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
-
-const robotoHeading = Roboto({ subsets: ["latin"], variable: "--font-heading" });
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -27,6 +24,7 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
+  style: ["normal", "italic"],
   variable: "--font-instrument-serif",
 });
 
@@ -81,8 +79,7 @@ export default function RootLayout({
         geist.variable,
         manrope.variable,
         dmSans.variable,
-        instrumentSerif.variable,
-        robotoHeading.variable
+        instrumentSerif.variable
       )}
     >
       <body className="min-h-full flex flex-col">
