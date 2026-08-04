@@ -207,6 +207,15 @@
   }
 }
 
+@keyframes draw-rule {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 @keyframes concept-settle {
   from {
     opacity: 0;
@@ -224,6 +233,7 @@
   --animate-build-frame: build-frame 560ms var(--ease-entrance) both;
   --animate-build-place: build-place 420ms var(--ease-entrance) both;
   --animate-concept-settle: concept-settle 1400ms var(--ease-entrance) both;
+  --animate-draw-rule: draw-rule 620ms var(--ease-entrance) both;
 }
 
 @theme inline {

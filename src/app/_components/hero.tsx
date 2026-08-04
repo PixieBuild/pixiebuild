@@ -38,7 +38,7 @@ export function Hero() {
                 >
                   {word === "baseline" ? (
                     <>
-                      <span className="text-primary inline-block italic">
+                      <span className="text-primary after:bg-primary motion-reduce:after:animate-none relative inline-block italic after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:animate-draw-rule after:[animation-delay:900ms] md:after:h-1">
                         baseline
                       </span>
                       .
@@ -60,7 +60,7 @@ export function Hero() {
 
         <p
           style={{ animationDelay: "520ms" }}
-          className="text-muted-foreground motion-reduce:animate-none mt-6 max-w-[44ch] animate-rise-in text-lg leading-relaxed text-pretty sm:mt-7"
+          className="text-muted-foreground motion-reduce:animate-none mt-6 max-w-[44ch] animate-rise-in text-base leading-relaxed text-pretty sm:mt-7 sm:text-lg"
         >
           Websites and web apps for startups and businesses — designed, built
           and shipped in weeks.

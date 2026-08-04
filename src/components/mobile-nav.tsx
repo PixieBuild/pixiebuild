@@ -33,9 +33,8 @@ export function MobileNav({ links }: MobileNavProps) {
       />
       <DropdownMenuContent
         align="end"
-        alignOffset={-12}
-        sideOffset={20}
-        className="w-[calc(100vw-3rem)] p-2"
+        sideOffset={12}
+        className="w-[calc(100vw-3rem)] p-2 sm:w-[calc(100vw-4rem)]"
       >
         {links.map(link => (
           <DropdownMenuItem
