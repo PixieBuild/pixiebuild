@@ -7,6 +7,7 @@ import {
   RiStarFill,
 } from "@remixicon/react";
 import { useInView, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import { useRef } from "react";
 
 import { cn } from "@/lib/utils";
@@ -99,9 +100,13 @@ export function HeroBuild() {
               style={{ animationDelay: `${beat.photo}ms` }}
               className="motion-reduce:animate-none absolute inset-0 animate-concept-settle"
             >
-              <div
-                style={{ backgroundImage: `url("${photo.harbour}")` }}
-                className="absolute inset-0 bg-cover bg-center"
+              <Image
+                src={photo.harbour}
+                alt=""
+                fill
+                loading="eager"
+                sizes="(min-width: 1152px) 1024px, 100vw"
+                className="object-cover object-center"
               />
               <div className="from-concept-scrim/85 via-concept-scrim/25 absolute inset-0 bg-linear-to-r to-transparent" />
               <div className="from-concept-scrim/70 absolute inset-x-0 top-0 h-44 bg-linear-to-b to-transparent" />
@@ -224,10 +229,13 @@ export function HeroBuild() {
                   }}
                   className="motion-reduce:animate-none group animate-build-place cursor-pointer"
                 >
-                  <div className="h-36 overflow-hidden rounded-[0.36em]">
-                    <div
-                      style={{ backgroundImage: `url("${item.image}")` }}
-                      className="ease-interface size-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                  <div className="relative h-36 overflow-hidden rounded-[0.36em]">
+                    <Image
+                      src={item.image}
+                      alt=""
+                      fill
+                      sizes="(min-width: 1152px) 300px, 30vw"
+                      className="ease-interface object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="mt-3.5 flex items-baseline justify-between gap-3">
