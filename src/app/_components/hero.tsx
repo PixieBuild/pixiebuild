@@ -38,9 +38,7 @@ export function Hero() {
                 >
                   {word === "baseline" ? (
                     <>
-                      <span className="text-primary after:bg-primary motion-reduce:after:animate-none relative inline-block after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:animate-draw-rule after:[animation-delay:900ms] md:after:h-1">
-                        baseline
-                      </span>
+                      <span className="text-drift inline-block">baseline</span>
                       .
                     </>
                   ) : (
