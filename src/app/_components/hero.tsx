@@ -19,7 +19,7 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden">
       <SiteHeader />
 
-      <div className="relative mx-auto max-w-6xl px-6 pt-16 pb-14 sm:px-8 sm:pb-16 md:px-12 md:pb-20 lg:px-16 xl:pt-24">
+      <div className="relative mx-auto max-w-7xl px-6 pt-[clamp(3rem,9svh,8rem)] pb-14 sm:px-8 sm:pb-16 md:px-12 md:pb-20 lg:px-16">
         <p
           style={{ animationDelay: "0ms" }}
           className="text-muted-foreground motion-reduce:animate-none flex animate-rise-in items-center gap-3 text-xs font-medium tracking-widest uppercase"
@@ -28,7 +28,7 @@ export function Hero() {
           Now booking new projects
         </p>
 
-        <h1 className="font-display mt-6 text-5xl leading-[1.05] sm:mt-7 md:mt-8 md:text-7xl lg:text-8xl">
+        <h1 className="font-display mt-6 text-5xl leading-[1.05] sm:mt-7 md:mt-8 md:text-6xl lg:text-7xl">
           <span className="block">
             {headline.map((word, index) => (
               <Fragment key={word}>

@@ -17,7 +17,7 @@ export function SiteHeader() {
     <header
       id="site-header"
       style={{ animationDelay: "60ms" }}
-      className="motion-reduce:animate-none relative z-20 mx-auto flex max-w-6xl animate-rise-in items-center justify-between gap-4 px-6 pt-7 sm:px-8 md:px-12 lg:px-16"
+      className="motion-reduce:animate-none relative z-20 mx-auto flex max-w-7xl animate-rise-in items-center justify-between gap-4 px-6 pt-7 sm:px-8 md:px-12 lg:px-16"
     >
       <Link
         href="/"

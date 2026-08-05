@@ -64,7 +64,7 @@ const motionUsage: Record<string, string> = {
 const typeRoles = [
   {
     role: "Display",
-    className: "font-display text-5xl leading-[1.05] md:text-7xl lg:text-8xl",
+    className: "font-display text-5xl leading-[1.05] md:text-6xl lg:text-7xl",
     sample: "Beautiful is the baseline.",
     note: "The hero, and section openers that have to carry the page. Instrument Serif has one weight — never bold it, use the italic for emphasis.",
   },
@@ -110,7 +110,7 @@ const typeRoles = [
 const layout = [
   {
     what: "Container",
-    classes: "mx-auto max-w-6xl",
+    classes: "mx-auto max-w-7xl",
     note: "Every band, no exceptions.",
   },
   {
@@ -148,7 +148,7 @@ export default async function StyleguidePage() {
       </div>
 
       <header className="py-28">
-        <div className="mx-auto max-w-6xl px-6 sm:px-8 md:px-12 lg:px-16">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8 md:px-12 lg:px-16">
           <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
             Internal reference
           </p>
