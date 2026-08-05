@@ -20,35 +20,6 @@ const fonts = [
   { name: "DM Sans", token: "var(--font-dm-sans)" },
 ];
 
-/* Candidates for the hero, while the display face is being chosen. Trim
-   this and the imports in layout.tsx down to the winner once it is. */
-const titles = [
-  { name: "Instrument Serif", token: "var(--font-instrument-serif)" },
-  { name: "Instrument Sans", token: "var(--font-instrument-sans)" },
-  { name: "Bricolage Grotesque", token: "var(--font-bricolage)" },
-  { name: "Familjen Grotesk", token: "var(--font-familjen)" },
-  { name: "Schibsted Grotesk", token: "var(--font-schibsted)" },
-  { name: "Space Grotesk", token: "var(--font-space-grotesk)" },
-  { name: "Fraunces", token: "var(--font-fraunces)" },
-  { name: "Newsreader", token: "var(--font-newsreader)" },
-  { name: "Playfair Display", token: "var(--font-playfair)" },
-  { name: "Lora", token: "var(--font-lora)" },
-  { name: "Sora", token: "var(--font-sora)" },
-  { name: "Outfit", token: "var(--font-outfit)" },
-  { name: "Plus Jakarta Sans", token: "var(--font-jakarta)" },
-  { name: "Figtree", token: "var(--font-figtree)" },
-  { name: "Onest", token: "var(--font-onest)" },
-  { name: "Syne", token: "var(--font-syne)" },
-  { name: "Unbounded", token: "var(--font-unbounded)" },
-  { name: "Archivo", token: "var(--font-archivo)" },
-  { name: "Epilogue", token: "var(--font-epilogue)" },
-  { name: "Chivo", token: "var(--font-chivo)" },
-  { name: "Geist", token: "var(--font-geist)" },
-  { name: "Manrope", token: "var(--font-manrope)" },
-  { name: "DM Sans", token: "var(--font-dm-sans)" },
-  { name: "Inter", token: "var(--font-inter)" },
-];
-
 const brands = [
   { name: "Brand", token: "oklch(0.5464 0.1313 242.68)" },
   { name: "Violet", token: "oklch(0.552 0.196 288)" },
@@ -68,7 +39,6 @@ const places = [
 
 export function SiteDock() {
   const [font, setFont] = useState(fonts[0]);
-  const [title, setTitle] = useState(titles[0]);
   const [brand, setBrand] = useState(brands[0]);
   const [here, setHere] = useState(places[0].id);
   const [cleared, setCleared] = useState(false);
@@ -77,10 +47,9 @@ export function SiteDock() {
   useEffect(() => {
     const root = document.documentElement;
     root.style.setProperty("--font-sans", font.token);
-    root.style.setProperty("--font-display", title.token);
     root.style.setProperty("--primary", brand.token);
     root.style.setProperty("--sidebar-primary", brand.token);
-  }, [brand, font, title]);
+  }, [brand, font]);
 
   /* On a phone the dock and the header sit too close together to read as
      separate things, so the dock waits until the header has scrolled away.
@@ -149,48 +118,6 @@ export function SiteDock() {
                 <span style={{ fontFamily: option.token }}>{option.name}</span>
                 {option.name === font.name ? (
                   <RiCheckLine className="text-primary size-4" />
-                ) : null}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <span
-          aria-hidden
-          className="bg-border mx-1 hidden h-5 w-px sm:block"
-        />
-
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            aria-label={`Hero font: ${title.name}`}
-            className="hover:bg-muted ease-interface focus-visible:ring-ring/40 hidden max-w-32 rounded-full px-3.5 py-2 text-sm transition-colors duration-300 outline-none focus-visible:ring-2 sm:block"
-          >
-            <span
-              style={{ fontFamily: title.token }}
-              className="block truncate"
-            >
-              {title.name}
-            </span>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            side="top"
-            sideOffset={12}
-            className="scrollbar-quiet max-h-80 w-52 overflow-y-auto p-1.5"
-          >
-            {titles.map((option) => (
-              <DropdownMenuItem
-                key={option.name}
-                onClick={() => setTitle(option)}
-                className="justify-between gap-3 rounded-2xl px-3 py-2.5"
-              >
-                <span
-                  style={{ fontFamily: option.token }}
-                  className="truncate text-base"
-                >
-                  {option.name}
-                </span>
-                {option.name === title.name ? (
-                  <RiCheckLine className="text-primary size-4 shrink-0" />
                 ) : null}
               </DropdownMenuItem>
             ))}
