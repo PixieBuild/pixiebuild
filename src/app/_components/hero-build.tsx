@@ -75,7 +75,7 @@ export function HeroBuild() {
     <div ref={build} className="relative">
       <div
         aria-hidden
-        className="bg-build-glow pointer-events-none absolute inset-0"
+        className="bg-build-glow pointer-events-none absolute inset-0 rounded-xl"
       />
 
       <div

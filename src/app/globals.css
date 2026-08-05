@@ -384,21 +384,18 @@
   );
 }
 
-/* Light spilling off the concept build. The frame is opaque, so this is the
-   frame's own shape blurred out past its edges — only the bleed is ever
-   seen. Weighted down the page so the photograph in the top half throws
-   more than the cards below it. On a white page it drops to a trace. */
+/* Light spilling off the concept build, cast by the frame rather than by a
+   blurred copy of it: a filter has to be rasterised to its own surface, and
+   Safari was keeping a stale one from before the container query and the
+   photograph settled the layout. A shadow is painted with the box, so it
+   cannot fall out of step. Offset upwards, towards the photograph in the
+   top half. On a white page it drops to a trace. */
 @utility bg-build-glow {
-  --build-glow: color-mix(in oklch, var(--color-primary) 18%, transparent);
-  background-image: linear-gradient(
-    to bottom,
-    var(--build-glow),
-    transparent 78%
-  );
-  filter: blur(64px);
+  --build-glow: color-mix(in oklch, var(--color-primary) 12%, transparent);
+  box-shadow: 0 -1.5rem 7rem -1rem var(--build-glow);
 
   @variant dark {
-    --build-glow: color-mix(in oklch, var(--color-primary) 55%, transparent);
+    --build-glow: color-mix(in oklch, var(--color-primary) 40%, transparent);
   }
 }
 
