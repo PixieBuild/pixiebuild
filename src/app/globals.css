@@ -230,9 +230,9 @@
 @theme {
   --animate-build-sweep: build-sweep 2.6s ease-in-out infinite;
   --animate-rise-in: rise-in 620ms var(--ease-entrance) both;
-  --animate-build-frame: build-frame 560ms var(--ease-entrance) both;
-  --animate-build-place: build-place 420ms var(--ease-entrance) both;
-  --animate-concept-settle: concept-settle 1400ms var(--ease-entrance) both;
+  --animate-build-frame: build-frame 800ms var(--ease-entrance) both;
+  --animate-build-place: build-place 620ms var(--ease-entrance) both;
+  --animate-concept-settle: concept-settle 1900ms var(--ease-entrance) both;
   --animate-draw-rule: draw-rule 620ms var(--ease-entrance) both;
 }
 
@@ -315,9 +315,17 @@
   );
 }
 
+/* A part waits at the first frame of its entrance until the observer takes
+   the attribute off. Reduced motion clears the animation outright, so there
+   is nothing to hold and the page arrives whole. */
 @utility concept-stage {
   container-type: inline-size;
   aspect-ratio: var(--concept-width, 1200) / 960;
+
+  &[data-build],
+  & [data-build] {
+    animation-play-state: paused;
+  }
 }
 
 /* One design pixel of the concept page, as a real length. Rescaling the
@@ -334,13 +342,6 @@
 
 @utility concept-lift {
   box-shadow: 0 1.125em 2.75em -1.125em var(--concept-shadow);
-}
-
-@utility concept-hold {
-  &,
-  & * {
-    animation-play-state: paused;
-  }
 }
 
 @utility bg-blueprint-reveal {
@@ -381,6 +382,24 @@
     color-mix(in oklch, var(--color-primary) 16%, transparent),
     transparent 72%
   );
+}
+
+/* Light spilling off the concept build. The frame is opaque, so this is the
+   frame's own shape blurred out past its edges — only the bleed is ever
+   seen. Weighted down the page so the photograph in the top half throws
+   more than the cards below it. On a white page it drops to a trace. */
+@utility bg-build-glow {
+  --build-glow: color-mix(in oklch, var(--color-primary) 18%, transparent);
+  background-image: linear-gradient(
+    to bottom,
+    var(--build-glow),
+    transparent 78%
+  );
+  filter: blur(64px);
+
+  @variant dark {
+    --build-glow: color-mix(in oklch, var(--color-primary) 55%, transparent);
+  }
 }
 
 /* Cal resizes its iframe to content height, which scrolls the container it was

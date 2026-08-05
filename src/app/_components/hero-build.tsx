@@ -6,26 +6,17 @@ import {
   RiMore2Fill,
   RiStarFill,
 } from "@remixicon/react";
-import { useInView, useReducedMotion } from "motion/react";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 
 const beat = {
-  frame: 200,
-  photo: 300,
-  wordmark: 620,
-  link: 680,
-  linkStep: 45,
-  eyebrow: 860,
-  headline: 920,
-  copy: 1020,
-  rating: 1100,
-  booking: 1160,
-  section: 1340,
-  card: 1400,
-  cardStep: 90,
+  photo: 180,
+  linkStep: 70,
+  headline: 120,
+  copy: 240,
+  cardStep: 140,
 };
 
 const photo = {
@@ -52,25 +43,45 @@ const house = [
 ];
 
 export function HeroBuild() {
-  const still = useReducedMotion();
-  const frame = useRef<HTMLDivElement>(null);
-  const seen = useInView(frame, { once: true, margin: "0px 0px -15% 0px" });
+  const build = useRef<HTMLDivElement>(null);
+
+  /* Each piece holds until it is on screen itself. The frame is taller than
+     the viewport it lands in, so gating the whole build on the top edge ran
+     most of it out of sight. Delays are within a row, not across the page.
+
+     The attribute is removed rather than set through state: nothing here
+     re-renders, so React never puts it back, and the sequence costs no
+     renders at all. */
+  useEffect(() => {
+    const root = build.current;
+    if (!root) return;
+
+    const watcher = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.removeAttribute("data-build");
+          watcher.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+
+    root.querySelectorAll("[data-build]").forEach(part => watcher.observe(part));
+    return () => watcher.disconnect();
+  }, []);
 
   return (
-    <div className="relative">
+    <div ref={build} className="relative">
       <div
         aria-hidden
-        className="bg-brand-glow pointer-events-none absolute -inset-x-10 -inset-y-12"
+        className="bg-build-glow pointer-events-none absolute inset-0"
       />
 
       <div
-        ref={frame}
         aria-hidden
-        style={{ animationDelay: `${beat.frame}ms` }}
-        className={cn(
-          "concept-stage shadow-elev-2 motion-reduce:animate-none relative animate-build-frame overflow-hidden rounded-xl border select-none [--concept-width:1200] lg:[--concept-width:1366]",
-          !seen && !still && "concept-hold",
-        )}
+        data-build
+        className="concept-stage shadow-elev-2 motion-reduce:animate-none relative animate-build-frame overflow-hidden rounded-xl border select-none [--concept-width:1200] lg:[--concept-width:1366]"
       >
         <div className="concept-page concept-theme bg-concept-canvas text-concept-ink font-concept absolute top-0 left-0">
           <div className="border-concept-line bg-concept-shell flex h-11 items-center gap-4 border-b px-5">
@@ -97,6 +108,7 @@ export function HeroBuild() {
 
           <div className="relative h-140 overflow-hidden">
             <div
+              data-build
               style={{ animationDelay: `${beat.photo}ms` }}
               className="motion-reduce:animate-none absolute inset-0 animate-concept-settle"
             >
@@ -114,7 +126,7 @@ export function HeroBuild() {
 
             <div className="relative flex h-21 items-center justify-between px-14">
               <span
-                style={{ animationDelay: `${beat.wordmark}ms` }}
+                data-build
                 className="font-concept-display text-concept-chalk ease-interface motion-reduce:animate-none animate-build-place cursor-pointer text-[1.625em] tracking-[0.24em] transition-opacity duration-150 hover:opacity-75"
               >
                 CALA VERDE
@@ -124,17 +136,17 @@ export function HeroBuild() {
                 {links.map((link, index) => (
                   <span
                     key={link}
-                    style={{
-                      animationDelay: `${beat.link + index * beat.linkStep}ms`,
-                    }}
+                    data-build
+                    style={{ animationDelay: `${index * beat.linkStep}ms` }}
                     className="text-concept-chalk/75 hover:text-concept-chalk ease-interface after:bg-concept-chalk motion-reduce:animate-none relative animate-build-place cursor-pointer text-[0.8125em] transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100"
                   >
                     {link}
                   </span>
                 ))}
                 <span
+                  data-build
                   style={{
-                    animationDelay: `${beat.link + links.length * beat.linkStep}ms`,
+                    animationDelay: `${links.length * beat.linkStep}ms`,
                   }}
                   className="border-concept-chalk/40 text-concept-chalk hover:bg-concept-chalk hover:text-concept-scrim hover:border-concept-chalk ease-interface motion-reduce:animate-none ml-2 animate-build-place cursor-pointer rounded-full border px-5 py-2 text-[0.8125em] font-medium transition-colors duration-200"
                 >
@@ -145,7 +157,7 @@ export function HeroBuild() {
 
             <div className="relative px-14 pt-20">
               <span
-                style={{ animationDelay: `${beat.eyebrow}ms` }}
+                data-build
                 className="text-concept-chalk/70 motion-reduce:animate-none flex animate-build-place items-center gap-3 text-[0.6875em] font-medium tracking-[0.3em] uppercase"
               >
                 <span aria-hidden className="bg-concept-chalk/40 h-px w-8" />
@@ -153,6 +165,7 @@ export function HeroBuild() {
               </span>
 
               <p
+                data-build
                 style={{ animationDelay: `${beat.headline}ms` }}
                 className="font-concept-display text-concept-chalk motion-reduce:animate-none mt-7 animate-build-place text-[4.75em] leading-[0.98]"
               >
@@ -162,6 +175,7 @@ export function HeroBuild() {
               </p>
 
               <p
+                data-build
                 style={{ animationDelay: `${beat.copy}ms` }}
                 className="text-concept-chalk/80 motion-reduce:animate-none mt-6 max-w-[44ch] animate-build-place text-[1.0625em] leading-relaxed"
               >
@@ -171,7 +185,7 @@ export function HeroBuild() {
             </div>
 
             <div
-              style={{ animationDelay: `${beat.rating}ms` }}
+              data-build
               className="border-concept-chalk/20 bg-concept-scrim/30 text-concept-chalk motion-reduce:animate-none absolute right-14 bottom-19 flex animate-build-place items-center gap-2.5 rounded-full border px-4 py-2 backdrop-blur-[0.75em]"
             >
               <span className="text-concept-gold flex gap-0.5">
@@ -184,7 +198,7 @@ export function HeroBuild() {
           </div>
 
           <div
-            style={{ animationDelay: `${beat.booking}ms` }}
+            data-build
             className="bg-concept-canvas border-concept-line concept-lift motion-reduce:animate-none relative z-10 mx-14 -mt-12 flex h-24 animate-build-place items-center rounded-[0.45em] border pr-3 pl-8"
           >
             {stay.map((field, index) => (
@@ -198,7 +212,9 @@ export function HeroBuild() {
                 <p className="text-concept-muted text-[0.6875em] font-medium tracking-[0.18em] uppercase">
                   {field.label}
                 </p>
-                <p className="mt-1.5 text-[1.0625em] font-medium">{field.value}</p>
+                <p className="mt-1.5 text-[1.0625em] font-medium">
+                  {field.value}
+                </p>
               </div>
             ))}
 
@@ -210,7 +226,7 @@ export function HeroBuild() {
 
           <div className="px-14 pt-11">
             <div
-              style={{ animationDelay: `${beat.section}ms` }}
+              data-build
               className="motion-reduce:animate-none flex animate-build-place items-end justify-between"
             >
               <p className="font-concept-display text-[1.625em]">The house</p>
@@ -224,9 +240,8 @@ export function HeroBuild() {
               {house.map((item, index) => (
                 <div
                   key={item.title}
-                  style={{
-                    animationDelay: `${beat.card + index * beat.cardStep}ms`,
-                  }}
+                  data-build
+                  style={{ animationDelay: `${index * beat.cardStep}ms` }}
                   className="motion-reduce:animate-none group animate-build-place cursor-pointer"
                 >
                   <div className="relative h-36 overflow-hidden rounded-[0.36em]">
