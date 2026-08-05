@@ -49,6 +49,9 @@ export function HeroBuild() {
      the viewport it lands in, so gating the whole build on the top edge ran
      most of it out of sight. Delays are within a row, not across the page.
 
+     The root reaches slightly past the fold, so a part is already moving by
+     the time it is properly in view rather than waiting to be scrolled past.
+
      The attribute is removed rather than set through state: nothing here
      re-renders, so React never puts it back, and the sequence costs no
      renders at all. */
@@ -64,7 +67,7 @@ export function HeroBuild() {
           watcher.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -8% 0px" },
+      { rootMargin: "0px 0px 6% 0px" },
     );
 
     root.querySelectorAll("[data-build]").forEach(part => watcher.observe(part));
