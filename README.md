@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PixieBuild
 
-## Getting Started
+The website for PixieBuild — a web studio building landing pages, company
+websites and custom web applications.
 
-First, run the development server:
+Live at [pixiebuild.com](https://www.pixiebuild.com).
+
+## Stack
+
+Next.js 16 (App Router) · React 19 · TypeScript strict · Tailwind v4 ·
+shadcn/ui on Base UI · npm
+
+Dark mode is class-based through `next-themes`, defaulting to `system`.
+
+## Getting started
 
 ```bash
+npm install
+cp .env.example .env
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The contact form posts to `/api/contact` and sends through Resend, so it needs
+the three variables in `.env.example` filled in. Everything else runs without
+them.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Commands
 
-## Learn More
+```bash
+npm run dev          # dev server
+npm run build        # production build
+npm run lint         # eslint
+npx tsc --noEmit     # typecheck — there is no script for this
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/              routes, layouts, and metadata files
+│   └── <route>/
+│       └── _components/   UI used only by this route
+├── assets/           files imported into code — SVGs become components via SVGR
+├── components/       shared components
+│   └── ui/           shadcn primitives
+└── lib/              utilities and business logic
+public/               files served by URL
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Design language
 
-## Deploy on Vercel
+`/styleguide` is the reference for colour, type, spacing, radius, shadow and
+motion. It reads its tokens straight out of `globals.css`, so it cannot drift
+from what the site actually uses. It is `noindex`, and worth reading before
+writing any UI.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Conventions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[`AGENTS.md`](AGENTS.md) holds them — component layout, styling rules, naming,
+and what to ask about before changing. It applies to people as much as to
+agents.
