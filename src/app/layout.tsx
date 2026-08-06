@@ -9,9 +9,22 @@ import {
   Inter,
   Manrope,
 } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
+
+const generalSans = localFont({
+  src: [
+    { path: "../assets/fonts/GeneralSans-Light.woff2", weight: "300" },
+    { path: "../assets/fonts/GeneralSans-Regular.woff2", weight: "400" },
+    { path: "../assets/fonts/GeneralSans-Medium.woff2", weight: "500" },
+    { path: "../assets/fonts/GeneralSans-Semibold.woff2", weight: "600" },
+    { path: "../assets/fonts/GeneralSans-Bold.woff2", weight: "700" },
+  ],
+  display: "swap",
+  variable: "--font-heading",
+});
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -72,14 +85,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      style={{ "--font-sans": "var(--font-inter)" } as React.CSSProperties}
+      style={{ "--font-sans": "var(--font-geist)" } as React.CSSProperties}
       className={cn(
         "h-full font-sans antialiased motion-safe:scroll-smooth",
         inter.variable,
         geist.variable,
         manrope.variable,
         dmSans.variable,
-        instrumentSerif.variable
+        instrumentSerif.variable,
+        generalSans.variable,
       )}
     >
       <body className="min-h-full flex flex-col">

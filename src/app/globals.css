@@ -8,8 +8,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
-  --font-heading: var(--font-sans);
-  --font-display: var(--font-instrument-serif);
+  --font-heading: var(--font-heading);
   --font-concept: var(--font-dm-sans);
   --font-concept-display: var(--font-instrument-serif);
   --color-sidebar-ring: var(--sidebar-ring);

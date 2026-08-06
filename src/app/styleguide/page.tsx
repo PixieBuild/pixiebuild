@@ -64,9 +64,10 @@ const motionUsage: Record<string, string> = {
 const typeRoles = [
   {
     role: "Display",
-    className: "font-display text-5xl leading-[1.05] md:text-6xl lg:text-7xl",
+    className:
+      "font-heading text-4xl leading-none font-semibold tracking-tight md:text-5xl lg:text-6xl",
     sample: "Beautiful is the baseline.",
-    note: "The hero, and section openers that have to carry the page. Instrument Serif has one weight — never bold it, use the italic for emphasis.",
+    note: "The hero, and section openers that have to carry the page. Tracking goes negative because large type looks loose set solid, but only to -0.025em — past about -0.03em the letters start to collide rather than read as tight. Leading of 1 keeps two lines reading as one block.",
   },
   {
     role: "Heading",
@@ -198,19 +199,18 @@ export default async function StyleguidePage() {
 
       <Band
         title="Typography"
-        description="Instrument Serif for display, Inter for everything else — font-heading follows font-sans and is applied to h1–h6 in the base layer, so a heading never has to remember it. font-display is opt-in, and only at display sizes. Read the class strings mobile-first: the plain value is the phone, md: is the step up. Where a role has no md:, that is a decision, not an omission."
+        description="General Sans for headings, Inter for body — the heading face is applied to h1–h6 in the base layer, so a heading never has to remember it. General Sans is licensed, so it ships from our own assets rather than a font CDN. Instrument Serif is not ours: it belongs to the concept builds, which are set in their own faces so they read as somebody else's brand. Read the class strings mobile-first: the plain value is the phone, md: is the step up. Where a role has no md:, that is a decision, not an omission."
       >
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border p-6">
             <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
-              Instrument Serif — font-display
+              General Sans — font-heading
             </p>
-            <p className="font-display mt-4 text-4xl">
-              Beautiful is the <span className="italic">baseline</span>
+            <p className="font-heading mt-4 text-4xl font-semibold tracking-tight">
+              Beautiful is the baseline
             </p>
             <p className="text-muted-foreground mt-4 text-sm text-pretty">
-              Opt-in, and only at display sizes. One weight, so it is never
-              bolded.
+              Applied to h1–h6 in the base layer. Nothing else needs the class.
             </p>
           </div>
 

@@ -14,8 +14,8 @@ import {
 import { cn } from "@/lib/utils";
 
 const fonts = [
-  { name: "Inter", token: "var(--font-inter)" },
   { name: "Geist", token: "var(--font-geist)" },
+  { name: "Inter", token: "var(--font-inter)" },
   { name: "Manrope", token: "var(--font-manrope)" },
   { name: "DM Sans", token: "var(--font-dm-sans)" },
 ];

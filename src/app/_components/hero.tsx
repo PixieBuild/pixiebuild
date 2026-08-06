@@ -24,11 +24,15 @@ export function Hero() {
           style={{ animationDelay: "0ms" }}
           className="text-muted-foreground motion-reduce:animate-none flex animate-rise-in items-center gap-3 text-xs font-medium tracking-widest uppercase"
         >
-          <span aria-hidden className="bg-border h-px w-8" />
-          Now booking new projects
+          <span
+            aria-hidden
+            style={{ animationDelay: "260ms" }}
+            className="bg-primary motion-reduce:animate-none h-0.5 w-8 origin-left animate-draw-rule"
+          />
+          Booking new projects
         </p>
 
-        <h1 className="font-display mt-6 text-5xl leading-[1.05] sm:mt-7 md:mt-8 md:text-6xl lg:text-7xl">
+        <h1 className="font-heading mt-6 text-4xl leading-none font-semibold tracking-tight sm:mt-7 md:mt-8 md:text-5xl lg:text-6xl">
           <span className="block">
             {headline.map((word, index) => (
               <Fragment key={word}>
