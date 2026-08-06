@@ -19,7 +19,7 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden">
       <SiteHeader />
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-[clamp(3rem,9svh,8rem)] pb-14 sm:px-8 sm:pb-16 md:px-12 md:pb-20 lg:px-16">
+      <div className="relative mx-auto max-w-7xl px-6 pt-12 pb-14 sm:px-8 sm:pb-16 md:px-12 md:pt-15 md:pb-20 lg:px-16 lg:pt-20 xl:pt-24 2xl:pt-35">
         <p
           style={{ animationDelay: "0ms" }}
           className="text-muted-foreground motion-reduce:animate-none flex animate-rise-in items-center gap-3 text-xs font-medium tracking-widest uppercase"
