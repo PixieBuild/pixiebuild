@@ -2,12 +2,29 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import "./globals.css";
-import { DM_Sans, Geist, Inter, Manrope, Roboto } from "next/font/google";
+import {
+  DM_Sans,
+  Geist,
+  Instrument_Serif,
+  Inter,
+  Manrope,
+} from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-const robotoHeading = Roboto({ subsets: ["latin"], variable: "--font-heading" });
+const generalSans = localFont({
+  src: [
+    { path: "../assets/fonts/GeneralSans-Light.woff2", weight: "300" },
+    { path: "../assets/fonts/GeneralSans-Regular.woff2", weight: "400" },
+    { path: "../assets/fonts/GeneralSans-Medium.woff2", weight: "500" },
+    { path: "../assets/fonts/GeneralSans-Semibold.woff2", weight: "600" },
+    { path: "../assets/fonts/GeneralSans-Bold.woff2", weight: "700" },
+  ],
+  display: "swap",
+  variable: "--font-heading",
+});
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -16,6 +33,13 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -61,14 +85,15 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      style={{ "--font-sans": "var(--font-inter)" } as React.CSSProperties}
+      style={{ "--font-sans": "var(--font-geist)" } as React.CSSProperties}
       className={cn(
         "h-full font-sans antialiased motion-safe:scroll-smooth",
         inter.variable,
         geist.variable,
         manrope.variable,
         dmSans.variable,
-        robotoHeading.variable
+        instrumentSerif.variable,
+        generalSans.variable,
       )}
     >
       <body className="min-h-full flex flex-col">

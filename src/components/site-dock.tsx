@@ -11,10 +11,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 const fonts = [
-  { name: "Inter", token: "var(--font-inter)" },
   { name: "Geist", token: "var(--font-geist)" },
+  { name: "Inter", token: "var(--font-inter)" },
   { name: "Manrope", token: "var(--font-manrope)" },
   { name: "DM Sans", token: "var(--font-dm-sans)" },
 ];
@@ -40,6 +41,7 @@ export function SiteDock() {
   const [font, setFont] = useState(fonts[0]);
   const [brand, setBrand] = useState(brands[0]);
   const [here, setHere] = useState(places[0].id);
+  const [cleared, setCleared] = useState(false);
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
@@ -48,6 +50,22 @@ export function SiteDock() {
     root.style.setProperty("--primary", brand.token);
     root.style.setProperty("--sidebar-primary", brand.token);
   }, [brand, font]);
+
+  /* On a phone the dock and the header sit too close together to read as
+     separate things, so the dock waits until the header has scrolled away.
+     Every page carrying the dock also carries the header; drop that and the
+     dock never arrives on a phone. */
+  useEffect(() => {
+    const header = document.getElementById("site-header");
+    if (!header) return;
+
+    const watcher = new IntersectionObserver(([entry]) =>
+      setCleared(!entry.isIntersecting),
+    );
+
+    watcher.observe(header);
+    return () => watcher.disconnect();
+  }, []);
 
   useEffect(() => {
     const marks = places
@@ -77,7 +95,12 @@ export function SiteDock() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-5 z-40 flex justify-center px-4">
-      <div className="bg-background/70 shadow-elev-2 pointer-events-auto flex items-center rounded-full border p-1 backdrop-blur-xl">
+      <div
+        className={cn(
+          "bg-background/70 shadow-elev-2 ease-interface pointer-events-auto flex items-center rounded-full border p-1 backdrop-blur-xl transition-all duration-300",
+          !cleared && "max-md:invisible max-md:translate-y-4 max-md:opacity-0",
+        )}
+      >
         <DropdownMenu>
           <DropdownMenuTrigger
             aria-label={`Body font: ${font.name}`}

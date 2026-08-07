@@ -20,7 +20,7 @@ const projects = [
 export function Pricing() {
   return (
     <section id="pricing" className="scroll-mt-24 py-12 md:py-24">
-      <div className="mx-auto max-w-6xl px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 md:px-12 lg:px-16">
         <header className="max-w-3xl">
           <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
             Pricing
@@ -31,7 +31,7 @@ export function Pricing() {
         </header>
 
         <div className="mt-12 grid gap-5 md:mt-16 md:grid-cols-2 md:gap-6">
-          {projects.map((project) => (
+          {projects.map(project => (
             <div
               key={project.name}
               className="bg-card shadow-elev-1 group flex flex-col overflow-hidden rounded-2xl border"
@@ -57,7 +57,7 @@ export function Pricing() {
                 </p>
               </div>
 
-              <ContactButton className="h-auto gap-2 rounded-none py-4 text-sm font-medium">
+              <ContactButton className="h-auto border-none gap-2 rounded-none py-4 text-sm font-medium">
                 {project.action}
                 <RiArrowRightLine className="ease-interface size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </ContactButton>

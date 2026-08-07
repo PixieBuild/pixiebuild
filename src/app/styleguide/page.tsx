@@ -63,6 +63,13 @@ const motionUsage: Record<string, string> = {
 
 const typeRoles = [
   {
+    role: "Display",
+    className:
+      "font-heading text-4xl leading-none font-semibold tracking-tight md:text-5xl lg:text-6xl",
+    sample: "Beautiful is the baseline.",
+    note: "The hero, and section openers that have to carry the page. Tracking goes negative because large type looks loose set solid, but only to -0.025em — past about -0.03em the letters start to collide rather than read as tight. Leading of 1 keeps two lines reading as one block.",
+  },
+  {
     role: "Heading",
     className: "font-heading text-3xl font-semibold tracking-tight md:text-4xl",
     sample: "Selected work",
@@ -104,7 +111,7 @@ const typeRoles = [
 const layout = [
   {
     what: "Container",
-    classes: "mx-auto max-w-6xl",
+    classes: "mx-auto max-w-7xl",
     note: "Every band, no exceptions.",
   },
   {
@@ -142,7 +149,7 @@ export default async function StyleguidePage() {
       </div>
 
       <header className="py-28">
-        <div className="mx-auto max-w-6xl px-6 sm:px-8 md:px-12 lg:px-16">
+        <div className="mx-auto max-w-7xl px-6 sm:px-8 md:px-12 lg:px-16">
           <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
             Internal reference
           </p>
@@ -192,12 +199,12 @@ export default async function StyleguidePage() {
 
       <Band
         title="Typography"
-        description="Roboto for headings, Inter for body — the heading face is applied to h1–h6 in the base layer, so a heading never has to remember it. Read the class strings mobile-first: the plain value is the phone, md: is the step up. Where a role has no md:, that is a decision, not an omission."
+        description="General Sans for headings, Inter for body — the heading face is applied to h1–h6 in the base layer, so a heading never has to remember it. General Sans is licensed, so it ships from our own assets rather than a font CDN. Instrument Serif is not ours: it belongs to the concept builds, which are set in their own faces so they read as somebody else's brand. Read the class strings mobile-first: the plain value is the phone, md: is the step up. Where a role has no md:, that is a decision, not an omission."
       >
         <div className="grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border p-6">
             <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
-              Roboto — font-heading
+              General Sans — font-heading
             </p>
             <p className="font-heading mt-4 text-4xl font-semibold tracking-tight">
               Beautiful is the baseline
@@ -354,8 +361,7 @@ export default async function StyleguidePage() {
         <p className="text-muted-foreground mt-10 max-w-prose text-sm text-pretty">
           The landing page also defines{" "}
           <span className="font-mono text-xs">bg-blueprint</span>,{" "}
-          <span className="font-mono text-xs">bg-blueprint-reveal</span>,{" "}
-          <span className="font-mono text-xs">bg-hero-glow</span> and{" "}
+          <span className="font-mono text-xs">bg-blueprint-reveal</span> and{" "}
           <span className="font-mono text-xs">text-drift</span>. They are that
           page&rsquo;s backdrop and its one typographic device — deliberately
           not part of the system, and not to be reused elsewhere.
