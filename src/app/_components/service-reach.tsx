@@ -18,7 +18,7 @@ export function ServiceReach() {
   });
 
   return (
-    <div className="flex size-full flex-col justify-center gap-4 p-6">
+    <div className="@container flex size-full flex-col justify-center gap-4 p-6">
       <motion.div {...rise(beat.ask)} className="flex justify-end">
         <span className="bg-primary text-primary-foreground max-w-[80%] rounded-2xl rounded-br-md px-4 py-2.5 text-xs leading-relaxed">
           who can rebuild our site and make it fast?
@@ -50,7 +50,7 @@ export function ServiceReach() {
 
         <motion.div
           {...rise(beat.cite)}
-          className="mt-3 flex flex-wrap items-center gap-1.5 border-t pt-3"
+          className="mt-3 flex items-center gap-1.5 border-t pt-3"
         >
           <span className="text-muted-foreground mr-1 text-[0.625rem]">
             Sources
@@ -58,11 +58,11 @@ export function ServiceReach() {
           {sources.map((source, index) => (
             <span
               key={source}
-              className={`rounded-md border px-2 py-0.5 font-mono text-[0.5625rem] ${
+              className={`shrink-0 rounded-md border px-2 py-0.5 font-mono text-[0.5625rem] ${
                 index === 0
                   ? "border-primary/30 bg-primary/8 text-primary"
                   : "text-muted-foreground"
-              }`}
+              } ${index === 2 ? "hidden @min-[22rem]:inline-block" : ""}`}
             >
               {source}
             </span>
