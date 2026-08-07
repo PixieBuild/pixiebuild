@@ -62,7 +62,7 @@ export function Services() {
             <article
               key={service.title}
               className={cn(
-                "reveal bg-card/40 shadow-elev-1 flex flex-col overflow-hidden rounded-2xl border",
+                "reveal bg-background shadow-elev-1 flex flex-col overflow-hidden rounded-2xl border",
                 service.wide && "md:col-span-2",
               )}
             >
