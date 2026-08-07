@@ -361,8 +361,7 @@ export default async function StyleguidePage() {
         <p className="text-muted-foreground mt-10 max-w-prose text-sm text-pretty">
           The landing page also defines{" "}
           <span className="font-mono text-xs">bg-blueprint</span>,{" "}
-          <span className="font-mono text-xs">bg-blueprint-reveal</span>,{" "}
-          <span className="font-mono text-xs">bg-hero-glow</span> and{" "}
+          <span className="font-mono text-xs">bg-blueprint-reveal</span> and{" "}
           <span className="font-mono text-xs">text-drift</span>. They are that
           page&rsquo;s backdrop and its one typographic device — deliberately
           not part of the system, and not to be reused elsewhere.

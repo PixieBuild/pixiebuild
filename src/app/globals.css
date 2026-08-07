@@ -193,19 +193,6 @@
   }
 }
 
-@keyframes build-reveal {
-  from {
-    opacity: 0;
-    clip-path: inset(0 0 12% 0);
-    transform: scale(1.03);
-  }
-  to {
-    opacity: 1;
-    clip-path: inset(0 0 0 0);
-    transform: none;
-  }
-}
-
 @keyframes draw-rule {
   from {
     transform: scaleX(0);
@@ -325,7 +312,7 @@
    is nothing to hold and the page arrives whole. */
 @utility concept-stage {
   container-type: inline-size;
-  aspect-ratio: var(--concept-width, 1200) / 960;
+  aspect-ratio: var(--concept-width, 1200) / var(--concept-height, 960);
 
   &[data-build],
   & [data-build] {
@@ -365,20 +352,6 @@
   );
   opacity: var(--reveal-opacity);
   transition: opacity 400ms var(--ease-interface);
-}
-
-@utility bg-hero-glow {
-  background-image:
-    radial-gradient(
-      ellipse 60% 42% at 50% 12%,
-      color-mix(in oklch, var(--color-primary) 22%, transparent),
-      transparent 68%
-    ),
-    radial-gradient(
-      ellipse 90% 60% at 50% -10%,
-      color-mix(in oklch, var(--color-foreground) 7%, transparent),
-      transparent 70%
-    );
 }
 
 @utility bg-brand-glow {
