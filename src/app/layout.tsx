@@ -11,6 +11,7 @@ import {
 } from "next/font/google";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
+import { siteSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -99,17 +100,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: site.name,
-              url: site.url,
-              logo: `${site.url}/pb-logo.png`,
-              description: site.description,
-              email: site.email,
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchema()) }}
         />
 
         <ThemeProvider
