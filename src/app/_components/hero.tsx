@@ -61,7 +61,7 @@ export function Hero() {
               </span>
               <span
                 style={{ animationDelay: "430ms" }}
-                className="text-muted-foreground/75 motion-reduce:animate-none mt-1 block animate-rise-in sm:mt-0 sm:pl-16 md:pl-24 lg:pl-36 xl:pl-48 2xl:pl-64"
+                className="text-muted-foreground/75 motion-reduce:animate-none mt-1 block animate-rise-in sm:mt-0"
               >
                 Fast by Design.
               </span>
