@@ -4,6 +4,9 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@custom-variant tall (@media (min-height: 760px));
+@custom-variant taller (@media (min-height: 1000px));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

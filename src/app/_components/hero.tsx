@@ -16,7 +16,7 @@ export function Hero() {
         className="bg-brand-glow motion-reduce:animate-none pointer-events-none absolute top-0 left-0 h-[min(48rem,100svh)] w-[min(100%,52rem)] translate-y-[-6%] animate-glow-breathe sm:w-[min(100%,64rem)] lg:w-[min(100%,72rem)] 2xl:h-[min(56rem,100svh)] 2xl:w-[min(100%,80rem)]"
       />
 
-      <div className="relative flex min-h-[calc(100svh-3.5rem)] w-full flex-col sm:min-h-[calc(100svh-4rem)] lg:min-h-[calc(100svh-4.5rem)]">
+      <div className="relative flex min-h-[calc(100svh-5rem)] w-full flex-col tall:min-h-[calc(100svh-6.25rem)] taller:min-h-[calc(100svh-12.5rem)]">
         <SiteHeader />
 
         <div className="flex min-h-0 flex-1 flex-col justify-center">
