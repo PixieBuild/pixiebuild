@@ -9,6 +9,7 @@ import {
 import { useRef } from "react";
 
 import { HeroBuild } from "@/app/_components/hero-build";
+import { HeroBuildPhone } from "@/app/_components/hero-build-phone";
 
 const practice = [
   "Landing pages",
@@ -48,7 +49,12 @@ export function BuildAssembly() {
   return (
     <div className="relative mx-auto max-w-7xl px-6 pb-16 sm:px-8 sm:pb-18 md:px-12 md:pb-20 lg:px-16 lg:pb-24">
       <div ref={frame}>
-        <HeroBuild />
+        <div className="md:hidden">
+          <HeroBuildPhone />
+        </div>
+        <div className="hidden md:block">
+          <HeroBuild />
+        </div>
       </div>
 
       <div className="text-muted-foreground mt-4 flex items-baseline justify-between gap-6 sm:mt-5">
