@@ -10,6 +10,27 @@ import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 
+/* The order the page puts itself together in, top down, spaced so parts land
+   one after another rather than together. The first is on zero: something has
+   to move as soon as the build appears. The frame and the photograph carry no
+   beat — they are what the rest lands on. */
+const beat = {
+  logo: 0,
+  link: 0.04,
+  linkStep: 0.03,
+  book: 0.18,
+  eyebrow: 0.24,
+  headline: 0.32,
+  copy: 0.42,
+  rating: 0.5,
+  booking: 0.58,
+  house: 0.64,
+  card: 0.71,
+  cardStep: 0.05,
+};
+
+const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
+
 const photo = {
   harbour: "/concept/harbour.webp",
   room: "/concept/room.webp",
@@ -83,44 +104,63 @@ export function HeroBuild() {
             </div>
 
             <div className="relative flex h-21 items-center justify-between px-14">
-              <span className="font-concept-display text-concept-chalk ease-interface cursor-pointer text-[1.625em] tracking-[0.24em] transition-opacity duration-150 hover:opacity-75">
+              <span
+                style={part(beat.logo)}
+                className="font-concept-display text-concept-chalk ease-interface build-part cursor-pointer text-[1.625em] tracking-[0.24em] transition-opacity duration-150 hover:opacity-75"
+              >
                 CALA VERDE
               </span>
 
               <div className="flex items-center gap-9">
-                {links.map(link => (
+                {links.map((link, index) => (
                   <span
                     key={link}
-                    className="text-concept-chalk/75 hover:text-concept-chalk ease-interface after:bg-concept-chalk relative cursor-pointer text-[0.8125em] transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100"
+                    style={part(beat.link + index * beat.linkStep)}
+                    className="text-concept-chalk/75 hover:text-concept-chalk ease-interface after:bg-concept-chalk build-part relative cursor-pointer text-[0.8125em] transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100"
                   >
                     {link}
                   </span>
                 ))}
-                <span className="border-concept-chalk/40 text-concept-chalk hover:bg-concept-chalk hover:text-concept-scrim hover:border-concept-chalk ease-interface ml-2 cursor-pointer rounded-full border px-5 py-2 text-[0.8125em] font-medium transition-colors duration-200">
+                <span
+                  style={part(beat.book)}
+                  className="border-concept-chalk/40 text-concept-chalk hover:bg-concept-chalk hover:text-concept-scrim hover:border-concept-chalk ease-interface build-part ml-2 cursor-pointer rounded-full border px-5 py-2 text-[0.8125em] font-medium transition-colors duration-200"
+                >
                   Book a stay
                 </span>
               </div>
             </div>
 
             <div className="relative px-14 pt-20">
-              <span className="text-concept-chalk/70 flex items-center gap-3 text-[0.6875em] font-medium tracking-[0.3em] uppercase">
+              <span
+                style={part(beat.eyebrow)}
+                className="text-concept-chalk/70 build-part flex items-center gap-3 text-[0.6875em] font-medium tracking-[0.3em] uppercase"
+              >
                 <span aria-hidden className="bg-concept-chalk/40 h-px w-8" />
                 Liguria, Italy — Est. 1961
               </span>
 
-              <p className="font-concept-display text-concept-chalk mt-7 text-[4.75em] leading-[0.98]">
+              <p
+                style={part(beat.headline)}
+                className="font-concept-display text-concept-chalk build-part mt-7 text-[4.75em] leading-[0.98]"
+              >
                 Where the sea
                 <br />
                 keeps time.
               </p>
 
-              <p className="text-concept-chalk/80 mt-6 max-w-[44ch] text-[1.0625em] leading-relaxed">
+              <p
+                style={part(beat.copy)}
+                className="text-concept-chalk/80 build-part mt-6 max-w-[44ch] text-[1.0625em] leading-relaxed"
+              >
                 Eleven rooms above the harbour, a kitchen that opens at seven,
                 and a sea pool cut into the rock.
               </p>
             </div>
 
-            <div className="border-concept-chalk/20 bg-concept-scrim/55 text-concept-chalk absolute right-14 bottom-19 flex items-center gap-2.5 rounded-full border px-4 py-2">
+            <div
+              style={part(beat.rating)}
+              className="border-concept-chalk/20 bg-concept-scrim/55 text-concept-chalk build-part absolute right-14 bottom-19 flex items-center gap-2.5 rounded-full border px-4 py-2"
+            >
               <span className="text-concept-gold flex gap-0.5">
                 {[0, 1, 2, 3, 4].map(star => (
                   <RiStarFill key={star} className="size-3" />
@@ -130,7 +170,10 @@ export function HeroBuild() {
             </div>
           </div>
 
-          <div className="bg-concept-canvas border-concept-line concept-lift relative z-10 mx-14 -mt-12 flex h-24 items-center rounded-[0.45em] border pr-3 pl-8">
+          <div
+            style={part(beat.booking)}
+            className="bg-concept-canvas border-concept-line concept-lift build-part relative z-10 mx-14 -mt-12 flex h-24 items-center rounded-[0.45em] border pr-3 pl-8"
+          >
             {stay.map((field, index) => (
               <div
                 key={field.label}
@@ -155,7 +198,10 @@ export function HeroBuild() {
           </div>
 
           <div className="px-14 pt-11">
-            <div className="flex items-end justify-between">
+            <div
+              style={part(beat.house)}
+              className="build-part flex items-end justify-between"
+            >
               <p className="font-concept-display text-[1.625em]">The house</p>
               <span className="text-concept-clay hover:text-concept-clay/75 ease-interface group flex cursor-pointer items-center gap-1.5 text-[0.75em] font-medium tracking-[0.18em] uppercase transition-colors duration-200">
                 Explore everything
@@ -164,8 +210,12 @@ export function HeroBuild() {
             </div>
 
             <div className="mt-6 grid grid-cols-3 gap-6">
-              {house.map(item => (
-                <div key={item.title} className="group cursor-pointer">
+              {house.map((item, index) => (
+                <div
+                  key={item.title}
+                  style={part(beat.card + index * beat.cardStep)}
+                  className="build-part group cursor-pointer"
+                >
                   <div className="relative h-36 overflow-hidden rounded-[0.36em]">
                     <Image
                       src={item.image}

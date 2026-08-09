@@ -287,6 +287,19 @@
   aspect-ratio: var(--concept-width, 1200) / var(--concept-height, 960);
 }
 
+/* A part has a beat, the point in the assembly where it starts to arrive, and
+   a span to arrive over. Unset, the assembly reads as past the last beat,
+   which is what renders the build whole without JavaScript. */
+@utility build-part {
+  --beat: 0;
+  --span: 0.12;
+  --step: clamp(0, calc((var(--assemble, 2) - var(--beat)) / var(--span)), 1);
+
+  opacity: var(--step);
+  transform: translateY(calc((1 - var(--step)) * 0.55rem))
+    scale(calc(0.972 + 0.028 * var(--step)));
+}
+
 /* One design pixel of the concept page, as a real length. Rescaling the
    spacing scale and the root font size makes every utility inside resolve
    against the stage instead of the viewport, so the page lays out at its
