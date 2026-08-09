@@ -21,13 +21,14 @@ export function BuildAssembly() {
   const frame = useRef<HTMLDivElement>(null);
   const calm = useReducedMotion();
 
-  /* Starts as the build clears the bottom of the screen, so the first part
-     moves while it is still arriving, and finishes as it comes to the middle
-     — where it is settled and wants to be read rather than still moving. The
-     target is the build alone: padding or the caption would stretch it. */
+  /* Both edges read against the same line, so the range is the build's own
+     height whatever the screen. Progress is then how far the build has passed
+     that line, and a part whose beat is where it sits lands as it arrives
+     there. The target is the build alone: padding or the caption in it would
+     stretch the range and break that. */
   const { scrollYProgress } = useScroll({
     target: frame,
-    offset: ["start 95%", "center center"],
+    offset: ["start 72%", "end 72%"],
   });
 
   /* The parts read the assembly off a custom property, so the build stays

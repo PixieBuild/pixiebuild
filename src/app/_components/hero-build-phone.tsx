@@ -8,17 +8,17 @@ import {
 } from "@remixicon/react";
 import Image from "next/image";
 
-/* The order this page puts itself together in, top down. */
+/* Where each part sits down this page, less the span it takes to arrive. */
 const beat = {
   logo: 0,
-  menu: 0.05,
-  rating: 0.14,
-  eyebrow: 0.22,
-  headline: 0.32,
-  copy: 0.44,
-  booking: 0.56,
-  house: 0.68,
-  card: 0.78,
+  menu: 0.02,
+  rating: 0.04,
+  eyebrow: 0.18,
+  headline: 0.26,
+  copy: 0.35,
+  booking: 0.55,
+  house: 0.73,
+  card: 0.82,
 };
 
 const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;

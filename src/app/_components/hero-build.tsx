@@ -10,23 +10,22 @@ import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 
-/* The order the page puts itself together in, top down, spaced so parts land
-   one after another rather than together. The first is on zero: something has
-   to move as soon as the build appears. The frame and the photograph carry no
-   beat — they are what the rest lands on. */
+/* Where each part sits down the page, less the span it takes to arrive, so it
+   finishes as it reaches the line the assembly reads against. The frame and
+   the photograph carry no beat — they are what the rest lands on. */
 const beat = {
   logo: 0,
-  link: 0.04,
-  linkStep: 0.03,
-  book: 0.18,
-  eyebrow: 0.24,
-  headline: 0.32,
-  copy: 0.42,
-  rating: 0.5,
-  booking: 0.58,
-  house: 0.64,
-  card: 0.71,
-  cardStep: 0.05,
+  link: 0.01,
+  linkStep: 0.01,
+  book: 0.05,
+  eyebrow: 0.1,
+  headline: 0.2,
+  copy: 0.31,
+  rating: 0.41,
+  booking: 0.51,
+  house: 0.62,
+  card: 0.73,
+  cardStep: 0.02,
 };
 
 const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
