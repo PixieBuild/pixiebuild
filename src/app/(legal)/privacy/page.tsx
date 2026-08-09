@@ -18,7 +18,7 @@ const sections: LegalSection[] = [
   {
     title: "Who we are",
     body: [
-      `PixieBuild is a web design and development studio, founded in 2026, based in India and working with clients worldwide. For anything on this page, write to ${site.email}.`,
+      `${site.name} — also written ${site.alsoKnownAs} — is a web design and development studio, founded in 2026, based in India and working with clients worldwide. For anything on this page, write to ${site.email}.`,
       "We are small. There is no data team here — the person reading your enquiry is the person who built the form.",
     ],
   },

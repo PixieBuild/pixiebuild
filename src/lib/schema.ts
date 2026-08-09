@@ -18,6 +18,7 @@ export function siteSchema() {
         "@type": "Organization",
         "@id": id.organization,
         name: site.name,
+        alternateName: site.alsoKnownAs,
         url: site.url,
         description: site.description,
         email: site.email,

@@ -15,7 +15,7 @@ const sections: LegalSection[] = [
   {
     title: "What these cover",
     body: [
-      `These terms apply to the work PixieBuild does for you and to this website. PixieBuild is a web design and development studio founded in 2026, based in India, working with clients worldwide.`,
+      `These terms apply to the work ${site.name} does for you and to this website. ${site.name} — also written ${site.alsoKnownAs} — is a web design and development studio founded in 2026, based in India, working with clients worldwide.`,
       "Every project also has a written quote or proposal. Where that document and this page disagree, the quote wins — it was written about your project, and this page was not.",
     ],
   },
