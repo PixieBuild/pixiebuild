@@ -325,7 +325,7 @@
   opacity: 0;
   mask-image: radial-gradient(
     circle closest-side at 50% 50%,
-    black 35%,
+    black 55%,
     transparent 84%
   );
   transition: opacity 400ms var(--ease-interface);

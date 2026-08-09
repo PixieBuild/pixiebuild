@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const step = 64;
 const reach = 160;
-const lift = 0.2;
+const lift = 0.13;
 const margin = 32;
 const spacing = 12;
 const fade = 1600;
@@ -190,6 +190,10 @@ export function PageBackdrop() {
             />
           </radialGradient>
         </defs>
+
+        {/* The flat grid is painted out under the patch, so what bends is the
+            only grid there is rather than a second one drawn over it. */}
+        <rect width={box} height={box} fill="var(--color-background)" />
 
         <circle cx={box / 2} cy={box / 2} r={reach} fill="url(#dome-sheen)" />
         <path
