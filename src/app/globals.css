@@ -171,28 +171,6 @@
   }
 }
 
-@keyframes build-frame {
-  from {
-    opacity: 0;
-    transform: translateY(1rem) scale(0.985);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes build-place {
-  from {
-    opacity: 0;
-    transform: translateY(0.375rem) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
 @keyframes draw-rule {
   from {
     transform: scaleX(0);
@@ -202,24 +180,21 @@
   }
 }
 
-@keyframes concept-settle {
-  from {
-    opacity: 0;
-    transform: scale(1.06);
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.68;
   }
-  to {
+  50% {
     opacity: 1;
-    transform: none;
   }
 }
 
 @theme {
   --animate-build-sweep: build-sweep 2.6s ease-in-out infinite;
   --animate-rise-in: rise-in 620ms var(--ease-entrance) both;
-  --animate-build-frame: build-frame 800ms var(--ease-entrance) both;
-  --animate-build-place: build-place 620ms var(--ease-entrance) both;
-  --animate-concept-settle: concept-settle 1900ms var(--ease-entrance) both;
   --animate-draw-rule: draw-rule 620ms var(--ease-entrance) both;
+  --animate-glow-breathe: glow-breathe 9s ease-in-out infinite;
 }
 
 @theme inline {
@@ -307,17 +282,9 @@
   );
 }
 
-/* A part waits at the first frame of its entrance until the observer takes
-   the attribute off. Reduced motion clears the animation outright, so there
-   is nothing to hold and the page arrives whole. */
 @utility concept-stage {
   container-type: inline-size;
   aspect-ratio: var(--concept-width, 1200) / var(--concept-height, 960);
-
-  &[data-build],
-  & [data-build] {
-    animation-play-state: paused;
-  }
 }
 
 /* One design pixel of the concept page, as a real length. Rescaling the
@@ -336,22 +303,17 @@
   box-shadow: 0 1.125em 2.75em -1.125em var(--concept-shadow);
 }
 
-@utility bg-blueprint-reveal {
-  --reveal-x: 50%;
-  --reveal-y: 38%;
-  --reveal-opacity: 0;
-
-  background-image:
-    linear-gradient(to right, var(--reveal-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--reveal-line) 1px, transparent 1px);
-  background-size: 64px 64px;
+/* A box moved with a transform, so the pointer never repaints the page-sized
+   grid underneath it. */
+@utility reveal-patch {
+  opacity: 0;
   mask-image: radial-gradient(
-    240px circle at var(--reveal-x) var(--reveal-y),
-    black,
-    transparent 72%
+    circle closest-side at 50% 50%,
+    black 35%,
+    transparent 84%
   );
-  opacity: var(--reveal-opacity);
   transition: opacity 400ms var(--ease-interface);
+  will-change: transform;
 }
 
 @utility bg-brand-glow {
