@@ -3,12 +3,19 @@ import Link from "next/link";
 import PbLogo from "@/assets/pb-logo.svg";
 import { ThemeToggle } from "@/components/theme-toggle";
 
+const papers = [
+  { label: "Privacy", href: "/privacy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Refunds", href: "/refund" },
+];
+
+/* Rooted, because the footer is on pages other than the one it points into. */
 const links = [
-  { label: "Process", href: "#process" },
-  { label: "Work", href: "#work" },
-  { label: "Services", href: "#services" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Questions", href: "#faq" },
+  { label: "Process", href: "/#process" },
+  { label: "Work", href: "/#work" },
+  { label: "Services", href: "/#services" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "Questions", href: "/#faq" },
 ];
 
 export function SiteFooter() {
@@ -41,7 +48,16 @@ export function SiteFooter() {
             © {new Date().getFullYear()} PixieBuild
           </span>
 
-          <div className="flex items-center justify-between gap-4 sm:justify-start">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:justify-start">
+            {papers.map(paper => (
+              <Link
+                key={paper.href}
+                href={paper.href}
+                className="text-muted-foreground hover:text-foreground ease-interface text-xs transition-colors duration-300"
+              >
+                {paper.label}
+              </Link>
+            ))}
             <a
               href="mailto:hello@pixiebuild.com"
               className="text-muted-foreground hover:text-foreground ease-interface text-xs transition-colors duration-300"
