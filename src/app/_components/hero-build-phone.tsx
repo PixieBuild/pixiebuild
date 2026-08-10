@@ -8,7 +8,7 @@ import {
 } from "@remixicon/react";
 import Image from "next/image";
 
-/* Where each part sits down this page, less the span it takes to arrive. */
+/* Each part's place in the rhythm of this build. */
 const beat = {
   logo: 0,
   menu: 0.02,

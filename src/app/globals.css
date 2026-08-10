@@ -4,9 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@custom-variant tall (@media (min-height: 760px));
-@custom-variant taller (@media (min-height: 1000px));
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -290,17 +287,22 @@
   aspect-ratio: var(--concept-width, 1200) / var(--concept-height, 960);
 }
 
-/* A part has a beat, the point in the assembly where it starts to arrive, and
-   a span to arrive over. Unset, the assembly reads as past the last beat,
-   which is what renders the build whole without JavaScript. */
+/* How far a part has arrived. Inherited rather than declared here, so the frame
+   holds every part from the first paint rather than from hydration; the step the
+   assembly animates onto a part overrides what it inherits. Unset reads as
+   arrived. */
 @utility build-part {
-  --beat: 0;
-  --span: 0.12;
-  --step: clamp(0, calc((var(--assemble, 2) - var(--beat)) / var(--span)), 1);
+  opacity: var(--step, 1);
+  transform: translateY(calc((1 - var(--step, 1)) * 0.55rem))
+    scale(calc(0.972 + 0.028 * var(--step, 1)));
+}
 
-  opacity: var(--step);
-  transform: translateY(calc((1 - var(--step)) * 0.55rem))
-    scale(calc(0.972 + 0.028 * var(--step)));
+/* Nothing releases the parts, so they arrive themselves. Outside the utility
+   layer to outrank what they inherit from the frame. */
+@media (prefers-reduced-motion: reduce) {
+  .build-part {
+    --step: 1;
+  }
 }
 
 /* One design pixel of the concept page, as a real length. Rescaling the

@@ -10,9 +10,9 @@ import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 
-/* Where each part sits down the page, less the span it takes to arrive, so it
-   finishes as it reaches the line the assembly reads against. The frame and
-   the photograph carry no beat — they are what the rest lands on. */
+/* Each part's place in the rhythm of the build, roughly where it sits down the
+   page. The frame and the photograph carry no beat — they are what the rest
+   lands on. */
 const beat = {
   logo: 0,
   link: 0.01,
