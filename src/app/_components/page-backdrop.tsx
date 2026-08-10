@@ -1,110 +1,103 @@
 "use client";
 
+import { animate } from "motion/react";
 import { useEffect, useRef } from "react";
 
-const step = 64;
-const reach = 160;
-const lift = 0.13;
-const margin = 32;
-const spacing = 12;
+const patch = 420;
+const trail = 24;
+const rise = 0.05;
+const decay = 0.9;
+const spread = 0.07;
 const fade = 1600;
-const box = 2 * (reach + margin);
+const settle = [0.25, 1, 0.5, 1] as const;
+
+/* The cells around the one pressed, each lit on its own distance so the press
+   leaves the centre as a ring. */
+const ring = [
+  [-1, 0],
+  [1, 0],
+  [0, -1],
+  [0, 1],
+  [-1, -1],
+  [1, -1],
+  [-1, 1],
+  [1, 1],
+] as const;
 
 export function PageBackdrop() {
-  const patchRef = useRef<SVGSVGElement>(null);
-  const linesRef = useRef<SVGPathElement>(null);
+  const lightRef = useRef<HTMLDivElement>(null);
+  const fieldRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const patch = patchRef.current;
-    const lines = linesRef.current;
-    if (!patch || !lines) return;
+    const light = lightRef.current;
+    const field = fieldRef.current;
+    if (!light || !field) return;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    let frame = 0;
-    let showing = false;
-    const to = { x: 0, y: 0 };
-    const at = { x: 0, y: 0 };
+    const cells = Array.from(field.children) as HTMLElement[];
+    const step =
+      parseFloat(getComputedStyle(field).getPropertyValue("--grid-step")) || 64;
 
-    /* A point keeps its bearing and moves out along it, so the centre holds
-       still and the grid swells around it. The swell eases to nothing by the
-       edge of the reach, which is what lets the patch fade out seamlessly. */
-    const place = (x: number, y: number, first: boolean) => {
-      const dx = x - at.x;
-      const dy = y - at.y;
-      const away = Math.hypot(dx, dy);
-      const ease = away < reach ? 1 - (away / reach) ** 2 : 0;
-      const swell = 1 + lift * ease * ease;
+    let next = 0;
+    let col = NaN;
+    let row = NaN;
 
-      const round = (value: number) => Math.round(value * 10) / 10 + box / 2;
+    /* The cells are a pool, oldest reused first, so the trail is however many
+       are still fading. The wait is a keyframe rather than a delay: a delayed
+       animation fills with its first frame, lighting a whole ring at once. */
+    const ignite = (at: number, down: number, wait: number) => {
+      const cell = cells[next];
+      const span = wait + rise + decay;
+      next = (next + 1) % cells.length;
 
-      return `${first ? "M" : "L"}${round(dx * swell)} ${round(dy * swell)}`;
+      cell.style.transform = `translate(${at * step}px, ${down * step}px)`;
+      animate(
+        cell,
+        { opacity: [0, 1, 0] },
+        { duration: span, times: [0, (wait + rise) / span, 1], ease: settle },
+      );
     };
 
-    /* The half pixel puts the stroke on the same rail as the flat grid. */
-    const draw = () => {
-      const samples = Math.ceil((2 * reach) / spacing);
-      let path = "";
+    /* The disc's own lines are offset back by however far it sits off the grid,
+       or the light lays a second grid over the first. Both line layers take the
+       offset and the wash stays centred, in the order the utility declares. */
+    const place = (x: number, y: number) => {
+      const left = x - patch / 2;
+      const top = y - patch / 2;
+      const ox = ((-left % step) + step) % step;
+      const oy = ((-top % step) + step) % step;
 
-      for (
-        let x = Math.ceil((at.x - reach) / step) * step;
-        x <= at.x + reach;
-        x += step
-      ) {
-        for (let i = 0; i <= samples; i++) {
-          path += place(x + 0.5, at.y - reach + (i * 2 * reach) / samples, !i);
-        }
-      }
-
-      for (
-        let y = Math.ceil((at.y - reach) / step) * step;
-        y <= at.y + reach;
-        y += step
-      ) {
-        for (let i = 0; i <= samples; i++) {
-          path += place(at.x - reach + (i * 2 * reach) / samples, y + 0.5, !i);
-        }
-      }
-
-      lines.setAttribute("d", path);
-      patch.style.transform = `translate(${at.x - box / 2}px, ${
-        at.y - box / 2
-      }px)`;
-    };
-
-    /* Trails the pointer rather than tracking it, so the grid reads as being
-       dragged out of shape and settling back. */
-    const run = () => {
-      frame = 0;
-      const dx = to.x - at.x;
-      const dy = to.y - at.y;
-      at.x += dx * 0.2;
-      at.y += dy * 0.2;
-      draw();
-      if (Math.abs(dx) > 0.4 || Math.abs(dy) > 0.4) {
-        frame = requestAnimationFrame(run);
-      }
+      light.style.transform = `translate(${left}px, ${top}px)`;
+      light.style.backgroundPosition = `${ox}px ${oy}px, ${ox}px ${oy}px, center`;
     };
 
     const show = (x: number, y: number) => {
-      to.x = x;
-      to.y = y;
+      place(x, y);
+      light.style.transitionDuration = "";
+      light.style.opacity = "1";
 
-      if (!showing) {
-        showing = true;
-        at.x = x;
-        at.y = y;
-        draw();
-        patch.style.transitionDuration = "";
-        patch.style.opacity = "1";
+      const at = Math.floor(x / step);
+      const down = Math.floor(y / step);
+      if (at === col && down === row) return;
+
+      col = at;
+      row = down;
+      ignite(at, down, 0);
+    };
+
+    const press = (x: number, y: number) => {
+      show(x, y);
+
+      const at = Math.floor(x / step);
+      const down = Math.floor(y / step);
+      for (const [dx, dy] of ring) {
+        ignite(at + dx, down + dy, Math.hypot(dx, dy) * spread);
       }
-
-      if (!frame) frame = requestAnimationFrame(run);
     };
 
     const hide = () => {
-      showing = false;
-      patch.style.opacity = "0";
+      light.style.opacity = "0";
     };
 
     const point = (event: PointerEvent) => {
@@ -112,17 +105,27 @@ export function PageBackdrop() {
       show(event.clientX, event.clientY);
     };
 
+    const pressed = (event: PointerEvent) => {
+      if (event.pointerType === "touch") return;
+      press(event.clientX, event.clientY);
+    };
+
     /* Touch events, not pointer events: a scroll cancels the pointer
-       mid-gesture, and the dome should follow the finger doing the scrolling. */
+       mid-gesture, and the light should follow the finger doing the scrolling. */
     const touch = (event: TouchEvent) => {
       const finger = event.touches[0];
       if (finger) show(finger.clientX, finger.clientY);
     };
 
+    const tapped = (event: TouchEvent) => {
+      const finger = event.touches[0];
+      if (finger) press(finger.clientX, finger.clientY);
+    };
+
     /* A finger has no hover to end on, so the lift starts a long fade rather
-       than holding the dome and then cutting it. */
+       than holding the light and then cutting it. */
     const lifted = () => {
-      patch.style.transitionDuration = `${fade}ms`;
+      light.style.transitionDuration = `${fade}ms`;
       hide();
     };
 
@@ -132,8 +135,8 @@ export function PageBackdrop() {
     };
 
     window.addEventListener("pointermove", point, { passive: true });
-    window.addEventListener("pointerdown", point, { passive: true });
-    window.addEventListener("touchstart", touch, { passive: true });
+    window.addEventListener("pointerdown", pressed, { passive: true });
+    window.addEventListener("touchstart", tapped, { passive: true });
     window.addEventListener("touchmove", touch, { passive: true });
     window.addEventListener("touchend", lifted, { passive: true });
     window.addEventListener("touchcancel", lifted, { passive: true });
@@ -141,70 +144,35 @@ export function PageBackdrop() {
 
     return () => {
       window.removeEventListener("pointermove", point);
-      window.removeEventListener("pointerdown", point);
-      window.removeEventListener("touchstart", touch);
+      window.removeEventListener("pointerdown", pressed);
+      window.removeEventListener("touchstart", tapped);
       window.removeEventListener("touchmove", touch);
       window.removeEventListener("touchend", lifted);
       window.removeEventListener("touchcancel", lifted);
       document.documentElement.removeEventListener("pointerleave", leave);
-      if (frame) cancelAnimationFrame(frame);
     };
   }, []);
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
-      <div className="bg-grid absolute inset-0" />
-      <svg
-        ref={patchRef}
-        width={box}
-        height={box}
-        viewBox={`0 0 ${box} ${box}`}
-        className="reveal-patch absolute top-0 left-0"
-      >
-        <defs>
-          {/* Luminance, not colour — white and black are the mask's own
-              channels and carry no theme. */}
-          <radialGradient id="dome-core" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="white" stopOpacity="0.55" />
-            <stop offset="65%" stopColor="white" stopOpacity="0" />
-          </radialGradient>
-          <mask id="dome-crown">
-            <rect width={box} height={box} fill="url(#dome-core)" />
-          </mask>
+      <div className="grid-band absolute inset-0">
+        <div className="bg-grid absolute inset-0" />
 
-          <radialGradient id="dome-sheen" cx="36%" cy="32%" r="68%">
-            <stop
-              offset="0%"
-              stopColor="var(--color-primary)"
-              stopOpacity="0.05"
+        <div ref={fieldRef} className="absolute inset-0">
+          {Array.from({ length: trail }, (_, at) => (
+            <div
+              key={at}
+              className="absolute top-0 left-0 h-(--grid-step) w-(--grid-step) bg-(--reveal-cell) opacity-0"
             />
-            <stop
-              offset="55%"
-              stopColor="var(--color-primary)"
-              stopOpacity="0.014"
-            />
-            <stop
-              offset="100%"
-              stopColor="var(--color-primary)"
-              stopOpacity="0"
-            />
-          </radialGradient>
-        </defs>
+          ))}
+        </div>
 
-        {/* The flat grid is painted out under the patch, so what bends is the
-            only grid there is rather than a second one drawn over it. */}
-        <rect width={box} height={box} fill="var(--color-background)" />
-
-        <circle cx={box / 2} cy={box / 2} r={reach} fill="url(#dome-sheen)" />
-        <path
-          id="dome-lines"
-          ref={linesRef}
-          fill="none"
-          stroke="var(--reveal-line)"
-          strokeWidth="1"
+        <div
+          ref={lightRef}
+          style={{ width: patch, height: patch }}
+          className="grid-light absolute top-0 left-0"
         />
-        <use href="#dome-lines" mask="url(#dome-crown)" />
-      </svg>
+      </div>
     </div>
   );
 }

@@ -272,7 +272,12 @@
   background-image:
     linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 64px 64px;
+  background-size: var(--grid-step) var(--grid-step);
+}
+
+/* On the wrapper rather than the grid, so the lines and everything lit on them
+   fade out at the same two edges. */
+@utility grid-band {
   mask-image: linear-gradient(
     to right,
     transparent,
@@ -321,15 +326,26 @@
   box-shadow: 0 1.125em 2.75em -1.125em var(--concept-shadow);
 }
 
-/* A box moved with a transform, so the pointer never repaints the page-sized
-   grid underneath it. */
-@utility reveal-patch {
-  opacity: 0;
+/* The light the pointer carries over the grid. A box moved with a transform, so
+   the pointer never repaints the page-sized grid underneath it. */
+@utility grid-light {
+  background-image:
+    linear-gradient(to right, var(--reveal-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--reveal-line) 1px, transparent 1px),
+    radial-gradient(
+      circle closest-side at 50% 50%,
+      color-mix(in oklch, var(--color-primary) 5%, transparent),
+      transparent 72%
+    );
+  background-size:
+    var(--grid-step) var(--grid-step), var(--grid-step) var(--grid-step),
+    100% 100%;
   mask-image: radial-gradient(
     circle closest-side at 50% 50%,
-    black 55%,
-    transparent 84%
+    black 30%,
+    transparent 76%
   );
+  opacity: 0;
   transition: opacity 400ms var(--ease-interface);
   will-change: transform;
 }
@@ -411,8 +427,10 @@
     0 2px 6px -2px oklch(0.148 0.004 228.8 / 0.05);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.9);
 
+  --grid-step: 64px;
   --grid-line: color-mix(in oklch, var(--color-primary) 3%, transparent);
-  --reveal-line: color-mix(in oklch, var(--color-primary) 12%, transparent);
+  --reveal-line: color-mix(in oklch, var(--color-primary) 11%, transparent);
+  --reveal-cell: color-mix(in oklch, var(--color-primary) 5%, transparent);
 }
 
 .dark {
@@ -422,7 +440,8 @@
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.07);
 
   --grid-line: color-mix(in oklch, var(--color-primary) 4%, transparent);
-  --reveal-line: color-mix(in oklch, var(--color-primary) 26%, transparent);
+  --reveal-line: color-mix(in oklch, var(--color-primary) 22%, transparent);
+  --reveal-cell: color-mix(in oklch, var(--color-primary) 11%, transparent);
 }
 
 @theme inline {
