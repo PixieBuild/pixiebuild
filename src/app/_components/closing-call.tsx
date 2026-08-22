@@ -6,7 +6,7 @@ export function ClosingCall() {
     <section className="relative overflow-hidden py-20 md:py-28">
       <div aria-hidden className="bg-brand-glow absolute inset-0" />
 
-      <div className="relative mx-auto max-w-7xl px-6 text-center sm:px-8 md:px-12 lg:px-16">
+      <div className="relative mx-auto max-w-page px-6 text-center sm:px-8 md:px-12 lg:px-16">
         <h2 className="mx-auto max-w-2xl text-3xl font-semibold tracking-tight text-balance md:text-5xl">
           Tell us what you are building.
         </h2>

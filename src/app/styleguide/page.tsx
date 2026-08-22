@@ -58,6 +58,7 @@ const motionUsage: Record<string, string> = {
   "--ease-entrance": "Things arriving.",
   "--ease-interface": "Hover, focus, press.",
   "--animate-rise-in": "The entrance, once on load.",
+  "--animate-set-line": "A line of type arriving from under its own baseline.",
   "--animate-build-sweep": "The coming-soon progress sweep.",
   "--animate-glow-breathe": "The hero's brand glow, breathing.",
 };
@@ -112,8 +113,8 @@ const typeRoles = [
 const layout = [
   {
     what: "Container",
-    classes: "mx-auto max-w-7xl",
-    note: "Every band, no exceptions.",
+    classes: "mx-auto max-w-page",
+    note: "Every band, no exceptions. --container-page is the one width to change.",
   },
   {
     what: "Horizontal padding",
@@ -150,7 +151,7 @@ export default async function StyleguidePage() {
       </div>
 
       <header className="py-28">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8 md:px-12 lg:px-16">
+        <div className="mx-auto max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
           <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
             Internal reference
           </p>
@@ -361,12 +362,10 @@ export default async function StyleguidePage() {
 
         <p className="text-muted-foreground mt-10 max-w-prose text-sm text-pretty">
           The landing page also defines{" "}
-          <span className="font-mono text-xs">bg-blueprint</span>,{" "}
-          <span className="font-mono text-xs">grid-band</span>,{" "}
-          <span className="font-mono text-xs">grid-light</span> and{" "}
-          <span className="font-mono text-xs">text-drift</span>. They are that
-          page&rsquo;s backdrop and its one typographic device — deliberately
-          not part of the system, and not to be reused elsewhere.
+          <span className="font-mono text-xs">bg-blueprint</span> and{" "}
+          <span className="font-mono text-xs">bg-brand-glow</span>. They are
+          that page&rsquo;s backdrop — deliberately not part of the system, and
+          not to be reused elsewhere.
         </p>
       </Band>
 

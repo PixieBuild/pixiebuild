@@ -21,7 +21,7 @@ const links = [
 export function SiteFooter() {
   return (
     <footer className="border-t">
-      <div className="mx-auto max-w-7xl px-6 pt-10 pb-20 sm:px-8 md:px-12 md:py-12 lg:px-16">
+      <div className="mx-auto max-w-page px-6 pt-10 pb-20 sm:px-8 md:px-12 md:py-12 lg:px-16">
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <Link href="/" className="flex items-center gap-2.5">
             <PbLogo aria-hidden className="text-foreground size-6" />

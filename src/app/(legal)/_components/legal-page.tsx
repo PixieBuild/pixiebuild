@@ -35,7 +35,7 @@ export function LegalPage({
 }: LegalPageProps) {
   return (
     <main className="flex-1">
-      <div className="mx-auto max-w-7xl px-6 pt-16 pb-20 sm:px-8 md:px-12 md:pt-24 md:pb-28 lg:px-16">
+      <div className="mx-auto max-w-page px-6 pt-16 pb-20 sm:px-8 md:px-12 md:pt-24 md:pb-28 lg:px-16">
         <header className="max-w-3xl">
           <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
             {eyebrow}

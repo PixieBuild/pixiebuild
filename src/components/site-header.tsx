@@ -19,7 +19,7 @@ export function SiteHeader() {
       style={{ animationDelay: "60ms" }}
       className="motion-reduce:animate-none relative z-20 w-full animate-rise-in"
     >
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-6 pt-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="mx-auto flex w-full max-w-page items-center justify-between gap-4 px-6 pt-6 sm:px-8 md:px-12 lg:px-16">
         <Link
           href="/"
           className="ease-interface flex shrink-0 items-center gap-2.5 transition-opacity duration-150 hover:opacity-75"

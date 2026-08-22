@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s localhost:3000 -o home.html -w \"status=%{http_code} bytes=%{size_download}\\\\n\")"
+    ]
+  }
+}

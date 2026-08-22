@@ -44,7 +44,7 @@ const services = [
 export function Services() {
   return (
     <section id="services" className="scroll-mt-24 py-12 md:py-24">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="mx-auto max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
         <header className="max-w-3xl">
           <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
             Services

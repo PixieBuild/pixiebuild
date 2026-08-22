@@ -3,8 +3,10 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import "./globals.css";
 import {
+  Archivo,
   DM_Sans,
   Geist,
+  IBM_Plex_Mono,
   Instrument_Serif,
   Inter,
   Manrope,
@@ -34,6 +36,18 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
 const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans" });
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-archivo",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+});
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
@@ -95,6 +109,8 @@ export default function RootLayout({
         dmSans.variable,
         instrumentSerif.variable,
         generalSans.variable,
+        archivo.variable,
+        plexMono.variable,
       )}
     >
       <body className="min-h-full flex flex-col">
