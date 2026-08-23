@@ -429,7 +429,7 @@ export function HeroStage({
                     <p className="mt-4 flex items-baseline gap-3 lg:hidden">
                       <span
                         className={cn(
-                          "font-label text-[0.625rem] tracking-[0.16em] tabular-nums",
+                          "font-label text-[0.6875rem] tracking-[0.16em] tabular-nums",
                           index === at
                             ? "text-primary"
                             : "text-muted-foreground",
@@ -464,7 +464,7 @@ export function HeroStage({
               aria-hidden
               className={cn(
                 "ease-interface h-px flex-1 transition-colors duration-300",
-                index === at ? "bg-primary" : "bg-border",
+                index === at ? "bg-primary" : "bg-foreground/20",
               )}
             />
           ))}
@@ -483,18 +483,18 @@ export function HeroStage({
                   "ease-interface motion-reduce:animate-none flex animate-rise-in flex-col items-start gap-2 border-t pt-3 text-left transition-colors duration-300",
                   index === at
                     ? "border-primary text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "border-foreground/20 text-muted-foreground hover:border-foreground/40 hover:text-foreground",
                 )}
               >
                 <span
                   className={cn(
-                    "font-label text-[0.625rem] tracking-[0.16em] tabular-nums",
+                    "font-label text-[0.6875rem] tracking-[0.16em] tabular-nums 2xl:text-xs",
                     index === at ? "text-primary" : "text-muted-foreground",
                   )}
                 >
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-sm font-medium tracking-tight text-pretty">
+                <span className="text-sm font-medium tracking-tight text-pretty 2xl:text-base">
                   {build.trade}
                 </span>
               </button>
@@ -503,7 +503,7 @@ export function HeroStage({
 
           <div
             style={{ animationDelay: "1080ms" }}
-            className="font-label text-muted-foreground motion-reduce:animate-none mt-8 flex animate-rise-in flex-wrap items-center justify-between gap-x-6 gap-y-3 text-[0.625rem] tracking-[0.14em] uppercase"
+            className="font-label text-foreground/70 motion-reduce:animate-none mt-8 flex animate-rise-in flex-wrap items-center justify-between gap-x-6 gap-y-3 text-[0.6875rem] tracking-[0.14em] uppercase lg:text-xs 2xl:text-sm"
           >
             <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
               {practice.map((item, index) => (
@@ -518,9 +518,9 @@ export function HeroStage({
               <span className="tabular-nums">
                 {String(at + 1).padStart(2, "0")} / 05
               </span>
-              <span aria-hidden className="bg-border h-px w-5.5" />
+              <span aria-hidden className="bg-foreground/25 h-px w-5.5" />
               <span className="text-foreground/75">{builds[at].trade}</span>
-              <span aria-hidden className="bg-border h-px w-5.5" />
+              <span aria-hidden className="bg-foreground/25 h-px w-5.5" />
               <span>Rendered live</span>
             </span>
           </div>
