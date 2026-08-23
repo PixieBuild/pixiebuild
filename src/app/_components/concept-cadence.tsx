@@ -160,17 +160,17 @@ export function ConceptCadence() {
                   <div
                     key={tile.label}
                     style={part(beat.tile + index * beat.tileStep)}
-                    className="bg-concept-canvas border-concept-line build-part h-34 min-w-0 flex-1 rounded-xl border px-5 pt-5"
+                    className="bg-concept-canvas border-concept-line build-part h-36 min-w-0 flex-1 rounded-xl border px-5 pt-5"
                   >
                     <p className="text-concept-muted font-label text-[0.9375em] tracking-[0.14em]">
                       {tile.label}
                     </p>
-                    <p className="mt-3 text-[2.375em] leading-none font-semibold tracking-[-0.03em] tabular-nums">
+                    <p className="mt-3 text-[2.125em] leading-none font-semibold tracking-[-0.03em] tabular-nums">
                       {tile.value}
                     </p>
                     <span
                       className={cn(
-                        "font-label build-act mt-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.875em] tracking-[0.1em] tabular-nums",
+                        "font-label build-act mt-2.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.875em] tracking-[0.1em] tabular-nums",
                         tile.up
                           ? "bg-concept-clay/12 text-concept-clay"
                           : "bg-concept-ink/6 text-concept-muted",

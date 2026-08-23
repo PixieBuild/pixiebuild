@@ -395,11 +395,11 @@ export function HeroStage({
           {actions}
         </div>
         <div className="relative z-10 mt-12 lg:col-start-1 lg:row-start-2 lg:z-0 lg:mt-0">
-          <div className="lg:build-deck lg:build-fade lg:absolute lg:inset-0">
+          <div className="lg:build-deck lg:absolute lg:inset-0">
             <div
               ref={deck}
               style={shut}
-              className="scrollbar-none lg:build-tilt flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 motion-safe:scroll-smooth sm:gap-6 sm:px-8 md:px-12 lg:absolute lg:inset-y-0 lg:right-0 lg:left-[calc(50%-4rem)] lg:block lg:snap-none lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0 lg:[--fan:10%] lg:[--sink:-200px]"
+              className="scrollbar-none lg:build-tilt flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 motion-safe:scroll-smooth sm:gap-6 sm:px-8 md:px-12 lg:absolute lg:inset-y-0 lg:right-0 lg:left-[calc(50%-1rem)] lg:block lg:snap-none lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0 lg:[--fan:10%] lg:[--sink:-200px]"
             >
               {builds.map((build, index) => {
                 const step = depth(index, at, builds.length);
