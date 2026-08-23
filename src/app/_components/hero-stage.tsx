@@ -29,6 +29,7 @@ const dealt = 300;
 const deal = 110;
 const wide = "(min-width: 1024px)";
 const dwell = 5200;
+const reprieve = 9000;
 const held = { "--step": 0, "--act": 0 } as React.CSSProperties;
 const move = 0.62;
 const cue = 1.4;
@@ -127,7 +128,7 @@ export function HeroStage({
   const runs = useRef<AnimationPlaybackControls[]>([]);
   const [at, setAt] = useState(0);
   const [decked, setDecked] = useState(false);
-  const [taken, setTaken] = useState(false);
+  const [handled, setHandled] = useState(0);
   const [watched, setWatched] = useState(true);
 
   const calm = useReducedMotion();
@@ -181,7 +182,7 @@ export function HeroStage({
     return () => watch.disconnect();
   }, []);
   useEffect(() => {
-    if (calm || taken || !watched) return;
+    if (calm || handled || !watched) return;
 
     const timer = window.setTimeout(() => {
       const next = (at + 1) % builds.length;
@@ -195,15 +196,24 @@ export function HeroStage({
     }, dwell);
 
     return () => window.clearTimeout(timer);
-  }, [at, decked, calm, taken, watched]);
+  }, [at, decked, calm, handled, watched]);
   useEffect(() => {
     const node = deck.current;
-    if (!node || taken) return;
+    if (!node) return;
 
-    const claim = () => setTaken(true);
+    const claim = () => setHandled(count => count + 1);
     node.addEventListener("pointerdown", claim, { passive: true });
     return () => node.removeEventListener("pointerdown", claim);
-  }, [taken]);
+  }, []);
+
+  /* Counted rather than latched, so a second hand on the deck re-arms the wait
+     instead of being swallowed by a count that is already standing. */
+  useEffect(() => {
+    if (!handled) return;
+
+    const timer = window.setTimeout(() => setHandled(0), reprieve);
+    return () => window.clearTimeout(timer);
+  }, [handled]);
   useEffect(() => {
     if (!decked || calm) return;
     const node = track.current;
@@ -355,7 +365,7 @@ export function HeroStage({
   }, []);
 
   const show = (next: number) => {
-    setTaken(true);
+    setHandled(count => count + 1);
 
     if (decked) {
       setAt(next);
