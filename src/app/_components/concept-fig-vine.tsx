@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 
 const beat = {
@@ -5,14 +7,14 @@ const beat = {
   link: 0.02,
   linkStep: 0.015,
   book: 0.08,
-  headline: 0.14,
-  headlineStep: 0.08,
-  figure: 0.34,
-  rule: 0.4,
-  detail: 0.44,
-  detailStep: 0.03,
-  panel: 0.52,
-  slot: 0.56,
+  figure: 0.16,
+  headline: 0.22,
+  headlineStep: 0.07,
+  menu: 0.4,
+  dish: 0.44,
+  dishStep: 0.03,
+  panel: 0.54,
+  slot: 0.58,
   slotStep: 0.02,
 };
 
@@ -26,11 +28,15 @@ const headline = [
   { word: "Local.", accent: true },
 ];
 
-const detail = ["MENU — SPRING", "DINNER 18:00—23:00", "34 ALBION STREET"];
+const dishes = [
+  { name: "Hearth bread, cultured butter", price: "6" },
+  { name: "Grilled turbot, brown shrimp", price: "28" },
+  { name: "Fig leaf custard, honeycomb", price: "9" },
+];
 
-const slots = ["18:00", "18:30", "19:00", "19:30", "20:00", "20:30"];
+const slots = ["18:30", "19:00", "19:30", "20:30"];
 
-const taken = 3;
+const taken = 2;
 
 export function ConceptFigVine() {
   return (
@@ -43,10 +49,6 @@ export function ConceptFigVine() {
           <span
             aria-hidden
             className="bg-concept-clay absolute inset-x-0 bottom-0 z-10 h-[0.9%]"
-          />
-          <div
-            aria-hidden
-            className="bg-concept-stripes absolute inset-0 opacity-25"
           />
 
           <div className="border-concept-line relative flex h-20 items-center justify-between border-b px-14">
@@ -76,8 +78,47 @@ export function ConceptFigVine() {
             </div>
           </div>
 
-          <div className="relative flex h-152 gap-12 px-14 pt-14">
-            <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex h-160">
+            <div className="flex w-165 shrink-0 flex-col">
+              <div
+                style={part(beat.figure)}
+                className="build-part relative h-105 overflow-hidden"
+              >
+                <Image
+                  src="/concept/dining.webp"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 34vw, 60vw"
+                  className="animate-build-drift build-idle object-cover"
+                />
+              </div>
+
+              <div className="flex min-h-0 flex-1 flex-col px-14 pt-8">
+                <span
+                  style={part(beat.menu)}
+                  className="text-concept-ink/50 font-label build-part text-[1.0625em] tracking-[0.16em]"
+                >
+                  SEASONAL MENU
+                </span>
+
+                <div className="mt-5 flex flex-col gap-3.5">
+                  {dishes.map((dish, index) => (
+                    <span
+                      key={dish.name}
+                      style={part(beat.dish + index * beat.dishStep)}
+                      className="build-part flex items-baseline justify-between gap-5 text-[1.125em]"
+                    >
+                      <span className="min-w-0">{dish.name}</span>
+                      <span className="text-concept-ink/50 font-label tabular-nums">
+                        {dish.price}
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex min-w-0 flex-1 flex-col px-14 pt-14">
               <p className="text-[4.5em] leading-[0.95] font-medium tracking-[-0.035em]">
                 {headline.map((line, index) => (
                   <span
@@ -95,28 +136,28 @@ export function ConceptFigVine() {
 
               <div
                 style={part(beat.panel)}
-                className="border-concept-line build-part mt-auto border p-8"
+                className="border-concept-line build-part mt-auto mb-14 border p-7"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-label text-[1.0625em] tracking-[0.16em]">
-                    TONIGHT — 24 MAY
+                    BOOK A TABLE TONIGHT
                   </span>
                   <span className="text-concept-muted font-label flex items-center gap-2.5 text-[1.0625em] tracking-[0.16em]">
                     <span
                       aria-hidden
                       className="bg-concept-clay animate-build-pulse build-idle size-2 rounded-full"
                     />
-                    3 TABLES LEFT
+                    3 LEFT
                   </span>
                 </div>
 
-                <div className="mt-6 flex gap-3">
+                <div className="mt-6 flex gap-2.5">
                   {slots.map((slot, index) => (
                     <span
                       key={slot}
                       style={part(beat.slot + index * beat.slotStep)}
                       className={cn(
-                        "border-concept-line font-label build-part relative flex h-14 min-w-0 flex-1 items-center justify-center border text-[1.0625em] tracking-[0.16em] tabular-nums",
+                        "border-concept-line font-label build-part relative flex h-13 min-w-0 flex-1 items-center justify-center border text-[1em] tracking-[0.12em] tabular-nums",
                         index === taken
                           ? "text-concept-ink"
                           : "text-concept-muted",
@@ -132,39 +173,6 @@ export function ConceptFigVine() {
                     </span>
                   ))}
                 </div>
-              </div>
-            </div>
-
-            <div className="flex w-96 shrink-0 flex-col">
-              <span
-                aria-hidden
-                style={part(beat.rule)}
-                className="bg-concept-ink/25 build-part block h-px w-full"
-              />
-
-              <div className="mt-8 flex flex-col gap-4.5">
-                {detail.map((line, index) => (
-                  <span
-                    key={line}
-                    style={part(beat.detail + index * beat.detailStep)}
-                    className="text-concept-ink/60 font-label build-part text-[1.1875em] tracking-[0.16em]"
-                  >
-                    {line}
-                  </span>
-                ))}
-              </div>
-
-              <div
-                style={part(beat.figure)}
-                className="build-part relative mt-10 flex-1 overflow-hidden"
-              >
-                <span
-                  aria-hidden
-                  className="bg-concept-stripes animate-build-drift build-idle absolute inset-0"
-                />
-                <span className="text-concept-muted font-label absolute bottom-5 left-6 text-[1.0625em] tracking-[0.16em]">
-                  THE DINING ROOM
-                </span>
               </div>
             </div>
           </div>

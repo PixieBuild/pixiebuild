@@ -17,10 +17,10 @@ const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
 const links = ["WORK", "STUDIO", "CONTACT"];
 
 const work = [
-  { name: "Helios Atlas", craft: "IDENTITY", year: "2024" },
-  { name: "North Battery", craft: "EDITORIAL", year: "2024" },
-  { name: "Casa Meridian", craft: "MOTION", year: "2023" },
-  { name: "Pale Fire Press", craft: "WEB", year: "2023" },
+  { name: "Helios Atlas", craft: "IDENTITY", field: "AEROSPACE" },
+  { name: "North Battery", craft: "EDITORIAL", field: "MUSEUM" },
+  { name: "Casa Meridian", craft: "MOTION", field: "HOSPITALITY" },
+  { name: "Pale Fire Press", craft: "WEB", field: "PUBLISHING" },
 ];
 
 export function ConceptFoss() {
@@ -78,7 +78,7 @@ export function ConceptFoss() {
               style={part(beat.label)}
               className="text-concept-muted font-label build-part pb-3 text-[1.125em] tracking-[0.16em]"
             >
-              SELECTED WORK — 2024
+              SELECTED WORK — 12 PROJECTS
             </span>
           </div>
 
@@ -103,8 +103,8 @@ export function ConceptFoss() {
                 <span className="text-concept-muted font-label w-56 text-[1.1875em] tracking-[0.16em]">
                   {project.craft}
                 </span>
-                <span className="text-concept-muted font-label w-20 text-[1.1875em] tracking-[0.16em] tabular-nums">
-                  {project.year}
+                <span className="text-concept-muted font-label w-36 text-[1.1875em] tracking-[0.16em]">
+                  {project.field}
                 </span>
                 <RiArrowRightUpLine className="text-concept-muted size-7" />
               </div>

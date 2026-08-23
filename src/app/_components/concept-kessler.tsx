@@ -1,3 +1,6 @@
+import Image from "next/image";
+import { RiStarFill } from "@remixicon/react";
+
 import { cn } from "@/lib/utils";
 
 const beat = {
@@ -21,10 +24,30 @@ const links = ["SHOP", "ABOUT"];
 const filters = ["ALL", "CERAMICS", "TEXTILES", "WOOD"];
 
 const shelf = [
-  { name: "Ceramic Mug", price: "$28" },
-  { name: "Linen Apron", price: "$64" },
-  { name: "Oak Board", price: "$92" },
+  {
+    name: "Studio Ceramics",
+    price: "$28",
+    rating: "4.9",
+    reviews: "128",
+    photo: "/concept/ceramics.webp",
+  },
+  {
+    name: "Oak Serving Bowl",
+    price: "$92",
+    rating: "5.0",
+    reviews: "41",
+    photo: "/concept/bowl.webp",
+  },
+  {
+    name: "Table Cutlery",
+    price: "$64",
+    rating: "4.8",
+    reviews: "76",
+    photo: "/concept/cutlery.webp",
+  },
 ];
+
+const swatches = ["bg-concept-ink", "bg-concept-clay", "bg-concept-ink/25"];
 
 export function ConceptKessler() {
   return (
@@ -100,11 +123,14 @@ export function ConceptKessler() {
                 style={part(beat.tile + index * beat.tileStep)}
                 className="build-part min-w-0 flex-1"
               >
-                <div className="relative h-88 overflow-hidden">
-                  <span
-                    aria-hidden
+                <div className="relative h-80 overflow-hidden">
+                  <Image
+                    src={item.photo}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 16vw, 30vw"
                     style={{ animationDelay: `${index * -3.5}s` }}
-                    className="bg-concept-stripes animate-build-drift build-idle absolute inset-0"
+                    className="animate-build-drift build-idle object-cover"
                   />
                   {index === 0 && (
                     <span className="bg-concept-clay text-concept-chalk font-label build-act absolute top-5 left-5 flex h-8 items-center px-3 text-[0.9375em] tracking-[0.16em]">
@@ -117,8 +143,28 @@ export function ConceptKessler() {
                   <span className="text-[1.375em] font-medium tracking-[-0.02em]">
                     {item.name}
                   </span>
-                  <span className="text-concept-muted font-label text-[1.125em] tabular-nums">
+                  <span className="font-label text-[1.125em] tabular-nums">
                     {item.price}
+                  </span>
+                </div>
+
+                <div className="mt-3.5 flex items-center justify-between">
+                  <span aria-hidden className="flex items-center gap-2">
+                    {swatches.map(swatch => (
+                      <span
+                        key={swatch}
+                        className={cn(
+                          "size-3.5 rounded-full",
+                          swatch,
+                          swatch === swatches[0] &&
+                            "ring-concept-ink/30 ring-2 ring-offset-2",
+                        )}
+                      />
+                    ))}
+                  </span>
+                  <span className="text-concept-muted font-label flex items-center gap-1.5 text-[1em] tracking-[0.16em] tabular-nums">
+                    <RiStarFill className="text-concept-clay size-3.5" />
+                    {item.rating} ({item.reviews})
                   </span>
                 </div>
               </div>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   RiArrowDownLine,
   RiArrowUpLine,
@@ -42,6 +43,8 @@ const tiles = [
   { label: "RETENTION", value: "112%", delta: "4pt", up: true },
 ];
 
+const ranges = ["30D", "6M", "12M"];
+
 const months = [
   0.34, 0.42, 0.38, 0.51, 0.47, 0.62, 0.58, 0.71, 0.66, 0.79, 0.74, 0.92,
 ];
@@ -60,32 +63,37 @@ export function ConceptCadence() {
         aria-hidden
         className="concept-stage shadow-elev-2 relative w-full overflow-hidden border select-none [--concept-height:760] [--concept-width:1200] lg:w-[min(100cqw,calc(100cqh*1.5789),61.25rem)]"
       >
-        <div className="concept-page concept-theme-cool bg-concept-canvas text-concept-ink font-display absolute top-0 left-0 flex">
+        <div className="concept-page concept-theme-cool bg-concept-shell text-concept-ink font-display absolute top-0 left-0 flex">
           <span
             aria-hidden
             className="bg-concept-clay absolute inset-x-0 bottom-0 z-10 h-[0.9%]"
           />
 
-          <div className="border-concept-line bg-concept-ink/3 flex w-60 shrink-0 flex-col border-r px-7 pt-7 pb-8">
+          <div className="bg-concept-canvas border-concept-line flex w-60 shrink-0 flex-col border-r px-6 pt-7 pb-7">
             <div
               style={part(beat.mark)}
-              className="build-part flex items-center gap-3"
+              className="build-part flex items-center gap-3 px-2"
             >
-              <span aria-hidden className="bg-concept-clay size-6" />
-              <span className="font-label text-[1.125em] tracking-[0.16em]">
-                CADENCE
+              <span
+                aria-hidden
+                className="bg-concept-clay flex size-7 items-center justify-center rounded-lg"
+              >
+                <span className="bg-concept-canvas size-2.5 rounded-full" />
+              </span>
+              <span className="text-[1.25em] font-semibold tracking-[-0.02em]">
+                Cadence
               </span>
             </div>
 
-            <div className="mt-11 flex flex-col gap-1.5">
+            <div className="mt-10 flex flex-col gap-1">
               {nav.map((item, index) => (
                 <span
                   key={item.label}
                   style={part(beat.nav + index * beat.navStep)}
                   className={cn(
-                    "build-part flex h-11 items-center gap-3.5 px-3 text-[1.0625em]",
+                    "build-part flex h-11 items-center gap-3.5 rounded-lg px-3 text-[1.0625em]",
                     index === 0
-                      ? "bg-concept-ink/8 text-concept-ink font-medium"
+                      ? "bg-concept-ink text-concept-canvas font-medium"
                       : "text-concept-muted",
                   )}
                 >
@@ -95,57 +103,83 @@ export function ConceptCadence() {
               ))}
             </div>
 
-            <div className="border-concept-line mt-auto flex items-center gap-3 border-t pt-6">
-              <span aria-hidden className="bg-concept-ink/15 size-8 rounded-full" />
-              <span className="flex flex-col gap-1.5">
-                <span aria-hidden className="bg-concept-ink/20 block h-1.5 w-20" />
-                <span aria-hidden className="bg-concept-ink/10 block h-1.5 w-14" />
+            <div className="bg-concept-shell mt-auto flex items-center gap-3 rounded-xl p-3">
+              <Image
+                src="/concept/avatar.webp"
+                alt=""
+                width={96}
+                height={96}
+                sizes="48px"
+                className="size-9 shrink-0 rounded-full object-cover"
+              />
+              <span className="flex min-w-0 flex-col">
+                <span className="text-[1em] font-medium">Maya Ortiz</span>
+                <span className="text-concept-muted text-[0.9375em]">
+                  Finance lead
+                </span>
               </span>
             </div>
           </div>
 
           <div className="min-w-0 flex-1">
-            <div className="border-concept-line flex h-16 items-center justify-between border-b px-10">
-              <span className="flex items-center gap-3 text-[1.5em] font-medium tracking-[-0.02em]">
+            <div className="bg-concept-canvas border-concept-line flex h-16 items-center justify-between border-b px-9">
+              <span className="flex items-center gap-3 text-[1.5em] font-semibold tracking-[-0.02em]">
                 Overview
-                <span
-                  aria-hidden
-                  className="bg-concept-clay animate-build-pulse build-idle size-2 rounded-full"
-                />
+                <span className="bg-concept-clay/12 text-concept-clay font-label flex h-7 items-center gap-2 rounded-full px-3 text-[0.875em] tracking-[0.14em]">
+                  <span
+                    aria-hidden
+                    className="bg-concept-clay animate-build-pulse build-idle size-1.5 rounded-full"
+                  />
+                  LIVE
+                </span>
               </span>
 
               <span
                 style={part(beat.chip)}
-                className="border-concept-line text-concept-muted font-label build-part flex h-9 items-center border px-4 text-[1em] tracking-[0.16em]"
+                className="bg-concept-shell build-part flex h-9 items-center gap-1 rounded-lg p-1"
               >
-                LAST 12 MONTHS
+                {ranges.map((range, index) => (
+                  <span
+                    key={range}
+                    className={cn(
+                      "font-label flex h-full items-center rounded-md px-3.5 text-[0.9375em] tracking-[0.14em]",
+                      index === ranges.length - 1
+                        ? "bg-concept-canvas text-concept-ink shadow-elev-1"
+                        : "text-concept-muted",
+                    )}
+                  >
+                    {range}
+                  </span>
+                ))}
               </span>
             </div>
 
-            <div className="px-10 pt-8">
-              <div className="flex gap-5">
+            <div className="px-9 pt-7">
+              <div className="flex gap-4">
                 {tiles.map((tile, index) => (
                   <div
                     key={tile.label}
                     style={part(beat.tile + index * beat.tileStep)}
-                    className="border-concept-line build-part h-36 min-w-0 flex-1 border px-6 pt-6"
+                    className="bg-concept-canvas border-concept-line build-part h-34 min-w-0 flex-1 rounded-xl border px-5 pt-5"
                   >
-                    <p className="text-concept-muted font-label text-[1em] tracking-[0.16em]">
+                    <p className="text-concept-muted font-label text-[0.9375em] tracking-[0.14em]">
                       {tile.label}
                     </p>
-                    <p className="mt-3.5 text-[2.5em] leading-none font-semibold tracking-[-0.03em] tabular-nums">
+                    <p className="mt-3 text-[2.375em] leading-none font-semibold tracking-[-0.03em] tabular-nums">
                       {tile.value}
                     </p>
                     <span
                       className={cn(
-                        "font-label build-act mt-3.5 flex items-center gap-1 text-[0.9375em] tracking-[0.12em] tabular-nums",
-                        tile.up ? "text-concept-clay" : "text-concept-muted",
+                        "font-label build-act mt-3 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[0.875em] tracking-[0.1em] tabular-nums",
+                        tile.up
+                          ? "bg-concept-clay/12 text-concept-clay"
+                          : "bg-concept-ink/6 text-concept-muted",
                       )}
                     >
                       {tile.up ? (
-                        <RiArrowUpLine className="size-3.5" />
+                        <RiArrowUpLine className="size-3" />
                       ) : (
-                        <RiArrowDownLine className="size-3.5" />
+                        <RiArrowDownLine className="size-3" />
                       )}
                       {tile.delta}
                     </span>
@@ -153,27 +187,31 @@ export function ConceptCadence() {
                 ))}
               </div>
 
-              <div className="mt-6 flex gap-5">
+              <div className="mt-4 flex gap-4">
                 <div
                   style={part(beat.panel)}
-                  className="border-concept-line build-part h-105 min-w-0 flex-1 border px-8 pt-7"
+                  className="bg-concept-canvas border-concept-line build-part h-107 min-w-0 flex-1 rounded-xl border px-7 pt-6"
                 >
                   <div className="flex items-baseline justify-between">
-                    <span className="text-[1.25em] font-medium tracking-[-0.02em]">
+                    <span className="text-[1.25em] font-semibold tracking-[-0.02em]">
                       Recurring revenue
                     </span>
-                    <span className="text-concept-muted font-label text-[1em] tracking-[0.16em]">
+                    <span className="text-concept-muted font-label text-[0.9375em] tracking-[0.14em]">
                       TARGET $52k
                     </span>
                   </div>
 
-                  <div className="relative mt-8 h-63">
+                  <div className="relative mt-7 h-63">
                     <span
                       aria-hidden
-                      className="border-concept-clay/40 absolute inset-x-0 bottom-[72%] border-t border-dashed"
+                      className="border-concept-clay/45 absolute inset-x-0 bottom-[72%] border-t border-dashed"
+                    />
+                    <span
+                      aria-hidden
+                      className="border-concept-line absolute inset-x-0 bottom-[36%] border-t"
                     />
 
-                    <div className="flex h-full items-end gap-3">
+                    <div className="flex h-full items-end gap-2.5">
                       {months.map((share, index) => (
                         <span
                           key={share}
@@ -183,33 +221,33 @@ export function ConceptCadence() {
                             height: `${share * 100}%`,
                           }}
                           className={cn(
-                            "build-part min-w-0 flex-1 origin-bottom",
+                            "build-part min-w-0 flex-1 origin-bottom rounded-t-md",
                             index === months.length - 1
                               ? "bg-concept-clay animate-build-tick build-idle"
-                              : "bg-concept-ink/14",
+                              : "bg-concept-ink/12",
                           )}
                         />
                       ))}
                     </div>
                   </div>
 
-                  <div className="text-concept-muted font-label mt-4 flex justify-between text-[0.875em] tracking-[0.16em]">
-                    <span>JUN</span>
-                    <span>SEP</span>
-                    <span>DEC</span>
-                    <span>MAR</span>
+                  <div className="text-concept-muted font-label mt-4 flex justify-between text-[0.875em] tracking-[0.14em]">
+                    <span>12 MO AGO</span>
+                    <span>8 MO</span>
+                    <span>4 MO</span>
+                    <span>NOW</span>
                   </div>
                 </div>
 
                 <div
                   style={part(beat.rail)}
-                  className="border-concept-line build-part h-105 w-72 shrink-0 border px-7 pt-7"
+                  className="bg-concept-canvas border-concept-line build-part h-107 w-70 shrink-0 rounded-xl border px-6 pt-6"
                 >
-                  <span className="text-concept-muted font-label text-[1em] tracking-[0.16em]">
-                    TOP PLANS
+                  <span className="text-[1.25em] font-semibold tracking-[-0.02em]">
+                    Top plans
                   </span>
 
-                  <div className="mt-8 flex flex-col gap-7">
+                  <div className="mt-7 flex flex-col gap-6">
                     {plans.map((plan, index) => (
                       <div
                         key={plan.name}
@@ -224,13 +262,13 @@ export function ConceptCadence() {
                         </div>
                         <span
                           aria-hidden
-                          className="bg-concept-ink/8 mt-3 block h-1.5 w-full"
+                          className="bg-concept-ink/8 mt-2.5 block h-2 w-full rounded-full"
                         >
                           <span
                             aria-hidden
                             style={{ width: `${plan.share}%` }}
                             className={cn(
-                              "block h-full",
+                              "block h-full rounded-full",
                               index === 0
                                 ? "bg-concept-clay"
                                 : "bg-concept-ink/30",

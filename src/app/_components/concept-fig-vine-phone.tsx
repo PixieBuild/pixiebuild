@@ -1,14 +1,16 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 
 const beat = {
   logo: 0,
   book: 0.03,
-  headline: 0.14,
-  headlineStep: 0.08,
-  panel: 0.42,
-  slot: 0.48,
+  figure: 0.1,
+  headline: 0.24,
+  headlineStep: 0.07,
+  panel: 0.48,
+  slot: 0.54,
   slotStep: 0.03,
-  figure: 0.6,
 };
 
 const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
@@ -35,10 +37,6 @@ export function ConceptFigVinePhone() {
             aria-hidden
             className="bg-concept-clay absolute inset-x-0 bottom-0 z-10 h-[1.4%]"
           />
-          <div
-            aria-hidden
-            className="bg-concept-stripes absolute inset-0 opacity-25"
-          />
 
           <div className="border-concept-line relative flex h-14 items-center justify-between border-b px-5">
             <span
@@ -55,7 +53,20 @@ export function ConceptFigVinePhone() {
             </span>
           </div>
 
-          <div className="relative px-5 pt-9">
+          <div
+            style={part(beat.figure)}
+            className="build-part relative h-40 overflow-hidden"
+          >
+            <Image
+              src="/concept/dining.webp"
+              alt=""
+              fill
+              sizes="80vw"
+              className="animate-build-drift build-idle object-cover"
+            />
+          </div>
+
+          <div className="px-5 pt-6">
             <p className="text-[2.125em] leading-[0.95] font-medium tracking-[-0.035em]">
               {headline.map((line, index) => (
                 <span
@@ -73,13 +84,13 @@ export function ConceptFigVinePhone() {
 
             <div
               style={part(beat.panel)}
-              className="border-concept-line build-part mt-7 border p-5"
+              className="border-concept-line build-part mt-6 border p-4"
             >
               <div className="flex items-center justify-between">
-                <span className="font-label text-[0.6875em] tracking-[0.16em]">
-                  TONIGHT — 24 MAY
+                <span className="font-label text-[0.625em] tracking-[0.16em]">
+                  BOOK TONIGHT
                 </span>
-                <span className="text-concept-muted font-label flex items-center gap-2 text-[0.6875em] tracking-[0.16em]">
+                <span className="text-concept-muted font-label flex items-center gap-2 text-[0.625em] tracking-[0.16em]">
                   <span
                     aria-hidden
                     className="bg-concept-clay animate-build-pulse build-idle size-1.5 rounded-full"
@@ -88,13 +99,13 @@ export function ConceptFigVinePhone() {
                 </span>
               </div>
 
-              <div className="mt-4 flex gap-2.5">
+              <div className="mt-3.5 flex gap-2.5">
                 {slots.map((slot, index) => (
                   <span
                     key={slot}
                     style={part(beat.slot + index * beat.slotStep)}
                     className={cn(
-                      "border-concept-line font-label build-part relative flex h-11 min-w-0 flex-1 items-center justify-center border text-[0.6875em] tracking-[0.16em] tabular-nums",
+                      "border-concept-line font-label build-part relative flex h-10 min-w-0 flex-1 items-center justify-center border text-[0.625em] tracking-[0.16em] tabular-nums",
                       index === taken
                         ? "text-concept-ink"
                         : "text-concept-muted",
@@ -110,19 +121,6 @@ export function ConceptFigVinePhone() {
                   </span>
                 ))}
               </div>
-            </div>
-
-            <div
-              style={part(beat.figure)}
-              className="build-part relative mt-7 h-28 overflow-hidden"
-            >
-              <span
-                aria-hidden
-                className="bg-concept-stripes animate-build-drift build-idle absolute inset-0"
-              />
-              <span className="text-concept-muted font-label absolute bottom-3 left-4 text-[0.625em] tracking-[0.16em]">
-                THE DINING ROOM
-              </span>
             </div>
           </div>
         </div>

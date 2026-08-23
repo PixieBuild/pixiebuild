@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 
 const beat = {
@@ -15,8 +17,8 @@ const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
 const filters = ["ALL", "CERAMICS", "WOOD"];
 
 const shelf = [
-  { name: "Ceramic Mug", price: "$28" },
-  { name: "Linen Apron", price: "$64" },
+  { name: "Studio Ceramics", price: "$28", photo: "/concept/ceramics.webp" },
+  { name: "Oak Bowl", price: "$92", photo: "/concept/bowl.webp" },
 ];
 
 export function ConceptKesslerPhone() {
@@ -73,10 +75,13 @@ export function ConceptKesslerPhone() {
                 className="build-part min-w-0 flex-1"
               >
                 <div className="relative h-56 overflow-hidden">
-                  <span
-                    aria-hidden
+                  <Image
+                    src={item.photo}
+                    alt=""
+                    fill
+                    sizes="40vw"
                     style={{ animationDelay: `${index * -3.5}s` }}
-                    className="bg-concept-stripes animate-build-drift build-idle absolute inset-0"
+                    className="animate-build-drift build-idle object-cover"
                   />
                   {index === 0 && (
                     <span className="bg-concept-clay text-concept-chalk font-label build-act absolute top-3 left-3 flex h-6 items-center px-2 text-[0.5625em] tracking-[0.16em]">

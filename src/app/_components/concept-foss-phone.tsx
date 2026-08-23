@@ -53,7 +53,7 @@ export function ConceptFossPhone() {
               style={part(beat.label)}
               className="text-concept-muted font-label build-part mt-3 block text-[0.6875em] tracking-[0.16em]"
             >
-              SELECTED WORK — 2024
+              SELECTED WORK — 12 PROJECTS
             </span>
           </div>
 

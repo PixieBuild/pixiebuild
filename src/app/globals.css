@@ -369,15 +369,6 @@
   --concept-shadow: oklch(0 0 0 / 0.6);
 }
 
-@utility bg-concept-stripes {
-  background-color: var(--concept-shell);
-  background-image: repeating-linear-gradient(
-    -45deg,
-    var(--concept-line) 0 0.44em,
-    transparent 0.44em 0.94em
-  );
-}
-
 @utility bg-blueprint {
   --blueprint-line: color-mix(in oklch, var(--color-border) 32%, transparent);
   background-image:
