@@ -29,10 +29,15 @@ const dealt = 300;
 const deal = 110;
 const wide = "(min-width: 1024px)";
 const dwell = 5200;
-const held = { "--step": 0 } as React.CSSProperties;
+const held = { "--step": 0, "--act": 0 } as React.CSSProperties;
+const move = 0.62;
+const cue = 1.4;
 const shut = { "--in": 0 } as React.CSSProperties;
 const depth = (index: number, front: number, count: number) =>
   (index - front + count) % count;
+
+const clamp = (value: number, limit: number) =>
+  Math.round(Math.max(-limit, Math.min(limit, value)));
 
 /* Scrolls the row itself; scrollIntoView would scroll every ancestor too. */
 const slide = (
@@ -214,14 +219,23 @@ export function HeroStage({
         const box = node.getBoundingClientRect();
         const across = (event.clientX - box.left) / box.width - 0.5;
         const down = (event.clientY - box.top) / box.height - 0.5;
+
+        /* Leant towards the hand, and drawn a little way after it. */
+        const deck = stack.getBoundingClientRect();
+        const pullX = (event.clientX - (deck.left + deck.width / 2)) * 0.05;
+        const pullY = (event.clientY - (deck.top + deck.height / 2)) * 0.05;
+
         stack.style.setProperty("--sway", `${across * 9}deg`);
         stack.style.setProperty("--lean", `${down * -5}deg`);
+        stack.style.setProperty("--pull-x", `${clamp(pullX, 22)}px`);
+        stack.style.setProperty("--pull-y", `${clamp(pullY, 14)}px`);
       });
     };
 
     const rest = () => {
-      stack.style.removeProperty("--sway");
-      stack.style.removeProperty("--lean");
+      for (const key of ["--sway", "--lean", "--pull-x", "--pull-y"]) {
+        stack.style.removeProperty(key);
+      }
     };
 
     node.addEventListener("pointermove", follow, { passive: true });
@@ -253,6 +267,31 @@ export function HeroStage({
 
     shown.current.add(at);
     assemble(cell, runs.current, (dealt + at * deal) / 1000);
+  }, [at, calm]);
+
+  /* The one move a build makes on its own, replayed each time it comes to the
+     front. Held at nought behind, so it plays again rather than starting done. */
+  useEffect(() => {
+    for (const [index, cell] of cells.current.entries()) {
+      if (cell && index !== at) cell.style.setProperty("--act", "0");
+    }
+
+    const cell = cells.current[at];
+    if (!cell) return;
+
+    if (calm) {
+      cell.style.setProperty("--act", "1");
+      return;
+    }
+
+    const run = animate(0, 1, {
+      duration: move,
+      delay: cue,
+      ease: entrance,
+      onUpdate: played => cell.style.setProperty("--act", `${played}`),
+    });
+
+    return () => run.stop();
   }, [at, calm]);
   useIsomorphicLayoutEffect(() => {
     if (opened.current) return;
@@ -331,7 +370,7 @@ export function HeroStage({
       <noscript>
         <style>
           {
-            ".build-part { --step: 1 } .build-arrive { --in: 1 } .build-arrive:not(:first-of-type) { display: none }"
+            ".build-part { --step: 1 } .build-act { --act: 1 } .build-arrive { --in: 1 } .build-arrive:not(:first-of-type) { display: none }"
           }
         </style>
       </noscript>
@@ -350,7 +389,7 @@ export function HeroStage({
             <div
               ref={deck}
               style={shut}
-              className="scrollbar-none lg:build-tilt flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 motion-safe:scroll-smooth sm:gap-6 sm:px-8 md:px-12 lg:absolute lg:inset-y-0 lg:right-0 lg:left-[calc(50vw-4rem)] lg:block lg:snap-none lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0 lg:[--fan:10%] lg:[--sink:-200px]"
+              className="scrollbar-none lg:build-tilt flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 motion-safe:scroll-smooth sm:gap-6 sm:px-8 md:px-12 lg:absolute lg:inset-y-0 lg:right-0 lg:left-[calc(50%-4rem)] lg:block lg:snap-none lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0 lg:[--fan:10%] lg:[--sink:-200px]"
             >
               {builds.map((build, index) => {
                 const step = depth(index, at, builds.length);
@@ -364,11 +403,13 @@ export function HeroStage({
                     style={
                       {
                         ...held,
+                        "--play":
+                          step === 0 && watched ? "running" : "paused",
                         zIndex: builds.length - step,
                       } as React.CSSProperties
                     }
                     className={cn(
-                      "build-arrive max-lg:build-card w-[78%] shrink-0 snap-center sm:w-[52%] md:w-[64%] lg:build-panel lg:absolute lg:inset-0 lg:flex lg:w-auto lg:items-center lg:justify-center lg:pt-14 lg:pr-[8%] lg:pb-4 lg:[container-type:size]",
+                      "build-arrive max-lg:build-card w-[78%] shrink-0 snap-center sm:w-[52%] md:w-[64%] lg:build-panel lg:absolute lg:inset-0 lg:flex lg:w-auto lg:items-center lg:justify-center lg:pt-14 lg:pr-[8%] lg:pb-4 lg:@container-size",
                       step > 0 && "lg:pointer-events-none",
                     )}
                   >

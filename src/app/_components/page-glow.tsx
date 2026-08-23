@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const scale = 0.5;
+const scale = 1;
 
 const gap = 1000 / 30;
 
@@ -34,52 +34,21 @@ float hash(vec2 p) {
   return fract(p.x * p.y);
 }
 
-float noise(vec2 p) {
-  vec2 seat = floor(p);
-  vec2 into = fract(p);
-  vec2 ease = into * into * (3.0 - 2.0 * into);
-
-  return mix(
-    mix(hash(seat), hash(seat + vec2(1.0, 0.0)), ease.x),
-    mix(hash(seat + vec2(0.0, 1.0)), hash(seat + vec2(1.0, 1.0)), ease.x),
-    ease.y
-  );
-}
-
-/* Sums three octaves of noise, each half the weight and twice the frequency of
-   the last, turned as they stack so the layers cannot line up. */
-float fbm(vec2 p) {
-  float sum = 0.0;
-  float weight = 0.5;
-  mat2 turn = mat2(0.8, 0.6, -0.6, 0.8);
-
-  for (int i = 0; i < 3; i++) {
-    sum += weight * noise(p);
-    p = turn * p * 2.03;
-    weight *= 0.5;
-  }
-
-  return sum;
-}
-
 void main() {
   vec2 uv = gl_FragCoord.xy / uSize;
-  vec2 p = vec2(uv.x * (uSize.x / uSize.y), uv.y) * 2.4;
 
-  float t = uTime * 0.035;
+  /* Tracked back and forth rather than wrapped, so the band never jumps at the
+     end of a run. */
+  float axis = uv.x * 0.82 + uv.y * 0.58;
+  float sweep = abs(fract(uTime * 0.018) * 2.0 - 1.0);
+  float spread = mix(2.3, 1.35, uSoft);
+  float band = exp(-pow((axis - (sweep * 1.7 - 0.35)) * spread, 2.0));
 
-  vec2 drift = vec2(fbm(p + vec2(0.0, t)), fbm(p + vec2(5.2, 1.3) - t * 0.7));
-  vec2 curl = vec2(
-    fbm(p + 3.4 * drift + vec2(1.7, 9.2) + t * 0.5),
-    fbm(p + 3.4 * drift + vec2(8.3, 2.8) - t * 0.4)
-  );
-  float field = fbm(p + 3.4 * curl);
-  float near = exp(-length(uv - uPointer) * 2.4) * uReach;
-  float low = mix(0.34, 0.2, uSoft);
-  float high = mix(0.8, 1.05, uSoft);
-  float body = smoothstep(low, high, field) * (1.0 + near * 1.3);
+  float hand = exp(-length(uv - uPointer) * 1.7) * 0.55 * uReach;
+  float grain = (hash(gl_FragCoord.xy + floor(uTime * 6.0) * 7.3) - 0.5) * 0.11;
 
-  float a = clamp(body * mix(1.0, 0.5, uSoft) * uLift, 0.0, 1.0);
+  float a = clamp(
+    (band * 0.85 + hand + grain) * mix(1.0, 0.55, uSoft) * uLift, 0.0, 1.0);
 
   /* Premultiplied: the canvas is blended against the page, not covering it. */
   gl_FragColor = vec4(uInk * a, a);
@@ -168,11 +137,11 @@ export function PageGlow() {
 
       gl.uniform3f(
         uInk,
-        ink[0] * 0.45 + brand[0] * 0.55,
-        ink[1] * 0.45 + brand[1] * 0.55,
-        ink[2] * 0.45 + brand[2] * 0.55,
+        ink[0] * 0.7 + brand[0] * 0.3,
+        ink[1] * 0.7 + brand[1] * 0.3,
+        ink[2] * 0.7 + brand[2] * 0.3,
       );
-      gl.uniform1f(uLift, base[0] > 0.5 ? 0.1 : 0.26);
+      gl.uniform1f(uLift, base[0] > 0.5 ? 0.19 : 0.16);
       return true;
     };
 

@@ -1,16 +1,27 @@
+import { cn } from "@/lib/utils";
+
 const beat = {
   logo: 0,
   link: 0.02,
   linkStep: 0.02,
-  headline: 0.16,
-  copy: 0.4,
-  action: 0.5,
-  figure: 0.3,
+  headline: 0.14,
+  copy: 0.3,
+  available: 0.36,
+  band: 0.42,
+  stat: 0.48,
+  statStep: 0.05,
+  action: 0.64,
 };
 
 const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
 
-const links = ["Services", "Projects", "Contact"];
+const links = ["SERVICES", "PROJECTS", "CONTACT"];
+
+const stats = [
+  { value: "240", label: "PROJECTS DELIVERED" },
+  { value: "18", label: "YEARS IN PRACTICE" },
+  { value: "42", label: "CHARTERED ENGINEERS" },
+];
 
 export function ConceptNorthline() {
   return (
@@ -24,7 +35,8 @@ export function ConceptNorthline() {
             aria-hidden
             className="bg-concept-clay absolute inset-x-0 bottom-0 z-10 h-[0.9%]"
           />
-          <div className="border-concept-line flex h-26 items-center justify-between border-b px-15">
+
+          <div className="border-concept-line flex h-24 items-center justify-between border-b px-15">
             <span
               style={part(beat.logo)}
               className="font-label build-part text-[1.25em] tracking-[0.16em]"
@@ -39,17 +51,17 @@ export function ConceptNorthline() {
                   style={part(beat.link + index * beat.linkStep)}
                   className="build-part"
                 >
-                  {link.toUpperCase()}
+                  {link}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className="flex gap-12 px-15">
-            <div className="min-w-0 flex-1 pt-30">
+          <div className="px-15 pt-14">
+            <div className="flex items-start gap-16">
               <p
                 style={part(beat.headline)}
-                className="build-part text-[5em] leading-[0.91] font-semibold tracking-[-0.03em]"
+                className="build-part min-w-0 flex-1 text-[4.5em] leading-[0.95] font-semibold tracking-[-0.035em]"
               >
                 Structural
                 <br />
@@ -58,28 +70,66 @@ export function ConceptNorthline() {
                 quietly precise.
               </p>
 
-              <div
-                style={part(beat.copy)}
-                className="build-part mt-11 flex flex-col gap-2.5"
-              >
-                <span aria-hidden className="bg-concept-ink/12 block h-2 w-80" />
-                <span aria-hidden className="bg-concept-ink/8 block h-2 w-52" />
-              </div>
+              <div className="w-88 shrink-0 pt-4">
+                <p
+                  style={part(beat.copy)}
+                  className="text-concept-muted build-part text-[1.25em] leading-[1.7]"
+                >
+                  We design the structure behind civic buildings, bridges and
+                  transport hubs across the north of England.
+                </p>
 
-              <span
-                style={part(beat.action)}
-                className="bg-concept-ink text-concept-canvas font-label build-part mt-8 flex h-16 w-62 items-center justify-center text-[1.25em] tracking-[0.16em]"
-              >
-                VIEW PROJECTS
-              </span>
+                <span
+                  style={part(beat.available)}
+                  className="font-label build-part mt-8 flex items-center gap-2.5 text-[1.0625em] tracking-[0.16em]"
+                >
+                  <span
+                    aria-hidden
+                    className="bg-concept-clay animate-build-pulse build-idle size-2 rounded-full"
+                  />
+                  AVAILABLE FOR 2025
+                </span>
+              </div>
             </div>
 
             <div
-              style={part(beat.figure)}
-              className="bg-concept-stripes build-part relative mt-11 h-130 w-100 shrink-0"
+              style={part(beat.band)}
+              className="border-concept-line build-part mt-16 flex h-38 border-y"
             >
-              <span className="text-concept-muted font-label absolute bottom-5 left-6 text-[1.125em] tracking-[0.16em]">
-                SITE IMAGERY
+              {stats.map((stat, index) => (
+                <div
+                  key={stat.label}
+                  style={part(beat.stat + index * beat.statStep)}
+                  className={cn(
+                    "border-concept-line build-part flex flex-1 flex-col justify-center px-12",
+                    index > 0 && "border-l",
+                    index === 0 && "pl-0",
+                  )}
+                >
+                  <span className="text-[3.25em] leading-none font-semibold tracking-[-0.03em] tabular-nums">
+                    {stat.value}
+                  </span>
+                  <span className="text-concept-muted font-label mt-4 text-[1.0625em] tracking-[0.16em]">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-14 flex items-center justify-between">
+              <span
+                style={part(beat.action)}
+                className="bg-concept-ink text-concept-canvas font-label build-part relative flex h-16 w-62 items-center justify-center overflow-hidden text-[1.25em] tracking-[0.16em]"
+              >
+                <span
+                  aria-hidden
+                  className="bg-concept-clay build-act absolute inset-0 origin-left scale-x-[var(--act,1)]"
+                />
+                <span className="relative">VIEW PROJECTS</span>
+              </span>
+
+              <span className="text-concept-muted font-label text-[1.0625em] tracking-[0.16em]">
+                ICE ACCREDITED — EST. 2007
               </span>
             </div>
           </div>

@@ -1,18 +1,17 @@
-import { cn } from "@/lib/utils";
+import { RiArrowRightUpLine } from "@remixicon/react";
 
 const beat = {
   logo: 0,
   index: 0.02,
-  form: 0.14,
-  matters: 0.26,
-  rule: 0.52,
-  discipline: 0.58,
-  disciplineStep: 0.04,
+  headline: 0.14,
+  label: 0.28,
+  row: 0.34,
+  rowStep: 0.06,
 };
 
 const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
 
-const disciplines = ["IDENTITY", "EDITORIAL", "MOTION", "WEB"];
+const work = ["Helios Atlas", "North Battery", "Casa Meridian", "Pale Fire"];
 
 export function ConceptFossPhone() {
   return (
@@ -21,13 +20,13 @@ export function ConceptFossPhone() {
         aria-hidden
         className="concept-stage shadow-elev-2 relative w-full overflow-hidden border select-none [--concept-height:500] [--concept-width:380]"
       >
-        <div className="concept-page concept-theme-paper bg-concept-shell text-concept-ink font-display absolute top-0 left-0">
+        <div className="concept-page concept-theme-paper bg-concept-canvas text-concept-ink font-display absolute top-0 left-0">
           <span
             aria-hidden
             className="bg-concept-clay absolute inset-x-0 bottom-0 z-10 h-[1.4%]"
           />
 
-          <div className="flex h-14 items-center justify-between px-5">
+          <div className="border-concept-line flex h-14 items-center justify-between border-b px-5">
             <span
               style={part(beat.logo)}
               className="font-label build-part text-[0.75em] tracking-[0.16em]"
@@ -38,38 +37,46 @@ export function ConceptFossPhone() {
               style={part(beat.index)}
               className="text-concept-muted font-label build-part text-[0.75em] tracking-[0.16em]"
             >
-              INDEX — 01/12
+              WORK
             </span>
           </div>
 
-          <p className="px-5 pt-12 text-[4.5em] leading-[0.82] font-bold tracking-[-0.04em]">
-            <span style={part(beat.form)} className="build-part block">
-              FORM
-            </span>
-            <span
-              style={part(beat.matters)}
-              className="text-concept-clay build-part block"
+          <div className="px-5 pt-11">
+            <p
+              style={part(beat.headline)}
+              className="build-part text-[2.5em] leading-[0.95] font-semibold tracking-[-0.035em]"
             >
-              MATTERS
-            </span>
-          </p>
+              Form <span className="text-concept-clay">matters.</span>
+            </p>
 
-          <div
-            style={part(beat.rule)}
-            className="border-concept-ink/18 mt-14 grid grid-cols-2 border-t"
-          >
-            {disciplines.map((item, index) => (
-              <span
-                key={item}
-                style={part(beat.discipline + index * beat.disciplineStep)}
-                className={cn(
-                  "border-concept-ink/18 text-concept-muted font-label build-part flex h-14 items-center pl-5 text-[0.6875em] tracking-[0.16em]",
-                  index % 2 === 1 && "border-l",
-                  index > 1 && "border-t",
-                )}
+            <span
+              style={part(beat.label)}
+              className="text-concept-muted font-label build-part mt-3 block text-[0.6875em] tracking-[0.16em]"
+            >
+              SELECTED WORK — 2024
+            </span>
+          </div>
+
+          <div className="border-concept-line relative mt-9 border-t">
+            <span
+              aria-hidden
+              className="bg-concept-clay/10 border-concept-clay animate-build-index build-idle absolute inset-x-0 top-px h-16 border-l-2"
+            />
+
+            {work.map((name, index) => (
+              <div
+                key={name}
+                style={part(beat.row + index * beat.rowStep)}
+                className="border-concept-line build-part relative flex h-16 items-center gap-4 border-b px-5"
               >
-                {item}
-              </span>
+                <span className="text-concept-muted font-label w-8 text-[0.6875em] tracking-[0.16em] tabular-nums">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="min-w-0 flex-1 text-[1.125em] font-medium tracking-[-0.02em]">
+                  {name}
+                </span>
+                <RiArrowRightUpLine className="text-concept-muted size-4" />
+              </div>
             ))}
           </div>
         </div>

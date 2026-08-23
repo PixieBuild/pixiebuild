@@ -15,7 +15,7 @@ export function Hero() {
         <>
           <p
             style={{ animationDelay: "140ms" }}
-            className="text-muted-foreground font-label motion-reduce:animate-none flex animate-rise-in items-center gap-3 text-[0.6875rem] tracking-[0.16em] uppercase"
+            className="text-muted-foreground font-label motion-reduce:animate-none flex animate-rise-in items-center gap-3 text-[0.6875rem] lg:text-sm 2xl:text-base tracking-[0.16em] uppercase"
           >
             <span aria-hidden className="bg-primary size-1.5" />
             Web design &amp; development studio

@@ -1,18 +1,27 @@
+import { RiArrowRightUpLine } from "@remixicon/react";
+
 import { cn } from "@/lib/utils";
 
 const beat = {
   logo: 0,
-  index: 0.02,
-  form: 0.14,
-  matters: 0.26,
-  rule: 0.5,
-  discipline: 0.56,
-  disciplineStep: 0.04,
+  link: 0.02,
+  linkStep: 0.015,
+  headline: 0.12,
+  label: 0.26,
+  row: 0.32,
+  rowStep: 0.06,
 };
 
 const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
 
-const disciplines = ["IDENTITY", "EDITORIAL", "MOTION", "WEB"];
+const links = ["WORK", "STUDIO", "CONTACT"];
+
+const work = [
+  { name: "Helios Atlas", craft: "IDENTITY", year: "2024" },
+  { name: "North Battery", craft: "EDITORIAL", year: "2024" },
+  { name: "Casa Meridian", craft: "MOTION", year: "2023" },
+  { name: "Pale Fire Press", craft: "WEB", year: "2023" },
+];
 
 export function ConceptFoss() {
   return (
@@ -21,53 +30,84 @@ export function ConceptFoss() {
         aria-hidden
         className="concept-stage shadow-elev-2 relative w-full overflow-hidden border select-none [--concept-height:760] [--concept-width:1200] lg:w-[min(100cqw,calc(100cqh*1.5789),61.25rem)]"
       >
-        <div className="concept-page concept-theme-paper bg-concept-shell text-concept-ink font-display absolute top-0 left-0">
+        <div className="concept-page concept-theme-paper bg-concept-canvas text-concept-ink font-display absolute top-0 left-0">
           <span
             aria-hidden
             className="bg-concept-clay absolute inset-x-0 bottom-0 z-10 h-[0.9%]"
           />
-          <div className="flex h-20 items-center justify-between px-15">
+
+          <div className="border-concept-line flex h-20 items-center justify-between border-b px-15">
             <span
               style={part(beat.logo)}
               className="font-label build-part text-[1.25em] tracking-[0.16em]"
             >
               ATELIER FOSS
             </span>
-            <span
-              style={part(beat.index)}
-              className="text-concept-muted font-label build-part text-[1.25em] tracking-[0.16em]"
+
+            <div className="text-concept-muted font-label flex items-center gap-9 text-[1.125em] tracking-[0.16em]">
+              {links.map((link, index) => (
+                <span
+                  key={link}
+                  style={part(beat.link + index * beat.linkStep)}
+                  className={cn(
+                    "build-part",
+                    index === 0 && "text-concept-ink relative",
+                  )}
+                >
+                  {link}
+                  {index === 0 && (
+                    <span
+                      aria-hidden
+                      className="bg-concept-ink build-act absolute -bottom-2 left-0 h-px w-full origin-left scale-x-[var(--act,1)]"
+                    />
+                  )}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-end justify-between px-15 pt-15">
+            <p
+              style={part(beat.headline)}
+              className="build-part text-[4.5em] leading-[0.95] font-semibold tracking-[-0.035em]"
             >
-              INDEX — 01/12
+              Form <span className="text-concept-clay">matters.</span>
+            </p>
+
+            <span
+              style={part(beat.label)}
+              className="text-concept-muted font-label build-part pb-3 text-[1.125em] tracking-[0.16em]"
+            >
+              SELECTED WORK — 2024
             </span>
           </div>
 
-          <p className="px-11 pt-25 text-[15.625em] leading-[0.8] font-bold tracking-[-0.04em]">
-            <span style={part(beat.form)} className="build-part block">
-              FORM
-            </span>
+          <div className="border-concept-line relative mt-13 border-t">
             <span
-              style={part(beat.matters)}
-              className="text-concept-clay build-part block"
-            >
-              MATTERS
-            </span>
-          </p>
+              aria-hidden
+              className="bg-concept-clay/10 border-concept-clay animate-build-index build-idle absolute inset-x-0 top-px h-28 border-l-2"
+            />
 
-          <div
-            style={part(beat.rule)}
-            className="border-concept-ink/18 build-part mt-20 flex h-25 border-t"
-          >
-            {disciplines.map((item, index) => (
-              <span
-                key={item}
-                style={part(beat.discipline + index * beat.disciplineStep)}
-                className={cn(
-                  "border-concept-ink/18 text-concept-muted font-label build-part flex flex-1 items-center pl-15 text-[1.1875em] tracking-[0.16em]",
-                  index > 0 && "border-l",
-                )}
+            {work.map((project, index) => (
+              <div
+                key={project.name}
+                style={part(beat.row + index * beat.rowStep)}
+                className="border-concept-line build-part relative flex h-28 items-center gap-8 border-b px-15"
               >
-                {item}
-              </span>
+                <span className="text-concept-muted font-label w-14 text-[1.1875em] tracking-[0.16em] tabular-nums">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <span className="min-w-0 flex-1 text-[1.875em] font-medium tracking-[-0.02em]">
+                  {project.name}
+                </span>
+                <span className="text-concept-muted font-label w-56 text-[1.1875em] tracking-[0.16em]">
+                  {project.craft}
+                </span>
+                <span className="text-concept-muted font-label w-20 text-[1.1875em] tracking-[0.16em] tabular-nums">
+                  {project.year}
+                </span>
+                <RiArrowRightUpLine className="text-concept-muted size-7" />
+              </div>
             ))}
           </div>
         </div>

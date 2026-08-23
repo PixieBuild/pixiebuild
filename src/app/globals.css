@@ -129,6 +129,7 @@
   }
   html {
     @apply font-sans;
+    scrollbar-gutter: stable;
   }
   h1,
   h2,
@@ -183,11 +184,70 @@
   }
 }
 
+/* Holds on a row, then slides to the next. Four stops, so the element it moves
+   is one row tall and the list it moves down is four rows. */
+@keyframes build-index {
+  0%,
+  18% {
+    transform: translateY(0);
+  }
+  25%,
+  43% {
+    transform: translateY(100%);
+  }
+  50%,
+  68% {
+    transform: translateY(200%);
+  }
+  75%,
+  93% {
+    transform: translateY(300%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes build-drift {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.09) translate(-1.6%, -1.1%);
+  }
+}
+
+@keyframes build-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+@keyframes build-tick {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.87);
+  }
+}
+
 @theme {
   --animate-build-sweep: build-sweep 2.6s ease-in-out infinite;
   --animate-rise-in: rise-in 620ms var(--ease-entrance) both;
   --animate-set-line: set-line 1s var(--ease-entrance) both;
   --animate-glow-breathe: glow-breathe 9s ease-in-out infinite;
+  --animate-build-index: build-index 6.4s var(--ease-interface) infinite;
+  --animate-build-drift: build-drift 11s var(--ease-interface) infinite alternate;
+  --animate-build-pulse: build-pulse 2.4s ease-in-out infinite;
+  --animate-build-tick: build-tick 3.6s ease-in-out infinite;
 }
 
 @theme inline {
@@ -231,16 +291,19 @@
 }
 
 @utility build-fade {
-  mask-image: linear-gradient(
-    100deg,
-    transparent 44%,
-    rgb(0 0 0 / 0.45) 52%,
-    black 62%
-  );
+  @variant dark {
+    mask-image: linear-gradient(
+      100deg,
+      transparent 44%,
+      rgb(0 0 0 / 0.45) 52%,
+      black 62%
+    );
+  }
 }
 
 @utility build-tilt {
-  transform: rotateY(calc(-10deg + var(--sway, 0deg)))
+  transform: translate3d(var(--pull-x, 0px), var(--pull-y, 0px), 0)
+    rotateY(calc(-10deg + var(--sway, 0deg)))
     rotateX(calc(1.5deg + var(--lean, 0deg)));
   transform-style: preserve-3d;
   transition: transform 700ms var(--ease-interface);
@@ -343,11 +406,37 @@
     scale(calc(0.972 + 0.028 * var(--step, 1)));
 }
 
+/* Idle motion, inherited from the frame so only the one in front spends
+   anything. Every other frame in the deck holds its animation where it is. */
+@utility build-idle {
+  animation-play-state: var(--play, paused);
+}
+
+/* How far the frame's one scripted move has played. Unset reads as done, so a
+   frame that never runs still shows the state the move leaves behind. */
+@utility build-act {
+  opacity: var(--act, 1);
+}
+
+/* The half of a swap the move replaces. */
+@utility build-act-out {
+  opacity: calc(1 - var(--act, 1));
+}
+
 /* Nothing releases the parts, so they arrive themselves. Outside the utility
    layer to outrank what they inherit from the frame. */
 @media (prefers-reduced-motion: reduce) {
   .build-part {
     --step: 1;
+  }
+
+  .build-act,
+  .build-act-out {
+    --act: 1;
+  }
+
+  .build-idle {
+    animation-play-state: paused;
   }
 }
 
