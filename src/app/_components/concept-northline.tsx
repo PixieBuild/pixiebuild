@@ -95,6 +95,7 @@ export function ConceptNorthline() {
                 src="/concept/viaduct.webp"
                 alt=""
                 fill
+                loading="eager"
                 sizes="(min-width: 1024px) 46vw, 70vw"
                 className="animate-build-drift build-idle object-cover"
               />

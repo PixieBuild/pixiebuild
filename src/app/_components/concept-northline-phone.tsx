@@ -55,6 +55,7 @@ export function ConceptNorthlinePhone() {
               src="/concept/viaduct.webp"
               alt=""
               fill
+              loading="eager"
               sizes="80vw"
               className="animate-build-drift build-idle object-cover"
             />

@@ -61,6 +61,7 @@ export function ConceptFigVinePhone() {
               src="/concept/dining.webp"
               alt=""
               fill
+              loading="eager"
               sizes="80vw"
               className="animate-build-drift build-idle object-cover"
             />

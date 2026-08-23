@@ -88,6 +88,7 @@ export function ConceptFigVine() {
                   src="/concept/dining.webp"
                   alt=""
                   fill
+                  loading="eager"
                   sizes="(min-width: 1024px) 34vw, 60vw"
                   className="animate-build-drift build-idle object-cover"
                 />
