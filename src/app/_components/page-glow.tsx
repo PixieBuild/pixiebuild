@@ -6,6 +6,11 @@ const scale = 1;
 
 const gap = 1000 / 30;
 
+/* While the page is moving the compositor needs the GPU more than this does,
+   and nobody reads a soft gradient mid-scroll. */
+const busyGap = 1000 / 15;
+const settleAfter = 160;
+
 const vertex = `
 attribute vec2 aSeat;
 void main() { gl_Position = vec4(aSeat, 0.0, 1.0); }
@@ -167,6 +172,7 @@ export function PageGlow() {
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     let run = 0;
+    let busy = 0;
     let last = 0;
     let clock = 0;
     let handX = 0.5;
@@ -189,6 +195,10 @@ export function PageGlow() {
 
     const scrolled = () => {
       want = Math.min(1, window.scrollY / (window.innerHeight * 1.2));
+      window.clearTimeout(busy);
+      busy = window.setTimeout(() => {
+        busy = 0;
+      }, settleAfter);
       if (still.matches) {
         soft = want;
         paint();
@@ -198,7 +208,7 @@ export function PageGlow() {
     const draw = (now: number) => {
       if (!last) last = now;
       const since = now - last;
-      if (since < gap) {
+      if (since < (busy ? busyGap : gap)) {
         run = requestAnimationFrame(draw);
         return;
       }
@@ -276,6 +286,7 @@ export function PageGlow() {
 
     return () => {
       cancelAnimationFrame(run);
+      window.clearTimeout(busy);
       theme.disconnect();
       watch.disconnect();
       window.removeEventListener("pointermove", point);

@@ -12,6 +12,7 @@ import {
   Manrope,
 } from "next/font/google";
 import localFont from "next/font/local";
+import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteSchema } from "@/lib/schema";
 import { site } from "@/lib/site";
@@ -102,7 +103,7 @@ export default function RootLayout({
       suppressHydrationWarning
       style={{ "--font-sans": "var(--font-geist)" } as React.CSSProperties}
       className={cn(
-        "h-full font-sans antialiased motion-safe:scroll-smooth",
+        "h-full font-sans antialiased",
         inter.variable,
         geist.variable,
         manrope.variable,
@@ -128,6 +129,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
 
+        <SmoothScroll />
         <Analytics />
         <SpeedInsights />
       </body>
