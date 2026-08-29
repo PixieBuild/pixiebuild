@@ -1,14 +1,46 @@
 export const projects = [
   {
     name: "Landing Pages",
-    who: "For a launch, a campaign, or one offer that has to earn its click.",
+    who: "For a business that needs a strong online presence.",
     price: "500",
+    meta: "Starts at · live in 1–2 weeks",
     action: "Start your landing page",
+    includes: [
+      "One page, built for a single goal",
+      "Custom design — no template, no page builder",
+      "SEO & hosting set up for you",
+      "A live link to follow the build",
+      "You own the code and all accounts",
+      "Extra pages at $300 each",
+      "Two rounds of revisions",
+    ],
   },
   {
     name: "Company Websites",
-    who: "For a business that needs pages, a CMS, and room to keep growing.",
+    who: "For a business that needs pages and room to grow.",
     price: "1,500",
+    meta: "Starts at · live in 3–4 weeks",
     action: "Start your site",
+    featured: true,
+    includes: [
+      "Everything in Landing Page",
+      "3–5 custom pages",
+      "A CMS to edit your own content",
+      "Built so you can add pages later",
+      "Extra pages at $300 each",
+      "Three rounds of revisions",
+    ],
+  },
+  {
+    name: "Custom Applications",
+    who: "For software with accounts, data and logic.",
+    quote: "Quoted",
+    meta: "Priced after a discovery call",
+    action: "Book a discovery call",
+    includes: [
+      "We scope it with you before quoting",
+      "Review working builds as we go",
+      "The same team from start to finish",
+    ],
   },
 ];

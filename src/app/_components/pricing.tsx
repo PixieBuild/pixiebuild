@@ -1,7 +1,123 @@
-import { RiArrowRightLine } from "@remixicon/react";
+import { RiArrowRightLine, RiCheckLine } from "@remixicon/react";
 
 import { ContactButton } from "@/components/contact-button";
 import { projects } from "@/lib/pricing";
+import { cn } from "@/lib/utils";
+
+type Project = (typeof projects)[number];
+
+/* Side by side while the cell has the width for it, stacked once it does not.
+   The quoted one holds its own row a breakpoint longer than the priced pair. */
+function Tier({
+  project,
+  split,
+  rule,
+}: {
+  project: Project;
+  split: string;
+  rule: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex h-full flex-col p-6 md:p-8",
+        project.featured && "bg-primary/[0.045]",
+      )}
+    >
+      <div className={cn("flex flex-1 flex-col", split)}>
+        <div>
+          <div className="flex items-baseline justify-between gap-3">
+            <h3 className="text-base font-semibold tracking-tight">
+              {project.name}
+            </h3>
+            {project.featured ? (
+              <span className="bg-primary text-primary-foreground font-label shrink-0 rounded-full px-2.5 py-1 text-[0.625rem] tracking-[0.14em] uppercase">
+                Most picked
+              </span>
+            ) : null}
+          </div>
+          <p className="text-muted-foreground mt-2 text-sm leading-relaxed text-pretty">
+            {project.who}
+          </p>
+
+          <p className="mt-7 flex items-baseline gap-1">
+            {project.price ? (
+              <>
+                <span className="text-muted-foreground text-lg font-medium">
+                  $
+                </span>
+                <span className="text-4xl font-semibold tracking-tight tabular-nums">
+                  {project.price}
+                </span>
+              </>
+            ) : (
+              <span className="text-4xl font-semibold tracking-tight">
+                {project.quote}
+              </span>
+            )}
+          </p>
+          <p className="text-muted-foreground font-label mt-2.5 text-[0.6875rem] tracking-[0.14em] uppercase">
+            {project.meta}
+          </p>
+        </div>
+
+        <div className="mt-7 flex flex-1 flex-col md:mt-0 lg:mt-7">
+          <ul
+            className={cn(
+              "border-foreground/10 flex flex-col gap-3 border-t pt-6",
+              rule,
+            )}
+          >
+            {project.includes.map(item => (
+              <li key={item} className="flex gap-3 text-sm leading-relaxed">
+                <span
+                  aria-hidden
+                  className={cn(
+                    "mt-0.5 flex size-4.5 shrink-0 items-center justify-center rounded-full",
+                    project.featured
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-foreground/8 text-foreground/70",
+                  )}
+                >
+                  <RiCheckLine className="size-3" />
+                </span>
+                <span className="text-pretty">{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-auto pt-8">
+            <ContactButton
+              variant={project.featured ? "default" : "outline"}
+              className="w-full justify-center gap-2"
+            >
+              {project.action}
+              <RiArrowRightLine className="size-4" />
+            </ContactButton>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const seams = [
+  "border-b lg:border-r xl:border-b-0",
+  "border-b xl:border-r xl:border-b-0",
+  "lg:col-span-2 xl:col-span-1",
+];
+
+const splits = [
+  "md:grid md:grid-cols-2 md:items-start md:gap-x-12 lg:flex lg:flex-col lg:items-stretch",
+  "md:grid md:grid-cols-2 md:items-start md:gap-x-12 lg:flex lg:flex-col lg:items-stretch",
+  "md:grid md:grid-cols-2 md:items-start md:gap-x-12 xl:flex xl:flex-col xl:items-stretch",
+];
+
+const rules = [
+  "md:border-t-0 md:pt-0 lg:border-t lg:pt-6",
+  "md:border-t-0 md:pt-0 lg:border-t lg:pt-6",
+  "md:border-t-0 md:pt-0 xl:border-t xl:pt-6",
+];
 
 export function Pricing() {
   return (
@@ -12,64 +128,29 @@ export function Pricing() {
             Pricing
           </p>
           <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
-            Where projects usually start.
+            Where projects usually start{" "}
+            <span className="text-muted-foreground">— and what that buys.</span>
           </h2>
         </header>
 
-        <div className="mt-12 grid gap-5 md:mt-16 md:grid-cols-2 md:gap-6">
-          {projects.map(project => (
+        <div className="bg-card shadow-elev-2 mt-12 grid overflow-hidden rounded-2xl border md:mt-16 lg:grid-cols-2 xl:grid-cols-3">
+          {projects.map((project, index) => (
             <div
               key={project.name}
-              className="bg-card shadow-elev-1 group flex flex-col overflow-hidden rounded-2xl border"
+              className={cn("border-foreground/10", seams[index])}
             >
-              <div className="flex flex-1 flex-col p-7 md:p-9">
-                <h3 className="text-xl font-semibold tracking-tight">
-                  {project.name}
-                </h3>
-                <p className="text-muted-foreground mt-2.5 max-w-xs text-sm leading-relaxed text-pretty">
-                  {project.who}
-                </p>
-
-                <p className="text-muted-foreground mt-10 font-mono text-[0.6875rem] tracking-widest uppercase md:mt-12">
-                  Starting at
-                </p>
-                <p className="mt-2.5 flex items-baseline gap-1">
-                  <span className="text-muted-foreground text-2xl font-medium">
-                    $
-                  </span>
-                  <span className="text-5xl font-semibold tracking-tight tabular-nums md:text-6xl">
-                    {project.price}
-                  </span>
-                </p>
-              </div>
-
-              <ContactButton className="h-auto border-none gap-2 rounded-none py-4 text-sm font-medium">
-                {project.action}
-                <RiArrowRightLine className="ease-interface size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </ContactButton>
+              <Tier
+                project={project}
+                split={splits[index]}
+                rule={rules[index]}
+              />
             </div>
           ))}
         </div>
 
-        <div className="bg-card mt-5 flex flex-col gap-6 rounded-2xl border p-7 md:mt-6 md:flex-row md:items-center md:justify-between md:p-9">
-          <div>
-            <h3 className="text-xl font-semibold tracking-tight">
-              Custom Web Applications
-            </h3>
-            <p className="text-muted-foreground mt-2.5 max-w-lg text-sm leading-relaxed text-pretty">
-              For software with accounts, data and logic behind the interface.
-              Scoped together, and quoted once we both know what it has to do.
-            </p>
-          </div>
-
-          <ContactButton size="lg" variant="outline" className="shrink-0">
-            Book a discovery call
-          </ContactButton>
-        </div>
-
-        <p className="text-muted-foreground mx-auto mt-10 max-w-lg text-center text-xs leading-relaxed text-pretty">
-          Every project is unique. These are starting points, and the number
-          moves with scope and requirements.
+        <p className="text-muted-foreground mt-8 text-center text-xs leading-relaxed text-pretty">
+          These are starting points. The number moves with scope, and with what
+          the site has to do.
         </p>
 
         <p className="mt-14 text-center text-lg tracking-tight text-balance md:mt-16">

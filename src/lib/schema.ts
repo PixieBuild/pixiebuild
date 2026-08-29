@@ -55,12 +55,15 @@ export function siteSchema() {
               description: project.who,
               provider: { "@id": id.organization },
             },
-            /* The page says "from", so the schema says a minimum too. */
-            priceSpecification: {
-              "@type": "PriceSpecification",
-              priceCurrency: "USD",
-              minPrice: Number(project.price.replace(/,/g, "")),
-            },
+            /* The page says "from", so the schema says a minimum too — and
+               stays quiet for the work that is only ever quoted. */
+            ...(project.price && {
+              priceSpecification: {
+                "@type": "PriceSpecification",
+                priceCurrency: "USD",
+                minPrice: Number(project.price.replace(/,/g, "")),
+              },
+            }),
           })),
         },
       },
