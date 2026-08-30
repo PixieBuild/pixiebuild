@@ -54,7 +54,7 @@ export function HowWeWork() {
             >
               <div
                 data-nosnippet
-                className="bg-muted/25 relative flex h-96 items-center justify-center overflow-hidden px-6 py-8"
+                className="bg-muted dark:bg-muted/25 relative flex h-96 items-center justify-center overflow-hidden px-6 py-8"
               >
                 {stage.artifact}
               </div>
