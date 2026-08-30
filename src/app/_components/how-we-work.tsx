@@ -7,25 +7,25 @@ const stages = [
   {
     step: "01",
     lead: "Discovery",
-    rest: "what the business actually sells, before anything is drawn.",
+    rest: "what the business sells, before anything is drawn.",
     artifact: <ArtifactDiscovery />,
   },
   {
     step: "02",
     lead: "One workflow",
-    rest: "from design to code — decided and built in the same pass, never handed over.",
+    rest: "design and code in one pass, never handed over.",
     artifact: <ArtifactBuild />,
   },
   {
     step: "03",
     lead: "Iteration",
-    rest: "you can compare — each round is a version to look at, not a description of one.",
+    rest: "every round is a version you can open.",
     artifact: <ArtifactIterate />,
   },
   {
     step: "04",
     lead: "Delivery",
-    rest: "into your own accounts, with everything we made transferred.",
+    rest: "into your own accounts, everything transferred.",
     artifact: <ArtifactDelivery />,
   },
 ];
@@ -46,15 +46,11 @@ export function HowWeWork() {
           </h2>
         </header>
 
-        <div className="border-foreground/20 dark:border-foreground/18 mt-14 grid overflow-hidden rounded-xl border border-dashed md:mt-16 md:grid-cols-2">
-          {stages.map((stage, index) => (
+        <div className="mt-14 grid gap-5 md:mt-16 md:grid-cols-2 md:gap-6">
+          {stages.map(stage => (
             <div
               key={stage.step}
-              className={`bg-background border-foreground/20 dark:border-foreground/18 flex flex-col border-dashed ${
-                index < stages.length - 1 ? "border-b" : ""
-              } ${index % 2 === 0 ? "md:border-r" : ""} ${
-                index >= 2 ? "md:border-b-0" : ""
-              }`}
+              className="border-foreground/20 dark:border-foreground/18 bg-background flex flex-col overflow-hidden rounded-xl border border-dashed"
             >
               <div
                 data-nosnippet
@@ -63,7 +59,7 @@ export function HowWeWork() {
                 {stage.artifact}
               </div>
 
-              <div className="border-foreground/20 dark:border-foreground/18 flex items-baseline gap-4 border-t border-dashed p-6 sm:p-7">
+              <div className="flex items-baseline gap-4 p-6 sm:p-7">
                 <span className="text-muted-foreground font-mono text-xs tabular-nums">
                   {stage.step}
                 </span>
