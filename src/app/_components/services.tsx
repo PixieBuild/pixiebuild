@@ -71,7 +71,7 @@ export function Services() {
                 data-nosnippet
                 className={cn(
                   "relative shrink-0 overflow-hidden",
-                  service.wide ? "h-72 sm:h-80" : "h-80 sm:h-96",
+                  service.wide ? "h-80 md:h-72 lg:h-80" : "h-80 sm:h-96",
                 )}
               >
                 {service.demo}
@@ -88,13 +88,13 @@ export function Services() {
                 <ul className="text-muted-foreground/70 mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs">
                   {service.includes.map((item, index) => (
                     <li key={item} className="flex items-center gap-3">
-                      {index > 0 ? (
+                      {item}
+                      {index < service.includes.length - 1 ? (
                         <span
                           aria-hidden
                           className="bg-border size-1 rounded-full"
                         />
                       ) : null}
-                      {item}
                     </li>
                   ))}
                 </ul>
