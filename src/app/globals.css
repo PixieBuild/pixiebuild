@@ -432,10 +432,6 @@
   font-size: calc(16 * var(--u));
 }
 
-@utility concept-lift {
-  box-shadow: 0 1.125em 2.75em -1.125em var(--concept-shadow);
-}
-
 @utility bg-brand-glow {
   background-image: radial-gradient(
     ellipse 36% 30% at 50% 42%,

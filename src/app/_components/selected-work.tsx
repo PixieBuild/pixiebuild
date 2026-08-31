@@ -1,4 +1,4 @@
-import { WorkCarousel, type Project } from "@/app/_components/work-carousel";
+import { WorkStack, type Project } from "@/app/_components/work-stack";
 
 const projects: Project[] = [
   {
@@ -6,33 +6,33 @@ const projects: Project[] = [
     tone: "light",
     sector: "Coffee house",
     built:
-      "A neighbourhood coffee house in Portland — the room, the craft and the menu, in the order a first visit asks for them.",
+      "The room, the craft and the menu — in that order.",
     delivered: ["Brand site", "Menu", "CMS"],
     year: "2025",
     image: "/work/ember-oak.webp",
-    phone: "/work/ember-oak-mobile.webp",
+    blur: "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADwAQCdASoMAAgABABsJZQCdAD0j00NyQAA/u/WhBUm0PACIoMgYbMnKyAAAA==",
   },
   {
     name: "Sable",
     tone: "dark",
     sector: "AI agents",
     built:
-      "A marketing site for an agent platform, led by the product itself — the workspace is on screen before a word of copy explains it.",
+      "An agent platform that leads with the product, not the pitch.",
     delivered: ["Marketing site", "Design system", "Docs"],
     year: "2026",
     image: "/work/sable.webp",
-    phone: "/work/sable-mobile.webp",
+    blur: "data:image/webp;base64,UklGRi4AAABXRUJQVlA4ICIAAACQAQCdASoMAAgABABsJaQAApz73AAA/vLKpUSJLZiqYAAA",
   },
   {
     name: "Flowboard",
     tone: "dark",
     sector: "Task management",
     built:
-      "A kanban tool where a task moves by dragging it — boards and columns you name yourself, subtasks and notes on every card.",
+      "A kanban board where the work moves by dragging it.",
     delivered: ["Product design", "Web app", "Accounts"],
     year: "2026",
     image: "/work/flowboard.webp",
-    phone: "/work/flowboard-mobile.webp",
+    blur: "data:image/webp;base64,UklGRigAAABXRUJQVlA4IBwAAAAwAQCdASoMAAgABABsJZwAA3AA/u+ihSjDyAAA",
     unoptimized: true,
   },
   {
@@ -40,11 +40,11 @@ const projects: Project[] = [
     tone: "light",
     sector: "Grooming",
     built:
-      "A grooming lounge where booking a chair is the first thing on the page, with the menu, the prices and the reviews right behind it.",
+      "A grooming lounge where booking a chair comes first.",
     delivered: ["Brand site", "Booking", "CMS"],
     year: "2026",
     image: "/work/meridian.webp",
-    phone: "/work/meridian-mobile.webp",
+    blur: "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoMAAgABABsJZQAAudVNYqAAP7t3/DlVdAGdnxbaRcM586BwJ94l4AA",
   },
 ];
 
@@ -65,7 +65,9 @@ export function SelectedWork() {
         </header>
       </div>
 
-      <WorkCarousel projects={projects} />
+      <div className="mx-auto mt-14 max-w-page px-6 sm:px-8 md:mt-20 md:px-12 lg:px-16">
+        <WorkStack projects={projects} />
+      </div>
     </section>
   );
 }
