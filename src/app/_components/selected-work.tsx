@@ -1,3 +1,4 @@
+import { SectionHeading } from "@/app/_components/section-heading";
 import { WorkStack, type Project } from "@/app/_components/work-stack";
 
 const projects: Project[] = [
@@ -5,8 +6,7 @@ const projects: Project[] = [
     name: "Ember & Oak",
     tone: "light",
     sector: "Coffee house",
-    built:
-      "The room, the craft and the menu — in that order.",
+    built: "The room, the craft and the menu — in that order.",
     delivered: ["Brand site", "Menu", "CMS"],
     year: "2025",
     image: "/work/ember-oak.webp",
@@ -16,8 +16,7 @@ const projects: Project[] = [
     name: "Sable",
     tone: "dark",
     sector: "AI agents",
-    built:
-      "An agent platform that leads with the product, not the pitch.",
+    built: "An agent platform that leads with the product, not the pitch.",
     delivered: ["Marketing site", "Design system", "Docs"],
     year: "2026",
     image: "/work/sable.webp",
@@ -27,8 +26,7 @@ const projects: Project[] = [
     name: "Flowboard",
     tone: "dark",
     sector: "Task management",
-    built:
-      "A kanban board where the work moves by dragging it.",
+    built: "A kanban board where the work moves by dragging it.",
     delivered: ["Product design", "Web app", "Accounts"],
     year: "2026",
     image: "/work/flowboard.webp",
@@ -39,8 +37,7 @@ const projects: Project[] = [
     name: "Meridian",
     tone: "light",
     sector: "Grooming",
-    built:
-      "A grooming lounge where booking a chair comes first.",
+    built: "A grooming lounge where booking a chair comes first.",
     delivered: ["Brand site", "Booking", "CMS"],
     year: "2026",
     image: "/work/meridian.webp",
@@ -52,17 +49,12 @@ export function SelectedWork() {
   return (
     <section id="work" className="scroll-mt-24 py-12 md:py-24">
       <div className="mx-auto max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
-        <header className="max-w-3xl">
-          <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
-            Selected work
-          </p>
-          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
-            Take a closer look{" "}
-            <span className="text-muted-foreground">
-              — at what we design, build and ship.
-            </span>
-          </h2>
-        </header>
+        <SectionHeading label="Selected work">
+          Take a closer look{" "}
+          <span className="text-muted-foreground">
+            — at what we design, build and ship.
+          </span>
+        </SectionHeading>
       </div>
 
       <div className="mx-auto mt-14 max-w-page px-6 sm:px-8 md:mt-20 md:px-12 lg:px-16">

@@ -1,3 +1,6 @@
+import { Rise } from "@/app/_components/rise";
+import { PricingFigure } from "@/app/_components/pricing-figure";
+import { SectionHeading } from "@/app/_components/section-heading";
 import { RiArrowRightLine, RiCheckLine } from "@remixicon/react";
 
 import { ContactButton } from "@/components/contact-button";
@@ -47,7 +50,7 @@ function Tier({
                   $
                 </span>
                 <span className="text-4xl font-semibold tracking-tight tabular-nums">
-                  {project.price}
+                  <PricingFigure value={project.price} />
                 </span>
               </>
             ) : (
@@ -68,7 +71,7 @@ function Tier({
               rule,
             )}
           >
-            {project.includes.map(item => (
+            {project.includes.map((item) => (
               <li key={item} className="flex gap-3 text-sm leading-relaxed">
                 <span
                   aria-hidden
@@ -123,17 +126,12 @@ export function Pricing() {
   return (
     <section id="pricing" className="scroll-mt-24 py-12 md:py-24">
       <div className="mx-auto max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
-        <header className="max-w-3xl">
-          <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
-            Pricing
-          </p>
-          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
-            Where projects usually start{" "}
-            <span className="text-muted-foreground">— and what that buys.</span>
-          </h2>
-        </header>
+        <SectionHeading label="Pricing">
+          Where projects usually start{" "}
+          <span className="text-muted-foreground">— and what that buys.</span>
+        </SectionHeading>
 
-        <div className="bg-card shadow-elev-2 mt-12 grid overflow-hidden rounded-2xl border md:mt-16 lg:grid-cols-2 xl:grid-cols-3">
+        <Rise className="bg-card shadow-elev-2 mt-12 grid overflow-hidden rounded-2xl border md:mt-16 lg:grid-cols-2 xl:grid-cols-3">
           {projects.map((project, index) => (
             <div
               key={project.name}
@@ -146,7 +144,7 @@ export function Pricing() {
               />
             </div>
           ))}
-        </div>
+        </Rise>
 
         <p className="text-muted-foreground mt-8 text-center text-xs leading-relaxed text-pretty">
           These are starting points. The number moves with scope, and with what

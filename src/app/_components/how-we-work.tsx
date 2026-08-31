@@ -1,3 +1,5 @@
+import { Rise } from "@/app/_components/rise";
+import { SectionHeading } from "@/app/_components/section-heading";
 import { ArtifactBuild } from "@/app/_components/artifact-build";
 import { ArtifactDelivery } from "@/app/_components/artifact-delivery";
 import { ArtifactDiscovery } from "@/app/_components/artifact-discovery";
@@ -34,22 +36,18 @@ export function HowWeWork() {
   return (
     <section id="process" className="scroll-mt-24 py-12 md:py-24">
       <div className="mx-auto max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
-        <header className="max-w-3xl">
-          <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
-            How we work
-          </p>
-          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
-            From idea to launch{" "}
-            <span className="text-muted-foreground">
-              — with the same team throughout.
-            </span>
-          </h2>
-        </header>
+        <SectionHeading label="How we work">
+          From idea to launch{" "}
+          <span className="text-muted-foreground">
+            — with the same team throughout.
+          </span>
+        </SectionHeading>
 
         <div className="mt-14 grid gap-5 md:mt-16 md:grid-cols-2 md:gap-6">
-          {stages.map(stage => (
-            <div
+          {stages.map((stage, index) => (
+            <Rise
               key={stage.step}
+              delay={index * 0.09}
               className="border-foreground/20 dark:border-foreground/18 bg-background flex flex-col overflow-hidden rounded-xl border border-dashed"
             >
               <div
@@ -68,7 +66,7 @@ export function HowWeWork() {
                   <span className="text-muted-foreground">{stage.rest}</span>
                 </p>
               </div>
-            </div>
+            </Rise>
           ))}
         </div>
       </div>

@@ -1,3 +1,5 @@
+import { Rise } from "@/app/_components/rise";
+import { SectionHeading } from "@/app/_components/section-heading";
 import { ServiceBuild } from "@/app/_components/service-build";
 import { ServiceModernize } from "@/app/_components/service-modernize";
 import { ServiceMotion } from "@/app/_components/service-motion";
@@ -45,24 +47,20 @@ export function Services() {
   return (
     <section id="services" className="scroll-mt-24 py-12 md:py-24">
       <div className="mx-auto max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
-        <header className="max-w-3xl">
-          <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
-            Services
-          </p>
-          <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
-            What we build{" "}
-            <span className="text-muted-foreground">
-              — and everything that keeps it running.
-            </span>
-          </h2>
-        </header>
+        <SectionHeading label="Services">
+          What we build{" "}
+          <span className="text-muted-foreground">
+            — and everything that keeps it running.
+          </span>
+        </SectionHeading>
 
         <div className="mt-12 grid gap-5 md:mt-16 md:grid-cols-2 md:gap-6">
-          {services.map((service) => (
-            <article
+          {services.map((service, index) => (
+            <Rise
               key={service.title}
+              delay={(index % 2) * 0.08}
               className={cn(
-                "reveal bg-background shadow-elev-1 flex flex-col overflow-hidden rounded-2xl border",
+                "bg-background shadow-elev-1 flex flex-col overflow-hidden rounded-2xl border",
                 service.wide && "md:col-span-2",
               )}
             >
@@ -99,7 +97,7 @@ export function Services() {
                   ))}
                 </ul>
               </div>
-            </article>
+            </Rise>
           ))}
         </div>
       </div>

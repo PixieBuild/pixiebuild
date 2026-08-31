@@ -1,3 +1,4 @@
+import { SectionHeading } from "@/app/_components/section-heading";
 import {
   Accordion,
   AccordionContent,
@@ -11,14 +12,9 @@ export function Faq() {
     <section id="faq" className="scroll-mt-24 py-12 md:py-24">
       <div className="mx-auto max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
-          <header className="lg:col-span-4">
-            <p className="text-muted-foreground text-xs font-medium tracking-widest uppercase">
-              Questions
-            </p>
-            <h2 className="mt-5 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
-              Worth asking before you start.
-            </h2>
-          </header>
+          <SectionHeading label="Questions" className="lg:col-span-4">
+            Worth asking before you start.
+          </SectionHeading>
 
           <Accordion
             multiple={false}
