@@ -1,6 +1,8 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 
+import { cacheLife } from "next/cache";
+
 export type Token = {
   name: string;
   light: string;
@@ -26,6 +28,9 @@ function collect(css: string, selector: string) {
 /* Read at build time so a token added to globals.css appears here without
    anyone writing its name a second time. */
 export async function readTokens() {
+  "use cache";
+  cacheLife("max");
+
   const css = await readFile(
     path.join(process.cwd(), "src/app/globals.css"),
     "utf8"
