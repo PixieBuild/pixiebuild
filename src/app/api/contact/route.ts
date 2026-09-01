@@ -3,8 +3,6 @@ import { Resend } from "resend";
 import { buildBriefEmail } from "@/lib/contact-email";
 import { contactSchema } from "@/lib/contact-schema";
 
-export const runtime = "nodejs";
-
 export async function POST(request: Request) {
   const key = process.env.RESEND_API_KEY;
   const from = process.env.CONTACT_FROM;

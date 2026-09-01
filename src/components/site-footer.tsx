@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import PbLogo from "@/assets/pb-logo.svg";
+import { CopyrightYear } from "@/components/copyright-year";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const papers = [
@@ -45,7 +46,7 @@ export function SiteFooter() {
 
         <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mt-10">
           <span className="text-muted-foreground text-xs">
-            © {new Date().getFullYear()} PixieBuild
+            © <CopyrightYear /> PixieBuild
           </span>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:justify-start">
