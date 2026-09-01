@@ -61,7 +61,7 @@ export function siteSchema() {
               priceSpecification: {
                 "@type": "PriceSpecification",
                 priceCurrency: "USD",
-                minPrice: Number(project.price.replace(/,/g, "")),
+                minPrice: Number(project.price.USD.replace(/,/g, "")),
               },
             }),
           })),

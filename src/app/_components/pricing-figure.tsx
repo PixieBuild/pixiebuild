@@ -7,7 +7,13 @@ const entrance = [0.16, 1, 0.3, 1] as const;
 
 /* The figure is rendered plainly and counted by writing to the node, so the
    server and the client agree on the markup and only the behaviour differs. */
-export function PricingFigure({ value }: { value: string }) {
+export function PricingFigure({
+  value,
+  locale,
+}: {
+  value: string;
+  locale: string;
+}) {
   const slot = useRef<HTMLSpanElement>(null);
   const seen = useInView(slot, { once: true, margin: "0px 0px -20% 0px" });
   const still = useReducedMotion();
@@ -27,7 +33,7 @@ export function PricingFigure({ value }: { value: string }) {
       duration: 1.1,
       ease: entrance,
       onUpdate: at => {
-        node.textContent = Math.round(at).toLocaleString("en-GB");
+        node.textContent = Math.round(at).toLocaleString(locale);
       },
       onComplete: () => {
         node.textContent = value;
@@ -35,7 +41,7 @@ export function PricingFigure({ value }: { value: string }) {
     });
 
     return () => run.stop();
-  }, [seen, still, countable, target, value]);
+  }, [seen, still, countable, target, value, locale]);
 
   return <span ref={slot}>{value}</span>;
 }

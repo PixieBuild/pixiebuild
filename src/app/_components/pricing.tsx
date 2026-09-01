@@ -1,10 +1,13 @@
+import { Suspense } from "react";
+import { headers } from "next/headers";
+
 import { Rise } from "@/app/_components/rise";
 import { PricingFigure } from "@/app/_components/pricing-figure";
 import { SectionHeading } from "@/app/_components/section-heading";
 import { RiArrowRightLine, RiCheckLine } from "@remixicon/react";
 
 import { ContactButton } from "@/components/contact-button";
-import { projects } from "@/lib/pricing";
+import { money, priced, projects, type Currency } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 
 type Project = (typeof projects)[number];
@@ -15,11 +18,15 @@ function Tier({
   project,
   split,
   rule,
+  currency,
 }: {
   project: Project;
   split: string;
   rule: string;
+  currency: Currency;
 }) {
+  const { symbol, locale } = money[currency];
+
   return (
     <div
       className={cn(
@@ -47,10 +54,10 @@ function Tier({
             {project.price ? (
               <>
                 <span className="text-muted-foreground text-lg font-medium">
-                  $
+                  {symbol}
                 </span>
                 <span className="text-4xl font-semibold tracking-tight tabular-nums">
-                  <PricingFigure value={project.price} />
+                  <PricingFigure value={project.price[currency]} locale={locale} />
                 </span>
               </>
             ) : (
@@ -84,7 +91,7 @@ function Tier({
                 >
                   <RiCheckLine className="size-3" />
                 </span>
-                <span className="text-pretty">{item}</span>
+                <span className="text-pretty">{priced(item, currency)}</span>
               </li>
             ))}
           </ul>
@@ -122,6 +129,26 @@ const rules = [
   "md:border-t-0 md:pt-0 xl:border-t xl:pt-6",
 ];
 
+function Cells({ currency }: { currency: Currency }) {
+  return projects.map((project, index) => (
+    <div key={project.name} className={cn("border-foreground/10", seams[index])}>
+      <Tier
+        project={project}
+        split={splits[index]}
+        rule={rules[index]}
+        currency={currency}
+      />
+    </div>
+  ));
+}
+
+/* Reads the request, so everything outside the boundary below stays prerendered. */
+async function LocalCells() {
+  const country = (await headers()).get("x-vercel-ip-country");
+
+  return <Cells currency={country === "IN" ? "INR" : "USD"} />;
+}
+
 export function Pricing() {
   return (
     <section id="pricing" className="scroll-mt-24 py-12 md:py-24">
@@ -132,18 +159,9 @@ export function Pricing() {
         </SectionHeading>
 
         <Rise className="bg-card shadow-elev-2 mt-12 grid overflow-hidden rounded-2xl border md:mt-16 lg:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project, index) => (
-            <div
-              key={project.name}
-              className={cn("border-foreground/10", seams[index])}
-            >
-              <Tier
-                project={project}
-                split={splits[index]}
-                rule={rules[index]}
-              />
-            </div>
-          ))}
+          <Suspense fallback={<Cells currency="USD" />}>
+            <LocalCells />
+          </Suspense>
         </Rise>
 
         <p className="text-muted-foreground mt-8 text-center text-xs leading-relaxed text-pretty">
