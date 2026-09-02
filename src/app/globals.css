@@ -495,6 +495,7 @@
   --ease-interface: cubic-bezier(0.25, 1, 0.5, 1);
 
   --container-page: 100rem;
+  --container-rail: 120rem;
 }
 
 :root {
@@ -503,6 +504,10 @@
     0 6px 20px -6px oklch(0.148 0.004 228.8 / 0.12),
     0 2px 6px -2px oklch(0.148 0.004 228.8 / 0.05);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.9);
+
+  --elevation-focus:
+    0 6px 44px -16px color-mix(in oklab, var(--primary) 26%, transparent),
+    0 4px 18px -8px oklch(0.148 0.004 228.8 / 0.12);
 }
 
 .dark {
@@ -510,12 +515,16 @@
   --elevation-2:
     0 12px 32px -8px oklch(0 0 0 / 0.6), 0 2px 8px -2px oklch(0 0 0 / 0.4);
   --edge: inset 0 1px 0 0 oklch(1 0 0 / 0.07);
+  --elevation-focus:
+    0 6px 52px -16px color-mix(in oklab, var(--primary) 40%, transparent),
+    0 4px 22px -10px oklch(0 0 0 / 0.6);
 }
 
 @theme inline {
   --shadow-panel: var(--elevation-1), var(--edge);
   --shadow-elev-1: var(--elevation-1);
   --shadow-elev-2: var(--elevation-2);
+  --shadow-focus: var(--elevation-focus);
 }
 
 @utility reveal {
