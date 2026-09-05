@@ -1,24 +1,31 @@
 import Image from "next/image";
-import { RiMenuLine } from "@remixicon/react";
+import { RiHotelBedLine, RiMenuLine, RiRulerLine } from "@remixicon/react";
 
 const beat = {
-  logo: 0,
-  menu: 0.02,
-  figure: 0.1,
-  trade: 0.24,
-  headline: 0.3,
-  available: 0.44,
-  band: 0.54,
-  stat: 0.58,
-  statStep: 0.03,
+  figure: 0,
+  logo: 0.08,
+  menu: 0.1,
+  chip: 0.18,
+  card: 0.26,
+  spec: 0.34,
+  specStep: 0.03,
+  price: 0.42,
+  tile: 0.36,
+  tileStep: 0.04,
 };
 
 const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
 
-const stats = [
-  { value: "240", label: "PROJECTS" },
-  { value: "2008", label: "EST." },
-  { value: "42", label: "ENGINEERS" },
+const specs = [
+  { icon: RiHotelBedLine, text: "4 BED" },
+  { icon: RiRulerLine, text: "2,860 SQ FT" },
+];
+
+const gallery = [
+  "/concept/estate-kitchen.webp",
+  "/concept/estate-bedroom.webp",
+  "/concept/estate-garden.webp",
+  "/concept/estate-facade.webp",
 ];
 
 export function ConceptNorthlinePhone() {
@@ -28,89 +35,100 @@ export function ConceptNorthlinePhone() {
         aria-hidden
         className="concept-stage shadow-elev-2 relative w-full overflow-hidden border select-none [--concept-height:500] [--concept-width:380]"
       >
-        <div className="concept-page concept-theme-paper bg-concept-canvas text-concept-ink font-display absolute top-0 left-0">
+        <div className="concept-page concept-theme-ink bg-concept-canvas text-concept-ink font-display absolute top-0 left-0">
+          <div style={part(beat.figure)} className="build-part absolute inset-0">
+            <Image
+              src="/concept/estate-hero.webp"
+              alt=""
+              fill
+              loading="eager"
+              sizes="80vw"
+              className="animate-build-drift build-idle object-cover object-[62%_45%]"
+            />
+            <span className="from-concept-scrim/90 via-concept-scrim/20 absolute inset-0 bg-linear-to-t to-transparent" />
+            <span className="from-concept-scrim/55 absolute inset-x-0 top-0 h-24 bg-linear-to-b to-transparent" />
+          </div>
+
           <span
             aria-hidden
             className="bg-concept-clay absolute inset-x-0 bottom-0 z-10 h-[1.4%]"
           />
 
-          <div className="border-concept-line relative flex h-14 items-center justify-between border-b px-5">
+          <div className="relative flex h-14 items-center justify-between px-5">
             <span
               style={part(beat.logo)}
-              className="font-label build-part text-[0.75em] tracking-[0.16em]"
+              className="build-part text-[0.9375em] font-semibold tracking-[-0.02em]"
             >
-              NORTHLINE &amp; CO
+              Northline Homes
             </span>
             <RiMenuLine
               style={part(beat.menu)}
-              className="text-concept-ink build-part size-4"
+              className="build-part size-4"
             />
           </div>
 
-          <div
-            style={part(beat.figure)}
-            className="build-part relative h-52 overflow-hidden"
+          <span
+            style={part(beat.chip)}
+            className="bg-concept-clay text-concept-canvas font-label build-part absolute top-16 left-5 flex h-7 items-center gap-2 px-3 text-[0.5625em] tracking-[0.16em]"
           >
-            <Image
-              src="/concept/viaduct.webp"
-              alt=""
-              fill
-              loading="eager"
-              sizes="80vw"
-              className="animate-build-drift build-idle object-cover"
-            />
-            <span className="bg-concept-canvas text-concept-ink font-label build-act absolute bottom-4 left-4 flex h-7 items-center px-3 text-[0.5625em] tracking-[0.16em]">
-              HALDEN VIADUCT — 340 M
-            </span>
-          </div>
+            <span aria-hidden className="bg-concept-canvas animate-build-pulse build-idle size-1.5 rounded-full" />
+            OPEN HOUSE SAT 11:00
+          </span>
 
-          <div className="px-5 pt-6">
-            <span
-              style={part(beat.trade)}
-              className="text-concept-muted font-label build-part text-[0.625em] tracking-[0.16em]"
-            >
-              STRUCTURAL ENGINEERING
-            </span>
-
-            <p
-              style={part(beat.headline)}
-              className="build-part mt-3 text-[2.125em] leading-[0.95] font-semibold tracking-[-0.035em]"
-            >
-              Quietly
-              <br />
-              precise.
-            </p>
-
-            <span
-              style={part(beat.available)}
-              className="font-label build-part mt-5 flex items-center gap-2 text-[0.625em] tracking-[0.16em]"
-            >
-              <span
-                aria-hidden
-                className="bg-concept-clay animate-build-pulse build-idle size-1.5 rounded-full"
-              />
-              AVAILABLE FOR WORK
-            </span>
-          </div>
-
-          <div
-            style={part(beat.band)}
-            className="border-concept-line build-part mt-6 flex h-14 items-center justify-between border-t px-5"
-          >
-            {stats.map((stat, index) => (
-              <span
-                key={stat.label}
-                style={part(beat.stat + index * beat.statStep)}
-                className="build-part flex items-baseline gap-2"
-              >
-                <span className="text-[0.875em] font-semibold tracking-[-0.02em] tabular-nums">
-                  {stat.value}
+          <div className="absolute inset-x-4 bottom-4">
+            <div className="mb-3 flex gap-2">
+              {gallery.map((photo, index) => (
+                <span
+                  key={photo}
+                  style={part(beat.tile + index * beat.tileStep)}
+                  className="build-part relative h-12 min-w-0 flex-1 overflow-hidden"
+                >
+                  <Image
+                    src={photo}
+                    alt=""
+                    fill
+                    loading="eager"
+                    sizes="20vw"
+                    className="object-cover"
+                  />
                 </span>
-                <span className="text-concept-muted font-label text-[0.5em] tracking-[0.16em]">
-                  {stat.label}
-                </span>
+              ))}
+            </div>
+
+            <div
+              style={part(beat.card)}
+              className="bg-concept-canvas/85 border-concept-ink/15 build-part border p-4 backdrop-blur-xl"
+            >
+              <span className="text-concept-ink/60 font-label text-[0.5em] tracking-[0.16em]">
+                KORAMANGALA, BENGALURU
               </span>
-            ))}
+              <p className="mt-1 text-[1.5em] leading-none font-semibold tracking-[-0.035em]">
+                Villa Arbor
+              </p>
+              <div className="mt-3 flex items-center gap-4">
+                {specs.map((spec, index) => (
+                  <span
+                    key={spec.text}
+                    style={part(beat.spec + index * beat.specStep)}
+                    className="text-concept-ink/80 font-label build-part flex items-center gap-1.5 text-[0.5625em] tracking-[0.14em]"
+                  >
+                    <spec.icon className="size-3" />
+                    {spec.text}
+                  </span>
+                ))}
+              </div>
+              <div className="border-concept-ink/15 mt-3 flex items-end justify-between border-t pt-3">
+                <span
+                  style={part(beat.price)}
+                  className="build-part text-[1.5em] leading-none font-semibold tracking-[-0.04em] tabular-nums"
+                >
+                  ₹4.2 Cr
+                </span>
+                <span className="bg-concept-clay text-concept-canvas font-label flex h-8 items-center px-3 text-[0.5625em] tracking-[0.16em]">
+                  BOOK A VIEWING
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

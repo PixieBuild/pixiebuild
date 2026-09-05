@@ -12,6 +12,7 @@ import {
   Manrope,
 } from "next/font/google";
 import localFont from "next/font/local";
+import { SiteCursor } from "@/components/site-cursor";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteSchema } from "@/lib/schema";
@@ -122,7 +123,7 @@ export default function RootLayout({
 
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
@@ -130,6 +131,7 @@ export default function RootLayout({
         </ThemeProvider>
 
         <SmoothScroll />
+        <SiteCursor />
         <Analytics />
         <SpeedInsights />
       </body>

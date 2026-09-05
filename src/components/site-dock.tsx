@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const fonts = [
@@ -211,6 +212,10 @@ export function SiteDock() {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
+
+        <span aria-hidden className="bg-border mx-1 h-5 w-px" />
+
+        <ThemeToggle className="rounded-full" />
       </div>
     </div>
   );

@@ -34,6 +34,7 @@ const held = { "--step": 0, "--act": 0 } as React.CSSProperties;
 const move = 0.62;
 const cue = 1.4;
 const shut = { "--in": 0 } as React.CSSProperties;
+const running = { "--run": 0 } as React.CSSProperties;
 const depth = (index: number, front: number, count: number) =>
   (index - front + count) % count;
 
@@ -78,8 +79,6 @@ const assemble = (
   }
 };
 
-const practice = ["Websites", "Web apps", "Digital experiences"];
-
 const builds = [
   {
     trade: "Business websites",
@@ -121,6 +120,7 @@ export function HeroStage({
 }) {
   const track = useRef<HTMLElement>(null);
   const deck = useRef<HTMLDivElement>(null);
+  const rail = useRef<HTMLDivElement>(null);
   const cells = useRef<(HTMLDivElement | null)[]>([]);
   const shown = useRef(new Set<number>());
   const settled = useRef(false);
@@ -196,6 +196,31 @@ export function HeroStage({
     }, dwell);
 
     return () => window.clearTimeout(timer);
+  }, [at, decked, calm, handled, watched]);
+
+  /* Spends the same wait the rotation is keeping, so the rail fills as the turn
+     runs out. Emptied whenever that wait is not standing — a held or unwatched
+     deck starts its wait over, so a part-filled mark would promise a turn that
+     is no longer counting down. */
+  useIsomorphicLayoutEffect(() => {
+    const node = rail.current;
+    if (!node || !decked) return;
+
+    if (calm) {
+      node.style.setProperty("--run", "1");
+      return;
+    }
+
+    node.style.setProperty("--run", "0");
+    if (handled || !watched) return;
+
+    const run = animate(0, 1, {
+      duration: dwell / 1000,
+      ease: "linear",
+      onUpdate: spent => node.style.setProperty("--run", `${spent}`),
+    });
+
+    return () => run.stop();
   }, [at, decked, calm, handled, watched]);
   useEffect(() => {
     const node = deck.current;
@@ -332,28 +357,53 @@ export function HeroStage({
   useEffect(() => {
     if (!opened.current) return;
 
-    const runs = cells.current.map((cell, index) => {
-      if (!cell) return null;
+    const runs: AnimationPlaybackControls[] = [];
+
+    cells.current.forEach((cell, index) => {
+      if (!cell) return;
       const target = depth(index, at, builds.length);
       const from = Number(cell.style.getPropertyValue("--d"));
-      if (from === target) return null;
+      if (from === target) return;
 
       if (calm) {
         cell.style.setProperty("--d", `${target}`);
-        return null;
+        return;
       }
 
-      return animate(from, target, {
-        type: "spring",
-        stiffness: 130,
-        damping: 21,
-        restDelta: 0.002,
-        onUpdate: place => cell.style.setProperty("--d", `${place}`),
-      });
+      if (from === 0 && target === builds.length - 1) {
+        runs.push(
+          animate(0, 1, {
+            duration: 0.48,
+            ease: [0.5, 0, 0.9, 0.4],
+            onUpdate: gone => cell.style.setProperty("--out", `${gone}`),
+            onComplete: () => {
+              cell.style.setProperty("--d", `${target}`);
+              runs.push(
+                animate(1, 0, {
+                  duration: 0.6,
+                  ease: entrance,
+                  onUpdate: gone => cell.style.setProperty("--out", `${gone}`),
+                }),
+              );
+            },
+          }),
+        );
+        return;
+      }
+
+      runs.push(
+        animate(from, target, {
+          type: "spring",
+          stiffness: 170,
+          damping: 24,
+          restDelta: 0.002,
+          onUpdate: place => cell.style.setProperty("--d", `${place}`),
+        }),
+      );
     });
 
     return () => {
-      for (const run of runs) run?.stop();
+      for (const run of runs) run.stop();
     };
   }, [at, calm]);
 
@@ -395,11 +445,11 @@ export function HeroStage({
           {actions}
         </div>
         <div className="relative z-10 mt-12 lg:col-start-1 lg:row-start-2 lg:z-0 lg:mt-0">
-          <div className="lg:build-deck lg:absolute lg:inset-0">
+          <div className="lg:build-deck lg:absolute lg:inset-x-0 lg:top-0 lg:-bottom-8 2xl:bottom-0">
             <div
               ref={deck}
               style={shut}
-              className="scrollbar-none lg:build-tilt flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 motion-safe:scroll-smooth sm:gap-6 sm:px-8 md:px-12 lg:absolute lg:inset-y-0 lg:right-0 lg:left-[calc(50%-1rem)] lg:block lg:snap-none lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0 lg:[--fan:10%] lg:[--sink:-200px]"
+              className="scrollbar-none lg:build-tilt flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 motion-safe:scroll-smooth sm:gap-6 sm:px-8 md:px-12 lg:absolute lg:inset-y-0 lg:right-0 lg:left-[43%] lg:block 2xl:left-[calc(50%-1rem)] lg:snap-none lg:gap-0 lg:overflow-visible lg:px-0 lg:pb-0 lg:[--fan:10%] lg:[--sink:-200px]"
             >
               {builds.map((build, index) => {
                 const step = depth(index, at, builds.length);
@@ -419,8 +469,8 @@ export function HeroStage({
                       } as React.CSSProperties
                     }
                     className={cn(
-                      "build-arrive max-lg:build-card w-[78%] shrink-0 snap-center sm:w-[52%] md:w-[64%] lg:build-panel lg:absolute lg:inset-0 lg:flex lg:w-auto lg:items-center lg:justify-center lg:pt-14 lg:pr-[8%] lg:pb-4 lg:@container-size",
-                      step > 0 && "lg:pointer-events-none",
+                      "build-arrive max-lg:build-card w-[78%] shrink-0 snap-center sm:w-[52%] md:w-[64%] lg:build-panel lg:absolute lg:inset-0 lg:flex lg:w-auto lg:items-center lg:justify-center lg:pt-10 lg:pr-[5%] lg:pb-4 lg:@container-size 2xl:pt-14 2xl:pr-[8%]",
+                      step > 0 && "lg:build-back lg:pointer-events-none",
                     )}
                   >
                     <div className="md:hidden">{build.phone}</div>
@@ -470,59 +520,73 @@ export function HeroStage({
           ))}
         </div>
 
-        <div className="relative z-10 mx-auto hidden w-full max-w-page px-6 pt-12 pb-10 sm:px-8 md:px-12 lg:row-start-4 lg:block lg:px-16 lg:pt-8 2xl:pt-12 lg:pb-6">
-          <div className="grid grid-cols-5 gap-5">
-            {builds.map((build, index) => (
-              <button
-                key={build.trade}
-                type="button"
-                onClick={() => show(index)}
-                aria-current={index === at ? "true" : undefined}
-                style={{ animationDelay: `${760 + index * 60}ms` }}
-                className={cn(
-                  "ease-interface motion-reduce:animate-none flex animate-rise-in flex-col items-start gap-2 border-t pt-3 text-left transition-colors duration-300",
-                  index === at
-                    ? "border-primary text-foreground"
-                    : "border-foreground/20 text-muted-foreground hover:border-foreground/40 hover:text-foreground",
-                )}
+        <div className="relative z-10 mx-auto hidden w-full max-w-page px-6 sm:px-8 md:px-12 lg:row-start-4 lg:block lg:px-16 lg:pb-4">
+          <div
+            ref={rail}
+            style={running}
+            className="flex items-center gap-6 pt-10 pb-4"
+          >
+            <p
+              style={{ animationDelay: "760ms" }}
+              className="motion-reduce:animate-none flex animate-rise-in items-baseline gap-3.5"
+            >
+              <span className="font-label text-primary text-[0.6875rem] tracking-[0.16em] tabular-nums 2xl:text-xs">
+                {String(at + 1).padStart(2, "0")}
+                <span className="text-muted-foreground">
+                  {" / "}
+                  {String(builds.length).padStart(2, "0")}
+                </span>
+              </span>
+              <span className="text-sm font-medium tracking-tight 2xl:text-base">
+                {builds[at].trade}
+              </span>
+            </p>
+
+            <div className="ml-auto flex items-center gap-8 2xl:gap-12">
+              <span
+                style={{ animationDelay: "1080ms" }}
+                className="font-label text-muted-foreground motion-reduce:animate-none hidden animate-rise-in items-center gap-2.5 text-[0.6875rem] tracking-[0.14em] uppercase xl:flex 2xl:text-xs"
               >
                 <span
-                  className={cn(
-                    "font-label text-[0.6875rem] tracking-[0.16em] tabular-nums 2xl:text-xs",
-                    index === at ? "text-primary" : "text-muted-foreground",
-                  )}
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="text-sm font-medium tracking-tight text-pretty 2xl:text-base">
-                  {build.trade}
-                </span>
-              </button>
-            ))}
-          </div>
-
-          <div
-            style={{ animationDelay: "1080ms" }}
-            className="font-label text-foreground/70 motion-reduce:animate-none mt-8 flex animate-rise-in flex-wrap items-center justify-between gap-x-6 gap-y-3 text-[0.6875rem] tracking-[0.14em] uppercase lg:text-xs 2xl:text-sm"
-          >
-            <span className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              {practice.map((item, index) => (
-                <span key={item} className="flex items-center gap-4">
-                  {index > 0 ? <span aria-hidden>·</span> : null}
-                  {item}
-                </span>
-              ))}
-            </span>
-
-            <span className="flex items-center gap-3.5">
-              <span className="tabular-nums">
-                {String(at + 1).padStart(2, "0")} / 05
+                  aria-hidden
+                  className="bg-primary motion-reduce:animate-none size-1.5 animate-build-pulse rounded-full"
+                />
+                Rendered live
               </span>
-              <span aria-hidden className="bg-foreground/25 h-px w-5.5" />
-              <span className="text-foreground/75">{builds[at].trade}</span>
-              <span aria-hidden className="bg-foreground/25 h-px w-5.5" />
-              <span>Rendered live</span>
-            </span>
+
+              <div className="flex items-center gap-2.5">
+                {builds.map((build, index) => (
+                  <button
+                    key={build.trade}
+                    type="button"
+                    onClick={() => show(index)}
+                    aria-label={build.trade}
+                    aria-current={index === at ? "true" : undefined}
+                    style={{ animationDelay: `${820 + index * 60}ms` }}
+                    className="group/trade motion-reduce:animate-none flex animate-rise-in flex-col items-center gap-2 py-1"
+                  >
+                    <span
+                      className={cn(
+                        "font-label ease-interface text-[0.625rem] tracking-[0.14em] tabular-nums transition-colors duration-300",
+                        index === at
+                          ? "text-primary"
+                          : "text-muted-foreground/70 group-hover/trade:text-foreground",
+                      )}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="bg-foreground/20 ease-interface group-hover/trade:bg-foreground/45 relative block h-px w-8 transition-colors duration-300 2xl:w-10">
+                      {index === at ? (
+                        <span
+                          aria-hidden
+                          className="bg-primary build-run absolute inset-0 origin-left"
+                        />
+                      ) : null}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 

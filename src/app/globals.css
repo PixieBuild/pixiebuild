@@ -7,6 +7,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-cursor: var(--cursor);
   --font-sans: var(--font-sans);
   --font-heading: var(--font-heading);
   --font-concept: var(--font-dm-sans);
@@ -76,6 +77,7 @@
   --chart-4: oklch(0.554 0.135 66.442);
   --chart-5: oklch(0.476 0.114 61.907);
   --radius: 0.45rem;
+  --cursor: oklch(1 0 0);
   --sidebar: oklch(0.987 0.002 197.1);
   --sidebar-foreground: oklch(0.148 0.004 228.8);
   --sidebar-primary: oklch(0.5464 0.1313 242.68);
@@ -110,6 +112,7 @@
   --chart-3: oklch(0.681 0.162 75.834);
   --chart-4: oklch(0.554 0.135 66.442);
   --chart-5: oklch(0.476 0.114 61.907);
+  --cursor: oklch(1 0 0);
   --sidebar: oklch(0.218 0.008 223.9);
   --sidebar-foreground: oklch(0.987 0.002 197.1);
   --sidebar-primary: oklch(0.5464 0.1313 242.68);
@@ -143,6 +146,15 @@
   [role="button"]:not(:disabled) {
     @apply cursor-pointer;
   }
+}
+
+html.pointer-lens,
+html.pointer-lens * {
+  cursor: none;
+}
+
+html.pointer-lens :is(input, textarea, [contenteditable="true"]) {
+  cursor: text;
 }
 
 @keyframes build-sweep {
@@ -248,6 +260,119 @@
   --animate-build-drift: build-drift 11s var(--ease-interface) infinite alternate;
   --animate-build-pulse: build-pulse 2.4s ease-in-out infinite;
   --animate-build-tick: build-tick 3.6s ease-in-out infinite;
+  --animate-build-float: build-float 7s ease-in-out infinite;
+  --animate-build-spin: build-spin 28s linear infinite;
+  --animate-gallery-step: gallery-step 8s var(--ease-interface) infinite;
+  --animate-room-dusk: room-dusk 12s ease-in-out infinite;
+  --animate-room-lamp: room-lamp 12s ease-in-out infinite;
+  --animate-room-sun: room-sun 12s ease-in-out infinite;
+  --animate-cal-range: cal-range 12s ease-in-out infinite;
+  --animate-notify: notify 9s ease-in-out infinite;
+}
+
+@keyframes gallery-step {
+  0%,
+  20% {
+    transform: translateX(0);
+  }
+  25%,
+  45% {
+    transform: translateX(var(--pitch, 100%));
+  }
+  50%,
+  70% {
+    transform: translateX(calc(var(--pitch, 100%) * 2));
+  }
+  75%,
+  95% {
+    transform: translateX(calc(var(--pitch, 100%) * 3));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes cal-range {
+  0%,
+  8%,
+  92%,
+  100% {
+    transform: scaleX(0);
+  }
+  20%,
+  80% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes notify {
+  0% {
+    opacity: 0;
+    transform: translateY(-1.25rem) scale(0.96);
+  }
+  8%,
+  70% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  78%,
+  100% {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.98);
+  }
+}
+
+@keyframes room-dusk {
+  0%,
+  30%,
+  70%,
+  100% {
+    opacity: 0;
+  }
+  45%,
+  55% {
+    opacity: 0.62;
+  }
+}
+
+@keyframes room-lamp {
+  0%,
+  35%,
+  65%,
+  100% {
+    opacity: 0;
+  }
+  45%,
+  55% {
+    opacity: 1;
+  }
+}
+
+@keyframes room-sun {
+  0%,
+  100% {
+    left: 6%;
+  }
+  50% {
+    left: 94%;
+  }
+}
+
+
+@keyframes build-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -0.4rem;
+  }
+}
+
+@keyframes build-spin {
+  to {
+    rotate: 360deg;
+  }
 }
 
 @theme inline {
@@ -304,19 +429,51 @@
 
 @utility build-panel {
   transform: translate3d(
-      calc(var(--d, 0) * var(--fan, 10%) + (1 - var(--in, 1)) * 13%),
-      calc(var(--d, 0) * 2% + (1 - var(--in, 1)) * 4%),
-      calc(var(--d, 0) * var(--sink, -200px) + (1 - var(--in, 1)) * -340px)
+      calc(
+        var(--d, 0) * var(--fan, 10%) + (1 - var(--in, 1)) * 13% +
+          var(--out, 0) * 18%
+      ),
+      calc(
+        var(--d, 0) * 2% + (1 - var(--in, 1)) * 4% - var(--out, 0) * 12%
+      ),
+      calc(
+        var(--d, 0) * var(--sink, -200px) + (1 - var(--in, 1)) * -340px +
+          var(--out, 0) * 260px
+      )
     )
     rotateY(calc(var(--d, 0) * 2.5deg + (1 - var(--in, 1)) * 6deg))
+    rotateZ(calc(var(--out, 0) * 6deg))
     scale(calc(1 - var(--d, 0) * 0.035));
-  opacity: calc(var(--in, 1) / (1 + var(--d, 0) * 1.5));
+  opacity: calc(
+    var(--in, 1) / (1 + var(--d, 0) * 1.5) * (1 - var(--out, 0))
+  );
+}
+
+/* The frames stacked behind the front one, softened by how far back they sit so
+   the deck reads as one page with depth behind it rather than five pages asking
+   to be read at once. Never set on the front frame: filtering rasterises, and
+   that is the one page that has to stay crisp. */
+@utility build-back {
+  filter: blur(max(0px, calc((var(--d, 0) + var(--out, 0)) * 3px)));
 }
 
 @utility build-card {
   opacity: var(--in, 1);
   transform: translate3d(0, calc((1 - var(--in, 1)) * 2.25rem), 0)
     scale(calc(0.955 + 0.045 * var(--in, 1)));
+}
+
+@utility build-layer {
+  transform: translate3d(
+    calc(var(--pull-x, 0px) * var(--depth, 1) * max(0, 1 - var(--d, 0))),
+    calc(var(--pull-y, 0px) * var(--depth, 1) * max(0, 1 - var(--d, 0))),
+    0
+  );
+  transition: transform 700ms var(--ease-interface);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 1ms;
+  }
 }
 
 @utility concept-theme-paper {
@@ -401,6 +558,13 @@
 /* The half of a swap the move replaces. */
 @utility build-act-out {
   opacity: calc(1 - var(--act, 1));
+}
+
+/* How much of the front build's turn has been spent. Drives the mark under the
+   trade in the rail, so the line reads as the time left before the deck moves
+   on rather than as a static underline. */
+@utility build-run {
+  transform: scaleX(var(--run, 0));
 }
 
 /* Nothing releases the parts, so they arrive themselves. Outside the utility

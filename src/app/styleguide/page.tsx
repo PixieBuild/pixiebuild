@@ -32,6 +32,8 @@ const colourRoles: Record<string, string> = {
     "Edges and dividers. Already softened, so plain `border` is right.",
   "--input": "Field fills and their borders.",
   "--ring": "The focus ring, and nothing else.",
+  "--cursor":
+    "The pointer's disc. White in both themes, because it is blended by difference and has to invert whatever it sits on.",
   "--chart-1": "Reserved for `shadcn add chart` — do not delete.",
   "--sidebar": "Reserved for `shadcn add sidebar` — do not delete.",
 };

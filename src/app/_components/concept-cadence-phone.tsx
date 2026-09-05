@@ -1,31 +1,29 @@
-import { RiArrowUpLine } from "@remixicon/react";
+import { RiCheckLine } from "@remixicon/react";
 
 import { cn } from "@/lib/utils";
 
 const beat = {
-  title: 0,
-  chip: 0.03,
-  tile: 0.14,
-  tileStep: 0.06,
-  panel: 0.34,
-  bar: 0.4,
-  barStep: 0.025,
-  plan: 0.56,
-  planStep: 0.04,
+  mark: 0,
+  cta: 0.06,
+  disc: 0.08,
+  phone: 0.16,
+  row: 0.3,
+  rowStep: 0.04,
 };
 
 const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
 
-const tiles = [
-  { label: "MRR", value: "$48.2k", delta: "12.4%" },
-  { label: "ACTIVE", value: "2,310", delta: "184" },
+const readings = ["₹4,82,140", "₹4,88,900", "₹4,94,210", "₹5,01,080"];
+
+const rows = [
+  { name: "Meridian Grooming", amount: "+₹48,000" },
+  { name: "Payroll · 14 people", amount: "−₹6,20,000" },
+  { name: "Ember & Oak", amount: "+₹35,000" },
 ];
 
-const months = [0.36, 0.44, 0.4, 0.55, 0.62, 0.7, 0.78, 0.94];
-
-const plans = [
-  { name: "Studio", share: 42 },
-  { name: "Team", share: 31 },
+const alerts = [
+  { title: "Invoice #1042 paid", wait: "0s" },
+  { title: "Payroll scheduled", wait: "1.4s" },
 ];
 
 export function ConceptCadencePhone() {
@@ -35,120 +33,114 @@ export function ConceptCadencePhone() {
         aria-hidden
         className="concept-stage shadow-elev-2 relative w-full overflow-hidden border select-none [--concept-height:500] [--concept-width:380]"
       >
-        <div className="concept-page concept-theme-cool bg-concept-canvas text-concept-ink font-display absolute top-0 left-0">
+        <div className="concept-page concept-theme-cool bg-concept-chalk text-concept-ink font-display absolute top-0 left-0">
           <span
             aria-hidden
             className="bg-concept-clay absolute inset-x-0 bottom-0 z-10 h-[1.4%]"
           />
 
-          <div className="border-concept-line flex h-14 items-center justify-between border-b px-5">
+          <span
+            style={part(beat.disc)}
+            className="bg-concept-clay build-part absolute top-24 left-1/2 size-80 -translate-x-1/2 rounded-full"
+          />
+
+          <div className="relative z-10 flex h-14 items-center justify-between px-5">
             <span
-              style={part(beat.title)}
-              className="build-part flex items-center gap-2 text-[1.125em] font-medium tracking-[-0.02em]"
+              style={part(beat.mark)}
+              className="build-part flex items-center gap-2"
             >
-              Overview
               <span
                 aria-hidden
-                className="bg-concept-clay animate-build-pulse build-idle size-1.5 rounded-full"
-              />
+                className="bg-concept-clay flex size-5 items-center justify-center rounded-md"
+              >
+                <span className="bg-concept-chalk size-1.5 rounded-full" />
+              </span>
+              <span className="text-[0.9375em] font-semibold tracking-[-0.02em]">
+                Cadence
+              </span>
             </span>
             <span
-              style={part(beat.chip)}
-              className="border-concept-line text-concept-muted font-label build-part flex h-7 items-center border px-2.5 text-[0.625em] tracking-[0.16em]"
+              style={part(beat.cta)}
+              className="bg-concept-ink text-concept-chalk build-part flex h-7 items-center rounded-full px-3.5 text-[0.6875em] font-medium"
             >
-              12M
+              Get the app
             </span>
           </div>
 
-          <div className="px-5 pt-5">
-            <div className="flex gap-3">
-              {tiles.map((tile, index) => (
-                <div
-                  key={tile.label}
-                  style={part(beat.tile + index * beat.tileStep)}
-                  className="border-concept-line build-part h-22 min-w-0 flex-1 border px-4 pt-3.5"
-                >
-                  <p className="text-concept-muted font-label text-[0.625em] tracking-[0.16em]">
-                    {tile.label}
-                  </p>
-                  <p className="mt-2 text-[1.5em] leading-none font-semibold tracking-[-0.03em] tabular-nums">
-                    {tile.value}
-                  </p>
-                  <span className="text-concept-clay font-label build-act mt-2 flex items-center gap-0.5 text-[0.625em] tracking-[0.12em] tabular-nums">
-                    <RiArrowUpLine className="size-2.5" />
-                    {tile.delta}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div
-              style={part(beat.panel)}
-              className="border-concept-line build-part mt-4 h-48 border px-5 pt-4"
-            >
-              <div className="flex items-baseline justify-between">
-                <span className="text-[0.9375em] font-medium tracking-[-0.02em]">
-                  Recurring revenue
+          <div
+            style={part(beat.phone)}
+            className="bg-concept-ink shadow-elev-2 build-part motion-safe:animate-build-float build-idle absolute top-20 left-1/2 h-120 w-52 -translate-x-1/2 rounded-[2rem] p-1.5 transform-[rotateY(-8deg)_rotateX(3deg)]"
+          >
+            <div className="bg-concept-canvas relative h-full overflow-hidden rounded-[1.625rem]">
+              <div className="flex items-center justify-between px-4 pt-3">
+                <span className="font-label text-[0.625em] tracking-[0.08em] tabular-nums">
+                  9:41
                 </span>
-                <span className="text-concept-muted font-label text-[0.625em] tracking-[0.16em]">
-                  $52k
+                <span className="bg-concept-ink h-4 w-14 rounded-full" />
+                <span className="bg-concept-ink h-2.5 w-4 rounded-sm" />
+              </div>
+
+              <div className="px-4 pt-6">
+                <span className="text-concept-muted font-label text-[0.5em] tracking-[0.16em]">
+                  TOTAL BALANCE
+                </span>
+                <span className="mt-1.5 block h-[1em] overflow-hidden text-[1.5em] leading-none font-semibold tracking-[-0.04em] tabular-nums">
+                  <span className="motion-safe:animate-build-index build-idle block">
+                    {readings.map((reading) => (
+                      <span key={reading} className="block h-[1em] leading-none">
+                        {reading}
+                      </span>
+                    ))}
+                  </span>
+                </span>
+                <span className="bg-concept-clay/12 text-concept-clay font-label mt-2 inline-block rounded-full px-2 py-0.5 text-[0.5em] tracking-widest">
+                  +12.4% THIS MONTH
                 </span>
               </div>
 
-              <div className="relative mt-4 h-28">
-                <span
-                  aria-hidden
-                  className="border-concept-clay/40 absolute inset-x-0 bottom-[76%] border-t border-dashed"
-                />
-                <div className="flex h-full items-end gap-2">
-                  {months.map((share, index) => (
+              <div className="mt-6 px-4">
+                <span className="text-concept-muted font-label text-[0.5em] tracking-[0.16em]">
+                  RECENT
+                </span>
+                <div className="mt-2 flex flex-col">
+                  {rows.map((row, index) => (
                     <span
-                      key={share}
-                      aria-hidden
-                      style={{
-                        ...part(beat.bar + index * beat.barStep),
-                        height: `${share * 100}%`,
-                      }}
-                      className={cn(
-                        "build-part min-w-0 flex-1 origin-bottom",
-                        index === months.length - 1
-                          ? "bg-concept-clay animate-build-tick build-idle"
-                          : "bg-concept-ink/14",
-                      )}
-                    />
+                      key={row.name}
+                      style={part(beat.row + index * beat.rowStep)}
+                      className="border-concept-line build-part flex items-center justify-between border-t py-2.5"
+                    >
+                      <span className="truncate text-[0.6875em] font-medium tracking-[-0.01em]">
+                        {row.name}
+                      </span>
+                      <span
+                        className={cn(
+                          "text-[0.6875em] font-medium tabular-nums",
+                          row.amount.startsWith("+") && "text-concept-clay",
+                        )}
+                      >
+                        {row.amount}
+                      </span>
+                    </span>
                   ))}
                 </div>
               </div>
-            </div>
 
-            <div className="mt-5 flex flex-col gap-4">
-              {plans.map((plan, index) => (
-                <div
-                  key={plan.name}
-                  style={part(beat.plan + index * beat.planStep)}
-                  className="build-part"
-                >
-                  <div className="flex items-baseline justify-between text-[0.75em]">
-                    <span className="font-medium">{plan.name}</span>
-                    <span className="text-concept-muted tabular-nums">
-                      {plan.share}%
-                    </span>
-                  </div>
+              <div className="absolute inset-x-3 top-40 flex flex-col gap-2">
+                {alerts.map((alert) => (
                   <span
-                    aria-hidden
-                    className="bg-concept-ink/8 mt-2 block h-1 w-full"
+                    key={alert.title}
+                    style={{ animationDelay: alert.wait }}
+                    className="bg-concept-ink text-concept-chalk shadow-elev-2 motion-safe:animate-notify build-idle flex items-center gap-2.5 rounded-xl p-2.5 opacity-0"
                   >
-                    <span
-                      aria-hidden
-                      style={{ width: `${plan.share}%` }}
-                      className={cn(
-                        "block h-full",
-                        index === 0 ? "bg-concept-clay" : "bg-concept-ink/30",
-                      )}
-                    />
+                    <span className="bg-concept-clay flex size-6 shrink-0 items-center justify-center rounded-full">
+                      <RiCheckLine className="size-3" />
+                    </span>
+                    <span className="truncate text-[0.6875em] font-medium">
+                      {alert.title}
+                    </span>
                   </span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>

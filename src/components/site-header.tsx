@@ -1,9 +1,7 @@
 import Link from "next/link";
 
-import { ContactButton } from "@/components/contact-button";
 import { MobileNav } from "@/components/mobile-nav";
 import PbLogo from "@/assets/pb-logo.svg";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   { label: "Process", href: "#process" },
@@ -31,27 +29,21 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="-mr-3.5 hidden items-center gap-0.5 md:flex">
           {links.map(link => (
             <a
               key={link.href}
               href={link.href}
-              className="text-muted-foreground hover:text-foreground after:bg-foreground ease-interface relative text-sm transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted ease-interface rounded-full px-3.5 py-2 text-sm transition-colors duration-300"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-1.5">
-          <ThemeToggle />
-          <ContactButton className="hidden md:inline-flex" size="sm">
-            Start a project
-          </ContactButton>
-          <span className="md:hidden">
-            <MobileNav links={links} />
-          </span>
-        </div>
+        <span className="shrink-0 md:hidden">
+          <MobileNav links={links} />
+        </span>
       </div>
     </header>
   );
