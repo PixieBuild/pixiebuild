@@ -132,7 +132,7 @@ export function ServiceModernize() {
             initial={false}
             animate={{ opacity: fresh ? 0 : 1 }}
             transition={swap}
-            className="col-start-1 row-start-1 rounded-full bg-slate-900/70 px-2.5 py-1 font-mono text-[0.5625rem] tracking-widest text-white uppercase backdrop-blur-sm"
+            className="col-start-1 row-start-1 rounded-full bg-slate-900/70 px-2.5 py-1 font-label text-[0.5625rem] tracking-widest text-white uppercase backdrop-blur-sm"
           >
             Before
           </motion.span>
@@ -140,7 +140,7 @@ export function ServiceModernize() {
             initial={false}
             animate={{ opacity: fresh ? 1 : 0 }}
             transition={swap}
-            className="bg-primary text-primary-foreground col-start-1 row-start-1 rounded-full px-2.5 py-1 font-mono text-[0.5625rem] tracking-widest uppercase"
+            className="bg-primary text-primary-foreground col-start-1 row-start-1 rounded-full px-2.5 py-1 font-label text-[0.5625rem] tracking-widest uppercase"
           >
             After
           </motion.span>

@@ -29,7 +29,7 @@ export function ServiceReach() {
         <span className="bg-primary/12 text-primary flex size-7 shrink-0 items-center justify-center rounded-full">
           <RiSparkling2Fill className="size-3.5" />
         </span>
-        <span className="text-muted-foreground font-mono text-[0.625rem] tracking-widest uppercase">
+        <span className="text-muted-foreground font-label text-[0.625rem] tracking-widest uppercase">
           Assistant
         </span>
       </motion.div>
@@ -58,7 +58,7 @@ export function ServiceReach() {
           {sources.map((source, index) => (
             <span
               key={source}
-              className={`shrink-0 rounded-md border px-2 py-0.5 font-mono text-[0.5625rem] ${
+              className={`shrink-0 rounded-md border px-2 py-0.5 font-label text-[0.5625rem] ${
                 index === 0
                   ? "border-primary/30 bg-primary/8 text-primary"
                   : "text-muted-foreground"

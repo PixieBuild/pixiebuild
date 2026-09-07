@@ -41,7 +41,6 @@ export function ConceptNorthlinePhone() {
               src="/concept/estate-hero.webp"
               alt=""
               fill
-              loading="eager"
               sizes="80vw"
               className="animate-build-drift build-idle object-cover object-[62%_45%]"
             />
@@ -87,7 +86,6 @@ export function ConceptNorthlinePhone() {
                     src={photo}
                     alt=""
                     fill
-                    loading="eager"
                     sizes="20vw"
                     className="object-cover"
                   />

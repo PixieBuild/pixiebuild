@@ -48,7 +48,6 @@ export function ConceptFigVine() {
                 src="/concept/hotel-room.webp"
                 alt=""
                 fill
-                loading="eager"
                 sizes="(min-width: 1024px) 50vw, 80vw"
                 className="object-cover object-[40%_50%]"
               />
@@ -183,7 +182,6 @@ export function ConceptFigVine() {
                       src={room.photo}
                       alt=""
                       fill
-                      loading="eager"
                       sizes="8vw"
                       className="object-cover"
                     />

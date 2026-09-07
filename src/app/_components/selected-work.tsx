@@ -36,7 +36,7 @@ const projects: Project[] = [
 export function SelectedWork() {
   return (
     <section id="work" className="scroll-mt-24 py-12 md:py-24">
-      <div className="mx-auto max-w-rail px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="mx-auto max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
         <SectionHeading label="Selected work">
           Take a closer look{" "}
           <span className="text-muted-foreground">
@@ -45,7 +45,7 @@ export function SelectedWork() {
         </SectionHeading>
       </div>
 
-      <div className="mt-14 md:mt-20">
+      <div className="mt-12 md:mt-16">
         <WorkRail projects={projects} />
       </div>
     </section>

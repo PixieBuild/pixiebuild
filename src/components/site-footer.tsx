@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import PbLogo from "@/assets/pb-logo.svg";
 import { CopyrightYear } from "@/components/copyright-year";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 const papers = [
   { label: "Privacy", href: "/privacy" },
@@ -65,7 +64,6 @@ export function SiteFooter() {
             >
               hello@pixiebuild.com
             </a>
-            <ThemeToggle />
           </div>
         </div>
       </div>

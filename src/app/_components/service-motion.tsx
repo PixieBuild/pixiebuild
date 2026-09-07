@@ -52,14 +52,14 @@ export function ServiceMotion() {
     >
       <div className="flex items-baseline justify-between gap-3">
         <p className="text-sm font-medium tracking-tight">The house</p>
-        <p className="text-muted-foreground font-mono text-[0.625rem] tracking-widest uppercase">
+        <p className="text-muted-foreground font-label text-[0.625rem] tracking-widest uppercase">
           Hover a tile
         </p>
       </div>
 
       <div className="relative min-h-0 flex-1">
         <div
-          className={`ease-interface grid size-full grid-cols-3 gap-3 transition-opacity duration-200 ${
+          className={`ease-interface grid size-full grid-cols-3 gap-3 transition-opacity duration-300 ${
             card ? "pointer-events-none opacity-0" : "opacity-100"
           }`}
         >

@@ -18,17 +18,17 @@ export function Faq() {
 
           <Accordion
             multiple={false}
-            className="border-foreground/20 dark:border-foreground/18 rounded-none border-0 border-t border-dashed lg:col-span-8"
+            className="rounded-none border-0 border-t lg:col-span-8"
           >
             {questions.map((question, index) => (
               <AccordionItem
                 key={question.ask}
                 value={question.ask}
-                className="border-foreground/20 dark:border-foreground/18 border-b border-dashed data-open:bg-transparent"
+                className="border-b data-open:bg-transparent"
               >
                 <AccordionTrigger className="gap-6 px-0 py-5 hover:no-underline md:py-6">
                   <span className="flex items-start gap-4 md:gap-5">
-                    <span className="text-muted-foreground group-aria-expanded/accordion-trigger:text-primary ease-interface mt-1 font-mono text-xs tabular-nums transition-colors duration-300">
+                    <span className="text-muted-foreground group-aria-expanded/accordion-trigger:text-primary ease-interface mt-1 font-label text-[0.6875rem] tracking-[0.16em] tabular-nums transition-colors duration-300">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <span className="text-base tracking-tight text-pretty md:text-lg">

@@ -39,8 +39,9 @@ export function SectionHeading({
         animate={{ opacity: shown ? 1 : 0, y: shown ? 0 : 6 }}
         initial={false}
         transition={{ duration: still ? 0 : 0.45, ease: entrance }}
-        className="text-muted-foreground text-xs font-medium tracking-widest uppercase"
+        className="text-muted-foreground font-label flex items-center gap-3 text-[0.6875rem] tracking-[0.16em] uppercase"
       >
+        <span aria-hidden className="bg-primary size-1.5" />
         {label}
       </motion.p>
 

@@ -7,7 +7,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-cursor: var(--cursor);
   --font-sans: var(--font-sans);
   --font-heading: var(--font-heading);
   --font-concept: var(--font-dm-sans);
@@ -77,7 +76,6 @@
   --chart-4: oklch(0.554 0.135 66.442);
   --chart-5: oklch(0.476 0.114 61.907);
   --radius: 0.45rem;
-  --cursor: oklch(1 0 0);
   --sidebar: oklch(0.987 0.002 197.1);
   --sidebar-foreground: oklch(0.148 0.004 228.8);
   --sidebar-primary: oklch(0.5464 0.1313 242.68);
@@ -112,7 +110,6 @@
   --chart-3: oklch(0.681 0.162 75.834);
   --chart-4: oklch(0.554 0.135 66.442);
   --chart-5: oklch(0.476 0.114 61.907);
-  --cursor: oklch(1 0 0);
   --sidebar: oklch(0.218 0.008 223.9);
   --sidebar-foreground: oklch(0.987 0.002 197.1);
   --sidebar-primary: oklch(0.5464 0.1313 242.68);
@@ -148,21 +145,21 @@
   }
 }
 
-html.pointer-lens,
-html.pointer-lens * {
-  cursor: none;
-}
-
-html.pointer-lens :is(input, textarea, [contenteditable="true"]) {
-  cursor: text;
-}
-
 @keyframes build-sweep {
   0% {
     transform: translateX(-110%);
   }
   100% {
     transform: translateX(320%);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -253,6 +250,7 @@ html.pointer-lens :is(input, textarea, [contenteditable="true"]) {
 
 @theme {
   --animate-build-sweep: build-sweep 2.6s ease-in-out infinite;
+  --animate-fade-in: fade-in 320ms var(--ease-entrance) both;
   --animate-rise-in: rise-in 620ms var(--ease-entrance) both;
   --animate-set-line: set-line 1s var(--ease-entrance) both;
   --animate-glow-breathe: glow-breathe 9s ease-in-out infinite;
@@ -596,6 +594,16 @@ html.pointer-lens :is(input, textarea, [contenteditable="true"]) {
   font-size: calc(16 * var(--u));
 }
 
+/* The same rescaling for a layer that already has a size of its own — a bar
+   pinned to a share of the frame, or a view positioned inset-0. Without it the
+   layer measures in page pixels while the frame around it measures in its own,
+   so the two drift apart as the frame is drawn at other sizes. */
+@utility concept-scale {
+  --u: calc(100cqw / var(--concept-width, 1200));
+  --spacing: calc(4 * var(--u));
+  font-size: calc(16 * var(--u));
+}
+
 @utility bg-brand-glow {
   background-image: radial-gradient(
     ellipse 36% 30% at 50% 42%,
@@ -691,12 +699,3 @@ html.pointer-lens :is(input, textarea, [contenteditable="true"]) {
   --shadow-focus: var(--elevation-focus);
 }
 
-@utility reveal {
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      animation: rise-in linear both;
-      animation-timeline: view();
-      animation-range: entry 5% cover 22%;
-    }
-  }
-}

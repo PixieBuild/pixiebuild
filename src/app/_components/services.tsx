@@ -60,7 +60,7 @@ export function Services() {
               key={service.title}
               delay={(index % 2) * 0.08}
               className={cn(
-                "bg-background shadow-elev-1 flex flex-col overflow-hidden rounded-2xl border",
+                "bg-card shadow-panel flex flex-col overflow-hidden rounded-2xl border",
                 service.wide && "md:col-span-2",
               )}
             >
@@ -79,7 +79,7 @@ export function Services() {
                 <h3 className="text-xl font-semibold tracking-tight">
                   {service.title}
                 </h3>
-                <p className="text-muted-foreground mt-2.5 max-w-prose text-sm leading-relaxed text-pretty">
+                <p className="text-muted-foreground mt-2.5 max-w-xl text-sm leading-relaxed text-pretty">
                   {service.blurb}
                 </p>
 

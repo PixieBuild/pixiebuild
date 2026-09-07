@@ -85,7 +85,7 @@ export function ContactDialog() {
         <div className="relative grid min-h-0 md:grid-cols-2 md:divide-x">
           <span
             aria-hidden
-            className="bg-primary text-primary-foreground ring-background absolute top-1/2 left-1/2 z-10 hidden size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full font-mono text-[0.5625rem] font-medium tracking-widest uppercase ring-4 md:flex"
+            className="bg-primary text-primary-foreground ring-background absolute top-1/2 left-1/2 z-10 hidden size-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full font-label text-[0.5625rem] font-medium tracking-widest uppercase ring-4 md:flex"
           >
             or
           </span>
@@ -103,7 +103,7 @@ export function ContactDialog() {
                     <span className="bg-primary/10 text-primary flex size-12 shrink-0 items-center justify-center rounded-2xl">
                       <route.icon className="size-6" />
                     </span>
-                    <span className="text-muted-foreground font-mono text-[0.625rem] tracking-widest uppercase">
+                    <span className="text-muted-foreground font-label text-[0.625rem] tracking-widest uppercase">
                       {route.meta}
                     </span>
                   </span>

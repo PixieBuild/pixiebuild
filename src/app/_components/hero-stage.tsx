@@ -545,7 +545,7 @@ export function HeroStage({
             <div className="ml-auto flex items-center gap-8 2xl:gap-12">
               <span
                 style={{ animationDelay: "1080ms" }}
-                className="font-label text-muted-foreground motion-reduce:animate-none hidden animate-rise-in items-center gap-2.5 text-[0.6875rem] tracking-[0.14em] uppercase xl:flex 2xl:text-xs"
+                className="font-label text-muted-foreground motion-reduce:animate-none hidden animate-rise-in items-center gap-2.5 text-[0.6875rem] tracking-[0.16em] uppercase xl:flex 2xl:text-xs"
               >
                 <span
                   aria-hidden
@@ -567,7 +567,7 @@ export function HeroStage({
                   >
                     <span
                       className={cn(
-                        "font-label ease-interface text-[0.625rem] tracking-[0.14em] tabular-nums transition-colors duration-300",
+                        "font-label ease-interface text-[0.625rem] tracking-[0.16em] tabular-nums transition-colors duration-300",
                         index === at
                           ? "text-primary"
                           : "text-muted-foreground/70 group-hover/trade:text-foreground",

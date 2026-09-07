@@ -116,7 +116,7 @@ export function ServiceBuild() {
                 <span className="flex min-w-0 flex-1 items-center">
                   {piece.render}
                 </span>
-                <span className="text-muted-foreground/50 shrink-0 font-mono text-[0.5rem]">
+                <span className="text-muted-foreground/50 shrink-0 font-label text-[0.5rem]">
                   {piece.name}
                 </span>
               </motion.div>

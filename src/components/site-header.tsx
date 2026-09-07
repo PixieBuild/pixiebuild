@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { MobileNav } from "@/components/mobile-nav";
 import PbLogo from "@/assets/pb-logo.svg";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const links = [
   { label: "Process", href: "#process" },
@@ -20,7 +21,7 @@ export function SiteHeader() {
       <div className="mx-auto flex w-full max-w-page items-center justify-between gap-4 px-6 pt-6 sm:px-8 md:px-12 lg:px-16">
         <Link
           href="/"
-          className="ease-interface flex shrink-0 items-center gap-2.5 transition-opacity duration-150 hover:opacity-75"
+          className="ease-interface flex shrink-0 items-center gap-2.5 transition-opacity duration-300 hover:opacity-75"
           aria-label="PixieBuild"
         >
           <PbLogo className="size-6" />
@@ -29,7 +30,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="-mr-3.5 hidden items-center gap-0.5 md:flex">
+        <nav className="hidden items-center gap-0.5 md:flex">
           {links.map(link => (
             <a
               key={link.href}
@@ -41,9 +42,12 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <span className="shrink-0 md:hidden">
-          <MobileNav links={links} />
-        </span>
+        <div className="flex shrink-0 items-center gap-1.5">
+          <ThemeToggle className="rounded-full" />
+          <span className="md:hidden">
+            <MobileNav links={links} />
+          </span>
+        </div>
       </div>
     </header>
   );

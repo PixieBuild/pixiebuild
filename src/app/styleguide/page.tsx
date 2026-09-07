@@ -32,8 +32,6 @@ const colourRoles: Record<string, string> = {
     "Edges and dividers. Already softened, so plain `border` is right.",
   "--input": "Field fills and their borders.",
   "--ring": "The focus ring, and nothing else.",
-  "--cursor":
-    "The pointer's disc. White in both themes, because it is blended by difference and has to invert whatever it sits on.",
   "--chart-1": "Reserved for `shadcn add chart` — do not delete.",
   "--sidebar": "Reserved for `shadcn add sidebar` — do not delete.",
 };
@@ -43,8 +41,9 @@ const radiusUsage: Record<string, string> = {
   "--radius-sm": "Smaller than a card and rarely right.",
   "--radius-md": "Small blocks inside an artifact.",
   "--radius-lg": "The same as the base.",
-  "--radius-xl": "Cards and raised surfaces.",
-  "--radius-2xl": "Textarea, accordion, menu items.",
+  "--radius-xl": "Panels and images nested inside a card.",
+  "--radius-2xl":
+    "Cards and raised surfaces — and textarea, accordion, menu items.",
   "--radius-3xl": "Input, dropdown menu.",
   "--radius-4xl": "Button.",
 };
@@ -57,8 +56,8 @@ const shadowUsage: Record<string, string> = {
 };
 
 const motionUsage: Record<string, string> = {
-  "--ease-entrance": "Things arriving.",
-  "--ease-interface": "Hover, focus, press.",
+  "--ease-entrance": "Things arriving, and state changes large enough to follow — duration-500.",
+  "--ease-interface": "Hover, focus, press — duration-300, and nothing else.",
   "--animate-rise-in": "The entrance, once on load.",
   "--animate-set-line": "A line of type arriving from under its own baseline.",
   "--animate-build-sweep": "The coming-soon progress sweep.",
@@ -106,9 +105,15 @@ const typeRoles = [
   },
   {
     role: "Label",
-    className: "text-xs font-medium tracking-widest uppercase",
+    className: "font-label text-[0.6875rem] tracking-[0.16em] uppercase",
     sample: "In development",
-    note: "Eyebrows and tags. Same at every width, always uppercase.",
+    note: "Eyebrows, tags and metadata. Plex Mono at one size, always uppercase, always this tracking. Every eyebrow on the site carries a bg-primary size-1.5 square before it.",
+  },
+  {
+    role: "Index",
+    className: "font-label text-[0.6875rem] tracking-[0.16em] tabular-nums",
+    sample: "01",
+    note: "A number that counts something — process steps, questions, work, the hero rail. Same as Label, plus tabular-nums so the digits do not shift.",
   },
 ];
 
@@ -125,8 +130,13 @@ const layout = [
   },
   {
     what: "Band rhythm",
-    classes: "py-20 md:py-28",
-    note: "The vertical space between sections.",
+    classes: "py-12 md:py-24",
+    note: "The vertical space between sections. Every band, including the closing call.",
+  },
+  {
+    what: "Heading to content",
+    classes: "mt-12 md:mt-16",
+    note: "Between a SectionHeading and whatever it opens. One value, so the page keeps a beat.",
   },
   {
     what: "Columns",
@@ -135,13 +145,7 @@ const layout = [
   },
 ];
 
-const utilities = [
-  {
-    name: "reveal",
-    purpose:
-      "Scroll-driven entrance for a section. A view timeline — no JS, and it degrades to rendering in place.",
-  },
-];
+const utilities: { name: string; purpose: string }[] = [];
 
 export default async function StyleguidePage() {
   const { colours, radii, shadows, motion } = await readTokens();
@@ -183,7 +187,7 @@ export default async function StyleguidePage() {
                 style={{ backgroundColor: `var(${token.name})` }}
                 className="size-10 shrink-0 rounded-md border"
               />
-              <span className="w-52 font-mono text-xs">{token.name}</span>
+              <span className="w-52 font-label text-xs">{token.name}</span>
               <span className="text-muted-foreground w-56 text-sm">
                 {token.light}
               </span>
@@ -239,7 +243,7 @@ export default async function StyleguidePage() {
             >
               <div className="shrink-0 md:w-72">
                 <p className="text-sm font-medium">{role.role}</p>
-                <p className="text-muted-foreground mt-1 font-mono text-xs">
+                <p className="text-muted-foreground mt-1 font-label text-xs">
                   {role.className}
                 </p>
                 <p className="text-muted-foreground mt-2 text-sm text-pretty">
@@ -267,7 +271,7 @@ export default async function StyleguidePage() {
               <span className="w-44 shrink-0 text-sm font-medium">
                 {item.what}
               </span>
-              <span className="text-muted-foreground w-72 shrink-0 font-mono text-xs">
+              <span className="text-muted-foreground w-72 shrink-0 font-label text-xs">
                 {item.classes}
               </span>
               <span className="text-muted-foreground min-w-0 text-sm text-pretty">
@@ -300,7 +304,7 @@ export default async function StyleguidePage() {
                 style={{ borderRadius: `var(${step.name})` }}
                 className="bg-muted size-10 shrink-0 border"
               />
-              <span className="w-36 font-mono text-xs">{step.utility}</span>
+              <span className="w-36 font-label text-xs">{step.utility}</span>
               <span className="text-muted-foreground w-20 text-sm tabular-nums">
                 {step.px}
               </span>
@@ -327,7 +331,7 @@ export default async function StyleguidePage() {
               style={{ boxShadow: `var(${token.name})` }}
               className="bg-card rounded-xl border p-6"
             >
-              <p className="font-mono text-xs">
+              <p className="font-label text-xs">
                 {token.name.replace("--shadow-", "shadow-")}
               </p>
               <p className="text-muted-foreground mt-2 text-sm text-pretty">
@@ -354,7 +358,7 @@ export default async function StyleguidePage() {
               key={utility.name}
               className="flex flex-wrap items-baseline gap-x-6 gap-y-2 border-t py-4"
             >
-              <span className="w-48 font-mono text-xs">{utility.name}</span>
+              <span className="w-48 font-label text-xs">{utility.name}</span>
               <span className="text-muted-foreground min-w-0 text-sm text-pretty">
                 {utility.purpose}
               </span>
@@ -364,8 +368,8 @@ export default async function StyleguidePage() {
 
         <p className="text-muted-foreground mt-10 max-w-prose text-sm text-pretty">
           The landing page also defines{" "}
-          <span className="font-mono text-xs">bg-blueprint</span> and{" "}
-          <span className="font-mono text-xs">bg-brand-glow</span>. They are
+          <span className="font-label text-xs">bg-blueprint</span> and{" "}
+          <span className="font-label text-xs">bg-brand-glow</span>. They are
           that page&rsquo;s backdrop — deliberately not part of the system, and
           not to be reused elsewhere.
         </p>

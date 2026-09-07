@@ -67,7 +67,7 @@ export function LegalPage({
                   </span>
                   <a
                     href={`#${anchor(section.title)}`}
-                    className="text-muted-foreground hover:text-foreground ease-interface transition-colors duration-200"
+                    className="text-muted-foreground hover:text-foreground ease-interface transition-colors duration-300"
                   >
                     {section.title}
                   </a>
@@ -116,7 +116,7 @@ export function LegalPage({
                     <Link
                       key={paper.href}
                       href={paper.href}
-                      className="hover:text-foreground ease-interface text-sm transition-colors duration-200"
+                      className="hover:text-foreground ease-interface text-sm transition-colors duration-300"
                     >
                       {paper.label}
                     </Link>

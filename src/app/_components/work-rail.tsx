@@ -85,7 +85,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
                 "bg-card transform-gpu flex h-full flex-col overflow-hidden rounded-2xl border",
                 index === active
                   ? "border-primary/40 shadow-focus"
-                  : "shadow-elev-1",
+                  : "shadow-panel",
               )}
             >
               <div className="relative aspect-16/10 shrink-0 overflow-hidden border-b">
@@ -109,7 +109,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
                   {project.built}
                 </p>
 
-                <div className="border-foreground/10 text-muted-foreground font-label mt-auto flex items-baseline justify-between gap-4 border-t pt-4 text-[0.6875rem] tracking-[0.16em] uppercase">
+                <div className="text-muted-foreground font-label mt-auto flex items-baseline justify-between gap-4 border-t pt-4 text-[0.6875rem] tracking-[0.16em] uppercase">
                   <span>{project.sector}</span>
                   <span className="text-foreground/35 tabular-nums">
                     {String(index + 1).padStart(2, "0")}

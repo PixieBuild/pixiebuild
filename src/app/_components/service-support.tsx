@@ -23,7 +23,7 @@ export function ServiceSupport() {
           <span className="size-1.5 rounded-full bg-emerald-500" />
           Operational
         </span>
-        <span className="text-muted-foreground ml-auto font-mono text-[0.625rem]">
+        <span className="text-muted-foreground ml-auto font-label text-[0.625rem]">
           pixiebuild.com
         </span>
       </div>
@@ -54,7 +54,7 @@ export function ServiceSupport() {
             ))}
           </div>
 
-          <div className="text-muted-foreground/70 mt-2.5 flex justify-between font-mono text-[0.5625rem]">
+          <div className="text-muted-foreground/70 mt-2.5 flex justify-between font-label text-[0.5625rem]">
             <span>60 days ago</span>
             <span>today</span>
           </div>
@@ -72,10 +72,10 @@ export function ServiceSupport() {
               <span className="min-w-0 flex-1 truncate text-xs">
                 {row.what}
               </span>
-              <span className="text-muted-foreground hidden shrink-0 font-mono text-[0.625rem] sm:block">
+              <span className="text-muted-foreground hidden shrink-0 font-label text-[0.625rem] sm:block">
                 {row.who}
               </span>
-              <span className="text-muted-foreground w-14 shrink-0 text-right font-mono text-[0.625rem] tabular-nums">
+              <span className="text-muted-foreground w-14 shrink-0 text-right font-label text-[0.625rem] tabular-nums">
                 {row.when}
               </span>
             </div>

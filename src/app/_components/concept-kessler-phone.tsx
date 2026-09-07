@@ -92,7 +92,6 @@ export function ConceptKesslerPhone() {
               src="/concept/ceramics.webp"
               alt=""
               fill
-              loading="eager"
               sizes="40vw"
               className="object-cover"
             />
@@ -106,7 +105,6 @@ export function ConceptKesslerPhone() {
               src="/concept/bowl.webp"
               alt=""
               fill
-              loading="eager"
               sizes="40vw"
               className="object-cover"
             />

@@ -47,7 +47,6 @@ export function ConceptKessler() {
                 src="/concept/ceramics.webp"
                 alt=""
                 fill
-                loading="eager"
                 sizes="(min-width: 1024px) 28vw, 50vw"
                 className="object-cover"
               />
@@ -126,7 +125,6 @@ export function ConceptKessler() {
                 src="/concept/bowl.webp"
                 alt=""
                 fill
-                loading="eager"
                 sizes="(min-width: 1024px) 14vw, 30vw"
                 className="object-cover"
               />
@@ -145,7 +143,6 @@ export function ConceptKessler() {
                 src="/concept/cutlery.webp"
                 alt=""
                 fill
-                loading="eager"
                 sizes="(min-width: 1024px) 12vw, 25vw"
                 className="object-cover"
               />

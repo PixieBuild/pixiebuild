@@ -52,9 +52,12 @@ export function ConceptNorthline() {
             <div style={part(beat.figure)} className="build-part absolute inset-0">
               <Image
                 src="/concept/estate-hero.webp"
+                /* The only preloaded image on the site: it measures as LCP,
+                   and its sizes resolve to the same 80vw the phone frame asks
+                   for below 1024px, so one preload serves both variants. */
+                priority
                 alt=""
                 fill
-                loading="eager"
                 sizes="(min-width: 1024px) 50vw, 80vw"
                 className="animate-build-drift build-idle object-cover object-[60%_45%]"
               />
@@ -169,7 +172,6 @@ export function ConceptNorthline() {
                       src={photo}
                       alt=""
                       fill
-                      loading="eager"
                       sizes="8vw"
                       className="object-cover"
                     />
