@@ -66,7 +66,7 @@ function Frame({
         "concept-stage concept-theme-paper bg-concept-canvas shadow-elev-2 border-concept-ink/15 relative w-full overflow-hidden border",
         portrait
           ? "[--concept-height:420] [--concept-width:360]"
-          : "[--concept-height:562] [--concept-width:900]",
+          : "[--concept-height:600] [--concept-width:900]",
       )}
     >
       <AnimatePresence initial={false}>
@@ -187,8 +187,8 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
       >
         <div ref={scene} className="sticky top-0 flex h-svh items-center">
           <div className="mx-auto w-full max-w-page px-16">
-            <div className="grid grid-cols-12 gap-14">
-              <div className="col-span-5 flex flex-col">
+            <div className="grid grid-cols-12 gap-14 xl:gap-10">
+              <div className="col-span-5 flex flex-col 2xl:col-span-4">
                 {heading}
 
                 <span
@@ -258,8 +258,8 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
                 </div>
               </div>
 
-              <div className="col-span-7 flex items-center">
-                <div className="mx-auto w-[min(100%,calc((100svh-16rem)*1.6))]">
+              <div className="col-span-7 flex items-center 2xl:col-span-8">
+                <div className="mx-auto w-[min(100%,calc((100svh-16rem)*1.5))]">
                   <Frame at={at} still={still} />
                 </div>
               </div>
