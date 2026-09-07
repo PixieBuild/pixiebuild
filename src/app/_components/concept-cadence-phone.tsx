@@ -13,12 +13,12 @@ const beat = {
 
 const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
 
-const readings = ["₹4,82,140", "₹4,88,900", "₹4,94,210", "₹5,01,080"];
+const readings = ["$2,014,140", "$2,020,900", "$2,026,210", "$2,033,080"];
 
 const rows = [
-  { name: "Meridian Grooming", amount: "+₹48,000" },
-  { name: "Payroll · 14 people", amount: "−₹6,20,000" },
-  { name: "Ember & Oak", amount: "+₹35,000" },
+  { name: "Meridian Grooming", amount: "+$6,400" },
+  { name: "Payroll · 14 people", amount: "−$154,000" },
+  { name: "Ember & Oak", amount: "+$4,800" },
 ];
 
 const alerts = [

@@ -112,7 +112,7 @@ export function ConceptNorthline() {
               className="bg-concept-canvas/85 border-concept-ink/15 shadow-elev-2 build-part border p-7 backdrop-blur-xl"
             >
               <span className="text-concept-ink/60 font-label text-[0.8125em] tracking-[0.16em]">
-                KORAMANGALA, BENGALURU
+                HYDE PARK, AUSTIN
               </span>
               <p className="mt-2 text-[2.25em] leading-none font-semibold tracking-[-0.035em]">
                 Villa Arbor
@@ -137,7 +137,7 @@ export function ConceptNorthline() {
                     ASKING
                   </span>
                   <span className="mt-1 text-[2.5em] leading-none font-semibold tracking-[-0.04em] tabular-nums">
-                    ₹4.2 Cr
+                    $1.24M
                   </span>
                 </span>
                 <span

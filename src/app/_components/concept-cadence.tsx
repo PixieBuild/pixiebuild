@@ -30,7 +30,7 @@ const part = (at: number) => ({ "--beat": at }) as React.CSSProperties;
 
 const links = ["PRODUCT", "PRICING", "DOCS"];
 
-const readings = ["₹4,82,140", "₹4,88,900", "₹4,94,210", "₹5,01,080"];
+const readings = ["$2,014,140", "$2,020,900", "$2,026,210", "$2,033,080"];
 
 const actions = [
   { icon: RiSendPlaneLine, label: "Send" },
@@ -40,15 +40,15 @@ const actions = [
 ];
 
 const rows = [
-  { name: "Meridian Grooming", note: "Invoice #1042", amount: "+₹48,000" },
-  { name: "Payroll · 14 people", note: "Friday", amount: "−₹6,20,000" },
-  { name: "Ember & Oak", note: "Retainer", amount: "+₹35,000" },
+  { name: "Meridian Grooming", note: "Invoice #1042", amount: "+$6,400" },
+  { name: "Payroll · 14 people", note: "Friday", amount: "−$154,000" },
+  { name: "Ember & Oak", note: "Retainer", amount: "+$4,800" },
 ];
 
 const alerts = [
-  { title: "Invoice #1042 paid", meta: "₹48,000 · just now", wait: "0s" },
+  { title: "Invoice #1042 paid", meta: "$6,400 · just now", wait: "0s" },
   { title: "Payroll scheduled", meta: "Friday · 14 people", wait: "1.4s" },
-  { title: "Card used", meta: "₹1,240 · Figma", wait: "2.8s" },
+  { title: "Card used", meta: "$180 · Figma", wait: "2.8s" },
 ];
 
 const bars = [0.35, 0.5, 0.42, 0.58, 0.55, 0.7, 0.66, 0.8, 0.76, 0.92];
@@ -315,7 +315,7 @@ export function ConceptCadence() {
                   </span>
                 </span>
                 <span className="text-[1.125em] font-semibold tracking-[-0.03em] tabular-nums">
-                  ₹6.2L
+                  $154K
                 </span>
               </div>
               <span className="bg-concept-ink/8 mt-4 block h-1.5 w-full rounded-full">

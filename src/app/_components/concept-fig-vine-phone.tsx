@@ -21,8 +21,8 @@ const days = Array.from({ length: 21 }, (_, index) => index + 1);
 const stay = { from: 12, to: 15 };
 
 const rooms = [
-  { name: "Loft", price: "₹8,900", photo: "/concept/hotel-loft.webp" },
-  { name: "Courtyard suite", price: "₹12,500", photo: "/concept/hotel-suite.webp" },
+  { name: "Loft", price: "$340", photo: "/concept/hotel-loft.webp" },
+  { name: "Courtyard suite", price: "$420", photo: "/concept/hotel-suite.webp" },
 ];
 
 export function ConceptFigVinePhone() {

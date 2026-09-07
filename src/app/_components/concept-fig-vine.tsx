@@ -29,8 +29,8 @@ const days = Array.from({ length: 28 }, (_, index) => index + 1);
 const stay = { from: 12, to: 15 };
 
 const rooms = [
-  { name: "Loft", price: "₹8,900", photo: "/concept/hotel-loft.webp", left: "1 LEFT" },
-  { name: "Courtyard", price: "₹12,500", photo: "/concept/hotel-suite.webp", left: "2 LEFT" },
+  { name: "Loft", price: "$340", photo: "/concept/hotel-loft.webp", left: "1 LEFT" },
+  { name: "Courtyard", price: "$420", photo: "/concept/hotel-suite.webp", left: "2 LEFT" },
   { name: "The Kitchen", price: "6PM", photo: "/concept/hotel-kitchen.webp", left: "TILL LATE" },
 ];
 
@@ -136,7 +136,7 @@ export function ConceptFigVine() {
               </div>
 
               <span className="bg-concept-ink text-concept-canvas font-label build-act mt-5 flex h-11 items-center justify-center text-[0.9375em] tracking-[0.16em]">
-                BOOK 3 NIGHTS — ₹19,200
+                BOOK 3 NIGHTS — $780
               </span>
             </div>
           </div>
@@ -161,7 +161,7 @@ export function ConceptFigVine() {
               style={part(beat.rooms)}
               className="text-concept-ink/70 font-label build-part mb-4 flex items-center justify-between text-[0.8125em] tracking-[0.16em]"
             >
-              <span>GARDEN ROOM — ₹6,400 · 3 LEFT TONIGHT</span>
+              <span>GARDEN ROOM — $260 · 3 LEFT TONIGHT</span>
               <span className="motion-safe:animate-room-lamp build-idle flex items-center gap-2">
                 <span aria-hidden className="bg-concept-clay animate-build-pulse size-1.5 rounded-full" />
                 LAMPS ON · 18:40
