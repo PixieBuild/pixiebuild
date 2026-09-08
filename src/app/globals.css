@@ -565,6 +565,26 @@
   transform: scaleX(var(--run, 0));
 }
 
+/* Where a part stands in an act the scroll is scrubbing: nought until the act
+   reaches its cue, one once the act has run a span past it. The act arrives as
+   --a from the nearest wrapper, so one wrapper hands a whole layer to one step
+   of the scroll. Unset reads as arrived. */
+@utility stage-cue {
+  --step: clamp(
+    0,
+    calc((var(--a, 1) - var(--beat, 0)) / var(--span, 0.3)),
+    1
+  );
+}
+
+/* One layer of the process stage: drawn up as it arrives, and set back as the
+   next layer arrives over it. Both read as done when unset. */
+@utility stage-layer {
+  opacity: calc(var(--in, 1) * (1 - min(1, var(--gone, 0) * 1.6)));
+  transform: translateY(calc((1 - var(--in, 1)) * 6% - var(--gone, 0) * 3%))
+    scale(calc(0.96 + 0.04 * var(--in, 1) - 0.03 * var(--gone, 0)));
+}
+
 /* Nothing releases the parts, so they arrive themselves. Outside the utility
    layer to outrank what they inherit from the frame. */
 @media (prefers-reduced-motion: reduce) {

@@ -1,155 +1,120 @@
 "use client";
 
-import {
-  RiArrowLeftLine,
-  RiArrowRightLine,
-  RiLock2Line,
-} from "@remixicon/react";
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-} from "motion/react";
+import { useReducedMotion, useScroll } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-import { DiscoveryCard } from "@/app/_components/discovery-card";
-import { DiscoverySheet } from "@/app/_components/discovery-sheet";
-import { IterationView } from "@/app/_components/iteration-view";
-import { Shop } from "@/app/_components/shop";
+import { ProcessFrame } from "@/app/_components/process-frame";
 import { cn } from "@/lib/utils";
 
 const beats = [
   {
     step: "01",
-    name: "Discovery",
-    claim: "We learn your business before anything is designed.",
+    name: "Understand",
+    short: "Understand",
+    claim: "We learn how the business makes money before anything is designed.",
   },
   {
     step: "02",
     name: "Design & build",
+    short: "Build",
     claim: "Designed and built in one pass, by the same people.",
   },
   {
     step: "03",
-    name: "Iteration",
+    name: "Refine",
+    short: "Refine",
     claim: "Every round is a link you can open and comment on.",
   },
-  { step: "04", name: "Launch", claim: "We test it all, connect your domain, and hand it over." },
+  {
+    step: "04",
+    name: "Launch",
+    short: "Launch",
+    claim: "We test it all, connect the domain, and hand it over.",
+  },
 ];
 
-const swatches = ["bg-concept-scrim", "bg-concept-clay", "bg-concept-gold"];
+const steps = beats.length;
 
-const proof = [
-  { name: "TO THE FIRST ORDER", value: "2 hrs" },
-  { name: "VISITS, WEEK ONE", value: "1,240" },
-  { name: "ORDERS", value: "38" },
-];
+/* Scroll each step owns, and the hold after the last, both in vh. */
+const stride = 45;
+const tail = 12;
 
-const ease = [0.16, 1, 0.3, 1] as const;
+/* The share of a step spent moving from the one before it. The rest is the
+   step's own act, scrubbed. */
+const entry = 0.25;
 
-function Frame({
-  at,
-  still,
-  portrait,
-}: {
-  at: number;
-  still: boolean;
-  portrait?: boolean;
-}) {
-  const live = at === 3;
-  const span = { duration: still ? 0 : 0.5, ease };
+/* How far past a boundary the scroll has to be before the label turns over. */
+const slack = 0.02;
 
+const reach = steps + tail / stride;
+
+const clamp = (value: number) => Math.min(1, Math.max(0, value));
+
+/* Where a step's act is under way, as a share of the runway's travel. */
+const anchor = (index: number) =>
+  index === 0 ? 0 : (index + entry + 0.08) / reach;
+
+const rest = {
+  "--x": 0,
+  "--e1": 0,
+  "--e2": 0,
+  "--e3": 0,
+  "--a0": 0,
+  "--a1": 0,
+  "--a2": 0,
+  "--a3": 0,
+  "--act": 0,
+} as React.CSSProperties;
+
+function StepBar({ at, className }: { at: number; className?: string }) {
   return (
-    <div
-      className={cn(
-        "concept-stage concept-theme-paper bg-concept-canvas shadow-elev-2 border-concept-ink/15 relative w-full overflow-hidden border",
-        portrait
-          ? "[--concept-height:420] [--concept-width:360]"
-          : "[--concept-height:600] [--concept-width:900]",
-      )}
-    >
-      <AnimatePresence initial={false}>
-        <motion.div
-          key={at}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={span}
-          className="absolute inset-0 flex flex-col"
-        >
-          {live ? (
-            <motion.div
-              initial={{ y: "-100%" }}
-              animate={{ y: 0 }}
-              transition={span}
-              className="concept-scale bg-concept-shell border-concept-ink/10 z-20 flex h-[8%] shrink-0 items-center gap-2 border-b px-4"
+    <ol className={cn("flex gap-2 sm:gap-3", className)}>
+      {beats.map((mark, index) => (
+        <li key={mark.step} className="min-w-0 flex-1">
+          <a
+            href={`#process-${mark.step}`}
+            aria-current={index === at ? "step" : undefined}
+            className="group/step flex flex-col gap-2.5 py-1"
+          >
+            <span
+              className={cn(
+                "font-label ease-interface flex items-baseline gap-2 text-[0.625rem] tracking-[0.12em] uppercase transition-colors duration-300",
+                index <= at
+                  ? "text-primary"
+                  : "text-muted-foreground/60 group-hover/step:text-foreground",
+              )}
             >
-              {[0, 1, 2].map(light => (
-                <span
-                  key={light}
-                  className="bg-concept-ink/20 size-[0.45em] shrink-0 rounded-full"
-                />
-              ))}
-              <span className="bg-concept-canvas text-concept-muted font-label border-concept-ink/10 ml-2 flex flex-1 items-center gap-2 border px-3 py-1 text-[0.62em] tracking-[0.12em]">
-                <RiLock2Line className="text-concept-clay size-[1em]" />
-                https://norvia.ie
+              <span className="tabular-nums">{mark.step}</span>
+              <span
+                className={cn(
+                  "hidden truncate md:inline",
+                  index === at && "text-foreground",
+                )}
+              >
+                {mark.short}
               </span>
-              <span className="bg-concept-clay text-concept-canvas font-label px-2.5 py-1 text-[0.6em] tracking-[0.18em]">
-                LIVE
-              </span>
-            </motion.div>
-          ) : null}
-
-          <div className="relative min-h-0 flex-1">
-            {at === 0 ? (
-              portrait ? <DiscoveryCard /> : <DiscoverySheet />
-            ) : at === 2 ? (
-              <IterationView still={still} compact={portrait} />
-            ) : (
-              <Shop version={3} live compact={portrait} />
-            )}
-          </div>
-
-          {live ? (
-            <motion.div
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={span}
-              className="concept-scale bg-concept-scrim text-concept-chalk z-20 flex h-[12%] shrink-0 items-center justify-between px-6"
-            >
-              {proof.map((item, index) => (
-                <span
-                  key={item.name}
-                  className={cn(
-                    "items-baseline gap-2",
-                    portrait && index > 0 ? "hidden" : "flex",
-                  )}
-                >
-                  <span className="text-[1.3em] font-semibold whitespace-nowrap tabular-nums">
-                    {item.value}
-                  </span>
-                  <span className="text-concept-chalk/55 font-label text-[0.6em] whitespace-nowrap tracking-[0.18em]">
-                    {item.name}
-                  </span>
-                </span>
-              ))}
-              <span className={cn("text-concept-chalk/55 font-label text-[0.6em] tracking-[0.18em]", portrait && "hidden")}>
-                ALL YOURS
-              </span>
-            </motion.div>
-          ) : null}
-        </motion.div>
-      </AnimatePresence>
-    </div>
+            </span>
+            <span className="bg-foreground/15 relative block h-px w-full">
+              <span
+                style={
+                  {
+                    "--run": `clamp(0, calc(var(--x, 0) - ${index}), 1)`,
+                  } as React.CSSProperties
+                }
+                className="bg-primary build-run absolute inset-0 origin-left"
+              />
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
   );
 }
 
 export function ProcessStage({ heading }: { heading: React.ReactNode }) {
   const runway = useRef<HTMLDivElement>(null);
-  const scene = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
   const [at, setAt] = useState(0);
-  const [picked, setPicked] = useState(0);
   const still = Boolean(useReducedMotion());
 
   const { scrollYProgress } = useScroll({
@@ -159,188 +124,111 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
 
   /* Read off the scroll position rather than an observer: the page runs Lenis,
      and an observer measures the position Lenis is still gliding towards, so
-     every stage would turn over before it looked like it should. */
+     every step would turn over before it looked like it should. Everything
+     but the label is driven through custom properties on the stage. */
   useEffect(() => {
     const follow = (progress: number) => {
-      const spent = Number.isFinite(progress) ? progress : 0;
-      const place = Math.min(beats.length - 1, Math.floor(spent * beats.length));
+      const node = stage.current;
+      if (!node) return;
 
-      setAt(place);
-      scene.current?.style.setProperty(
-        "--run",
-        `${Math.min(1, spent * beats.length - place)}`,
-      );
+      const spent = Number.isFinite(progress) ? clamp(progress) : 0;
+      const x = Math.min(steps, spent * reach);
+
+      const enter = (index: number) =>
+        still ? (x >= index ? 1 : 0) : clamp((x - index) / entry);
+      const act = (index: number) =>
+        still
+          ? x >= index + entry
+            ? 1
+            : 0
+          : clamp((x - index - entry) / (1 - entry));
+
+      const set = (name: string, value: number) =>
+        node.style.setProperty(name, value.toFixed(4));
+
+      set("--x", x);
+      for (let index = 1; index < steps; index += 1) {
+        set(`--e${index}`, enter(index));
+      }
+      for (let index = 0; index < steps; index += 1) {
+        set(`--a${index}`, act(index));
+      }
+      set("--act", clamp((act(2) - 0.55) / 0.25));
+
+      const place = Math.min(steps - 1, Math.floor(x));
+      setAt(was => {
+        if (place > was) return x - place >= slack ? place : was;
+        if (place < was) return was - x >= slack ? place : was;
+        return was;
+      });
     };
 
     follow(scrollYProgress.get());
     return scrollYProgress.on("change", follow);
-  }, [scrollYProgress]);
-
-  const beat = beats[at];
+  }, [scrollYProgress, still]);
 
   return (
     <>
-      <div
-        ref={runway}
-        style={{ "--runway": beats.length } as React.CSSProperties}
-        className="relative hidden h-[calc(100svh+var(--runway)*22vh)] lg:block"
-      >
-        <div ref={scene} className="sticky top-0 flex h-svh items-center">
-          <div className="mx-auto w-full max-w-page px-16">
-            <div className="grid grid-cols-12 gap-14 xl:gap-10">
-              <div className="col-span-5 flex flex-col 2xl:col-span-4">
-                {heading}
-
-                <span
-                  aria-hidden
-                  className="bg-foreground/12 mt-10 h-px w-full"
-                />
-
-                <div className="grid min-w-0">
-                  <AnimatePresence initial={false}>
-                    <motion.div
-                      key={beat.step}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: still ? 0 : 0.3, ease }}
-                      className="col-start-1 row-start-1 pt-8"
-                    >
-                      <span className="text-primary font-label flex items-baseline gap-3 text-[0.6875rem] tracking-[0.16em] uppercase">
-                        <span className="tabular-nums">{beat.step}</span>
-                        <span className="bg-primary/40 h-px w-6" />
-                        {beat.name}
-                      </span>
-
-                      <h3 className="mt-4 min-h-[2lh] text-[1.75rem] leading-[1.15] font-medium tracking-tight text-balance">
-                        {beat.claim}
-                      </h3>
-
-                      {beat.step === "02" ? (
-                        <div className="concept-theme-paper mt-6 flex items-center gap-3">
-                          <span className="flex items-center gap-1.5">
-                            {swatches.map(tone => (
-                              <span
-                                key={tone}
-                                className={cn(
-                                  "border-foreground/10 size-5 rounded-sm border",
-                                  tone,
-                                )}
-                              />
-                            ))}
-                          </span>
-                          <span className="text-muted-foreground font-label text-[0.6875rem] tracking-[0.16em]">
-                            ARCHIVO · GEIST
-                          </span>
-                        </div>
-                      ) : null}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                <div aria-hidden className="mt-auto flex items-center gap-2 pt-10">
-                  {beats.map((mark, index) => (
-                    <span
-                      key={mark.step}
-                      className={cn(
-                        "relative block h-px flex-1 overflow-hidden",
-                        index < at ? "bg-primary" : "bg-foreground/15",
-                      )}
-                    >
-                      {index === at ? (
-                        <span className="bg-primary absolute inset-0 origin-left scale-x-[var(--run)]" />
-                      ) : null}
-                    </span>
-                  ))}
-                  <span className="text-muted-foreground font-label ml-3 text-[0.625rem] tracking-[0.16em] tabular-nums">
-                    {beat.step} / 04
-                  </span>
-                </div>
-              </div>
-
-              <div className="col-span-7 flex items-center 2xl:col-span-8">
-                <div className="mx-auto w-[min(100%,calc((100svh-16rem)*1.5))]">
-                  <Frame at={at} still={still} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="mx-auto w-full max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
+        {heading}
       </div>
 
-      <div className="lg:hidden">
-        <div className="mx-auto w-full max-w-page px-6 sm:px-8 md:px-12">
-          {heading}
+      <div
+        ref={runway}
+        style={{ "--steps": steps } as React.CSSProperties}
+        className="relative mt-10 h-[calc(100svh+var(--steps)*45vh+12vh)] lg:mt-12"
+      >
+        {beats.map((mark, index) => (
+          <span
+            key={mark.step}
+            id={`process-${mark.step}`}
+            aria-hidden
+            style={{ top: `calc((100% - 100svh) * ${anchor(index)})` }}
+            className="absolute left-0 size-px"
+          />
+        ))}
 
-          <div className="mt-10 grid min-w-0">
-            <AnimatePresence initial={false}>
-              <motion.div
-                key={picked}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: still ? 0 : 0.3, ease }}
-                className="col-start-1 row-start-1"
-              >
-                <span className="text-primary font-label flex items-baseline gap-3 text-[0.6875rem] tracking-[0.16em] uppercase">
-                  <span className="tabular-nums">Step {beats[picked].step}</span>
-                  <span className="bg-primary/40 h-px w-6" />
-                  {beats[picked].name}
-                </span>
+        <div ref={stage} style={rest} className="sticky top-0 flex h-svh flex-col">
+          <div className="mx-auto flex w-full max-w-page flex-1 flex-col px-6 pt-3 pb-18 sm:px-8 md:px-12 lg:px-16 lg:pt-6 lg:pb-22">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+              <StepBar at={at} className="lg:order-2 lg:w-[42%] xl:w-[38%]" />
 
-                <p className="mt-3 min-h-[2lh] text-xl leading-[1.2] font-medium tracking-tight text-balance">
-                  {beats[picked].claim}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
+              <div className="grid min-w-0 flex-1 lg:order-1">
+                {beats.map((mark, index) => {
+                  const here = index === at;
 
-          <div className="mt-6">
-            <Frame at={picked} still={still} portrait />
-          </div>
-
-          <div className="mt-5 flex items-center gap-4">
-            <button
-              type="button"
-              aria-label="Previous step"
-              disabled={picked === 0}
-              onClick={() => setPicked(was => Math.max(0, was - 1))}
-              className="border-foreground/15 text-foreground ease-interface flex size-10 shrink-0 items-center justify-center rounded-full border transition-opacity duration-300 disabled:opacity-30"
-            >
-              <RiArrowLeftLine className="size-4" />
-            </button>
-
-            <div className="flex flex-1 items-center gap-1.5">
-              {beats.map((mark, index) => (
-                <button
-                  key={mark.step}
-                  type="button"
-                  aria-label={`Step ${mark.step} — ${mark.name}`}
-                  aria-current={index === picked ? "step" : undefined}
-                  onClick={() => setPicked(index)}
-                  className="flex-1 py-3"
-                >
-                  <span
-                    className={cn(
-                      "ease-interface block h-0.5 w-full transition-colors duration-300",
-                      index === picked ? "bg-primary" : "bg-foreground/15",
-                    )}
-                  />
-                </button>
-              ))}
+                  return (
+                    <div
+                      key={mark.step}
+                      aria-hidden={!here}
+                      className={cn(
+                        "ease-entrance motion-reduce:transition-none col-start-1 row-start-1 transition-[opacity,transform] duration-500",
+                        here
+                          ? "translate-y-0 opacity-100"
+                          : "pointer-events-none translate-y-2 opacity-0",
+                      )}
+                    >
+                      <span className="text-primary font-label flex items-baseline gap-3 text-[0.625rem] tracking-[0.16em] uppercase lg:text-[0.6875rem]">
+                        <span className="tabular-nums">{mark.step}</span>
+                        <span className="text-foreground">{mark.name}</span>
+                      </span>
+                      <p className="mt-1.5 max-w-[28ch] text-[1.0625rem] leading-tight font-medium tracking-tight text-balance lg:mt-2 lg:text-2xl lg:leading-[1.2]">
+                        {mark.claim}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
-            <button
-              type="button"
-              aria-label="Next step"
-              disabled={picked === beats.length - 1}
-              onClick={() =>
-                setPicked(was => Math.min(beats.length - 1, was + 1))
-              }
-              className="border-foreground/15 text-foreground ease-interface flex size-10 shrink-0 items-center justify-center rounded-full border transition-opacity duration-300 disabled:opacity-30"
-            >
-              <RiArrowRightLine className="size-4" />
-            </button>
+            <div className="mt-3.5 flex min-h-0 flex-1 items-start justify-center lg:mt-6 lg:items-center">
+              <div className="hidden w-[min(100%,calc((100svh-14.5rem)*1.83))] lg:block">
+                <ProcessFrame live={at === 3} />
+              </div>
+              <div className="w-[min(100%,24rem,calc((100svh-13rem)*0.677))] md:w-[min(100%,30rem,calc((100svh-13rem)*0.677))] lg:hidden">
+                <ProcessFrame live={at === 3} phone />
+              </div>
+            </div>
           </div>
         </div>
       </div>
