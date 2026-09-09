@@ -38,7 +38,7 @@ const pins: { page: Pin[]; phone: Pin[] } = {
       n: 3,
       text: "Add the market hours. We get asked every week.",
       left: "22%",
-      top: "86%",
+      top: "90%",
       show: 0.42,
       done: 0.74,
     },
@@ -96,10 +96,10 @@ export function ProcessFrame({
   return (
     <div
       className={cn(
-        "concept-stage concept-theme-paper bg-concept-canvas shadow-elev-2 border-concept-ink/15 relative w-full overflow-hidden border",
+        "concept-stage concept-theme-paper bg-concept-canvas text-concept-ink shadow-elev-2 border-concept-ink/15 relative w-full overflow-hidden border",
         phone
           ? "[--concept-height:532] [--concept-width:360]"
-          : "[--concept-height:656] [--concept-width:1200]",
+          : "[--concept-height:960] [--concept-width:1200]",
       )}
     >
       <div
@@ -119,7 +119,7 @@ export function ProcessFrame({
             phone ? "h-8 px-3" : "h-11 px-4",
           )}
         >
-          <div className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(1_-_var(--e2))]">
+          <div className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(1-var(--e2))]">
             <span className="bg-concept-clay motion-reduce:animate-none size-[0.45em] animate-build-pulse rounded-full" />
             <span className="font-label text-[0.6em] tracking-[0.18em]">
               BUILDING
@@ -134,7 +134,7 @@ export function ProcessFrame({
             ) : null}
           </div>
 
-          <div className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(var(--e2)_-_var(--e3))]">
+          <div className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(var(--e2)-var(--e3))]">
             <span className="bg-concept-canvas border-concept-ink/15 text-concept-muted font-label flex min-w-0 items-center gap-2 border px-3 py-1 text-[0.6em] tracking-[0.12em]">
               <RiLinksLine className="text-concept-clay size-[1.1em] shrink-0" />
               <span className="truncate">norvia.com/preview</span>
@@ -182,7 +182,7 @@ export function ProcessFrame({
 
           <div
             style={vars({ "--a": "var(--a2)" })}
-            className="concept-scale text-concept-ink pointer-events-none absolute inset-0 z-20 opacity-[calc(var(--e2)_*_(1_-_var(--e3)))]"
+            className="concept-scale pointer-events-none absolute inset-0 z-20 opacity-[calc(var(--e2)*(1-var(--e3)))]"
           >
             {(phone ? pins.phone : pins.page).map(pin => (
               <ReviewPin key={pin.n} {...pin} />
@@ -193,7 +193,7 @@ export function ProcessFrame({
 
         {phone ? (
           <div className="concept-scale bg-concept-scrim text-concept-chalk relative z-20 grid h-9 shrink-0 px-4">
-            <div className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(1_-_var(--e2))]">
+            <div className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(1-var(--e2))]">
               <span className="flex items-center gap-1.5">
                 {swatches.map(tone => (
                   <span
@@ -212,7 +212,7 @@ export function ProcessFrame({
 
             <div
               style={vars({ "--a": "var(--a2)" })}
-              className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(var(--e2)_-_var(--e3))]"
+              className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(var(--e2)-var(--e3))]"
             >
               <span className="text-concept-chalk/55 font-label text-[0.55em] tracking-[0.18em]">
                 ROUND 2
@@ -249,8 +249,8 @@ export function ProcessFrame({
         ) : null}
 
         {!phone ? (
-          <div className="concept-scale bg-concept-scrim text-concept-chalk relative z-20 grid h-13 shrink-0 px-6">
-            <div className="col-start-1 row-start-1 flex items-center gap-4 opacity-[calc(1_-_var(--e2))]">
+          <div className="concept-scale bg-concept-scrim text-concept-chalk relative z-20 grid h-14 shrink-0 px-7">
+            <div className="col-start-1 row-start-1 flex items-center gap-4 opacity-[calc(1-var(--e2))]">
               <span className="text-concept-chalk/55 font-label text-[0.6em] tracking-[0.18em]">
                 HOME · SHOP · CLASSES · COMMISSIONS · VISIT
               </span>
@@ -274,7 +274,7 @@ export function ProcessFrame({
 
             <div
               style={vars({ "--a": "var(--a2)" })}
-              className="col-start-1 row-start-1 flex items-center gap-6 opacity-[calc(var(--e2)_-_var(--e3))]"
+              className="col-start-1 row-start-1 flex items-center gap-6 opacity-[calc(var(--e2)-var(--e3))]"
             >
               <span className="text-concept-chalk/55 font-label text-[0.6em] tracking-[0.18em]">
                 ROUND 2 — YOU ASKED FOR

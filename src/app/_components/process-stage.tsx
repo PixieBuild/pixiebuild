@@ -33,15 +33,21 @@ const beats = [
   },
 ];
 
+const swatches = ["bg-concept-scrim", "bg-concept-clay", "bg-concept-gold"];
+
 const steps = beats.length;
 
 /* Scroll each step owns, and the hold after the last, both in vh. */
-const stride = 45;
-const tail = 12;
+const stride = 55;
+const tail = 20;
 
-/* The share of a step spent moving from the one before it. The rest is the
-   step's own act, scrubbed. */
-const entry = 0.25;
+/* The shares of a step spent moving from the one before it and playing its
+   own act. What is left holds the finished state. */
+const entry = 0.2;
+const span = 0.5;
+
+/* How far the first act has already run when the stage pins. */
+const lead = 0.3;
 
 /* How far past a boundary the scroll has to be before the label turns over. */
 const slack = 0.02;
@@ -50,9 +56,9 @@ const reach = steps + tail / stride;
 
 const clamp = (value: number) => Math.min(1, Math.max(0, value));
 
-/* Where a step's act is under way, as a share of the runway's travel. */
+/* Where a step's act has finished, as a share of the runway's travel. */
 const anchor = (index: number) =>
-  index === 0 ? 0 : (index + entry + 0.08) / reach;
+  index === 0 ? 0 : (index + entry + span) / reach;
 
 const rest = {
   "--x": 0,
@@ -136,12 +142,12 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
 
       const enter = (index: number) =>
         still ? (x >= index ? 1 : 0) : clamp((x - index) / entry);
-      const act = (index: number) =>
-        still
-          ? x >= index + entry
-            ? 1
-            : 0
-          : clamp((x - index - entry) / (1 - entry));
+      const act = (index: number) => {
+        const start = index === 0 ? -lead : index + entry;
+        const length = index === 0 ? span + lead : span;
+        if (still) return x >= Math.max(0, start) ? 1 : 0;
+        return clamp((x - start) / length);
+      };
 
       const set = (name: string, value: number) =>
         node.style.setProperty(name, value.toFixed(4));
@@ -169,14 +175,14 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
 
   return (
     <>
-      <div className="mx-auto w-full max-w-page px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="mx-auto w-full max-w-page px-6 sm:px-8 md:px-12 lg:landscape:hidden">
         {heading}
       </div>
 
       <div
         ref={runway}
         style={{ "--steps": steps } as React.CSSProperties}
-        className="relative mt-10 h-[calc(100svh+var(--steps)*45vh+12vh)] lg:mt-12"
+        className="relative mt-10 h-[calc(100svh+var(--steps)*55vh+20vh)] lg:landscape:mt-0"
       >
         {beats.map((mark, index) => (
           <span
@@ -189,11 +195,96 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
         ))}
 
         <div ref={stage} style={rest} className="sticky top-0 flex h-svh flex-col">
-          <div className="mx-auto flex w-full max-w-page flex-1 flex-col px-6 pt-3 pb-18 sm:px-8 md:px-12 lg:px-16 lg:pt-6 lg:pb-22">
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-              <StepBar at={at} className="lg:order-2 lg:w-[42%] xl:w-[38%]" />
+          <div className="mx-auto hidden w-full max-w-page flex-1 items-center px-16 pt-10 pb-22 lg:landscape:flex">
+            <div className="grid w-full grid-cols-12 gap-10 xl:gap-14">
+              <div className="col-span-5 flex flex-col xl:col-span-4 2xl:col-span-3">
+                {heading}
 
-              <div className="grid min-w-0 flex-1 lg:order-1">
+                <span aria-hidden className="bg-foreground/12 mt-10 h-px w-full" />
+
+                <div className="grid min-w-0 pt-8">
+                  {beats.map((mark, index) => {
+                    const here = index === at;
+
+                    return (
+                      <div
+                        key={mark.step}
+                        aria-hidden={!here}
+                        className={cn(
+                          "ease-entrance motion-reduce:transition-none col-start-1 row-start-1 transition-[opacity,transform] duration-500",
+                          here
+                            ? "translate-y-0 opacity-100"
+                            : "pointer-events-none translate-y-2 opacity-0",
+                        )}
+                      >
+                        <span className="text-primary font-label flex items-baseline gap-3 text-[0.6875rem] tracking-[0.16em] uppercase">
+                          <span className="tabular-nums">{mark.step}</span>
+                          <span className="bg-primary/40 h-px w-6" />
+                          {mark.name}
+                        </span>
+
+                        <h3 className="mt-4 text-[1.75rem] leading-[1.15] font-medium tracking-tight text-balance">
+                          {mark.claim}
+                        </h3>
+
+                        {mark.step === "02" ? (
+                          <div className="concept-theme-paper mt-6 flex items-center gap-3">
+                            <span className="flex items-center gap-1.5">
+                              {swatches.map(tone => (
+                                <span
+                                  key={tone}
+                                  className={cn(
+                                    "border-foreground/10 size-5 rounded-sm border",
+                                    tone,
+                                  )}
+                                />
+                              ))}
+                            </span>
+                            <span className="text-muted-foreground font-label text-[0.6875rem] tracking-[0.16em]">
+                              ARCHIVO · GEIST
+                            </span>
+                          </div>
+                        ) : null}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div aria-hidden className="mt-auto flex items-center gap-2 pt-10">
+                  {beats.map((mark, index) => (
+                    <span
+                      key={mark.step}
+                      className="bg-foreground/15 relative block h-px flex-1 overflow-hidden"
+                    >
+                      <span
+                        style={
+                          {
+                            "--run": `clamp(0, calc(var(--x, 0) - ${index}), 1)`,
+                          } as React.CSSProperties
+                        }
+                        className="bg-primary build-run absolute inset-0 origin-left"
+                      />
+                    </span>
+                  ))}
+                  <span className="text-muted-foreground font-label ml-3 text-[0.625rem] tracking-[0.16em] tabular-nums">
+                    {beats[at].step} / {String(steps).padStart(2, "0")}
+                  </span>
+                </div>
+              </div>
+
+              <div className="col-span-7 flex items-center xl:col-span-8 2xl:col-span-9">
+                <div className="mx-auto w-[min(100%,calc((100svh-9rem)*1.25))]">
+                  <ProcessFrame live={at === 3} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mx-auto flex w-full max-w-page flex-1 flex-col justify-center px-6 pt-3 pb-18 sm:px-8 md:px-12 lg:px-16 lg:landscape:hidden">
+            <div className="flex flex-col gap-5">
+              <StepBar at={at} />
+
+              <div className="grid min-w-0">
                 {beats.map((mark, index) => {
                   const here = index === at;
 
@@ -208,11 +299,11 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
                           : "pointer-events-none translate-y-2 opacity-0",
                       )}
                     >
-                      <span className="text-primary font-label flex items-baseline gap-3 text-[0.625rem] tracking-[0.16em] uppercase lg:text-[0.6875rem]">
+                      <span className="text-primary font-label flex items-baseline gap-3 text-[0.625rem] tracking-[0.16em] uppercase md:text-[0.6875rem]">
                         <span className="tabular-nums">{mark.step}</span>
                         <span className="text-foreground">{mark.name}</span>
                       </span>
-                      <p className="mt-1.5 max-w-[28ch] text-[1.0625rem] leading-tight font-medium tracking-tight text-balance lg:mt-2 lg:text-2xl lg:leading-[1.2]">
+                      <p className="mt-2.5 max-w-[28ch] text-[1.0625rem] leading-tight font-medium tracking-tight text-balance md:mt-3 md:max-w-[30ch] md:text-2xl">
                         {mark.claim}
                       </p>
                     </div>
@@ -221,12 +312,12 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
               </div>
             </div>
 
-            <div className="mt-3.5 flex min-h-0 flex-1 items-start justify-center lg:mt-6 lg:items-center">
-              <div className="hidden w-[min(100%,calc((100svh-14.5rem)*1.83))] lg:block">
-                <ProcessFrame live={at === 3} />
-              </div>
-              <div className="w-[min(100%,24rem,calc((100svh-13rem)*0.677))] md:w-[min(100%,30rem,calc((100svh-13rem)*0.677))] lg:hidden">
+            <div className="mt-7 flex min-h-0 justify-center md:mt-8">
+              <div className="w-[min(100%,24rem,calc((100svh-15.5rem)*0.677))] md:hidden">
                 <ProcessFrame live={at === 3} phone />
+              </div>
+              <div className="hidden w-[min(100%,calc((100svh-17rem)*1.25))] md:block">
+                <ProcessFrame live={at === 3} />
               </div>
             </div>
           </div>

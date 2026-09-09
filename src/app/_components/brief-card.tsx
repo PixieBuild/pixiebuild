@@ -77,12 +77,12 @@ export function BriefCard() {
                   pathLength={1}
                   vectorEffect="non-scaling-stroke"
                   strokeWidth={1.5}
-                  style={cue(0.06 + index * 0.14)}
+                  style={cue(0.02 + index * 0.12)}
                   className="stage-cue stroke-concept-clay fill-none [stroke-dasharray:1] [stroke-dashoffset:calc(1-var(--step))]"
                 />
               </svg>
               <span
-                style={cue(0.28 + index * 0.14, 0.2)}
+                style={cue(0.16 + index * 0.12, 0.2)}
                 className="stage-cue build-part text-[0.78em] leading-snug font-medium"
               >
                 {row.must}
