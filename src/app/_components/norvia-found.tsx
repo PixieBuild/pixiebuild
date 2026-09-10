@@ -87,7 +87,7 @@ export function NorviaFound() {
         </div>
 
         <div className="border-concept-ink/10 bg-concept-shell flex min-h-0 flex-col gap-5 border-l px-8 py-7">
-          <span className="text-concept-muted font-label flex items-center gap-2 text-[0.6em] tracking-[0.2em]">
+          <span className="text-concept-muted font-label flex items-center gap-2 text-[0.66em] tracking-[0.2em]">
             <RiSparkling2Fill className="text-concept-clay size-[1.3em]" />
             AN ASSISTANT ANSWERS
           </span>
@@ -120,7 +120,7 @@ export function NorviaFound() {
           </div>
 
           <div className="border-concept-ink/10 mt-2 flex flex-col gap-3 border-t pt-5">
-            <span className="text-concept-muted font-label flex items-center gap-2 text-[0.6em] tracking-[0.2em]">
+            <span className="text-concept-muted font-label flex items-center gap-2 text-[0.66em] tracking-[0.2em]">
               <RiMapPin2Line className="text-concept-clay size-[1.3em]" />
               ON MAPS
             </span>

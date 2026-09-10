@@ -611,7 +611,7 @@
   --spacing: calc(4 * var(--u));
   width: 100%;
   height: 100%;
-  font-size: calc(16 * var(--u));
+  font-size: calc(var(--concept-base, 16) * var(--u));
 }
 
 /* The same rescaling for a layer that already has a size of its own — a bar
@@ -621,7 +621,7 @@
 @utility concept-scale {
   --u: calc(100cqw / var(--concept-width, 1200));
   --spacing: calc(4 * var(--u));
-  font-size: calc(16 * var(--u));
+  font-size: calc(var(--concept-base, 16) * var(--u));
 }
 
 @utility bg-brand-glow {

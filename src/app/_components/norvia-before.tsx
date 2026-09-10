@@ -86,9 +86,9 @@ export function NorviaBefore() {
           </span>
         </div>
 
-        <div className="bg-concept-shell flex min-h-0 flex-1 items-center justify-center px-9 py-8">
-          <div className="border-concept-scrim bg-concept-scrim shadow-elev-2 w-[72%] overflow-hidden rounded-[1.5em] border-[0.35em]">
-            <div className="concept-stage relative w-full overflow-hidden rounded-[1.15em] [--concept-height:464] [--concept-width:360]">
+        <div className="bg-concept-shell flex min-h-0 flex-1 items-center justify-center px-9 py-7">
+          <div className="border-concept-scrim bg-concept-scrim shadow-elev-2 w-[80%] overflow-hidden rounded-[1.5em] border-[0.35em]">
+            <div className="concept-stage relative w-full overflow-hidden rounded-[1.15em] [--concept-base:16] [--concept-height:464] [--concept-width:360]">
               <NorviaHomePhone />
             </div>
           </div>

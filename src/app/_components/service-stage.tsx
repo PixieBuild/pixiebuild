@@ -308,9 +308,14 @@ export function ServiceStage({ heading }: { heading: React.ReactNode }) {
               ref={cell => {
                 cells.current[place] = cell;
               }}
-              className="flex w-[86%] shrink-0 snap-center flex-col sm:w-[64%] md:w-[72%]"
+              className="flex w-[88%] shrink-0 snap-center flex-col sm:w-[64%] md:w-[72%]"
             >
-              <ServiceFrame at={place} single />
+              <div className="md:hidden">
+                <ServiceFrame at={place} single phone />
+              </div>
+              <div className="hidden md:block">
+                <ServiceFrame at={place} single />
+              </div>
 
               <p className="mt-4 flex items-baseline gap-3">
                 <span

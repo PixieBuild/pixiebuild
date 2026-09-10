@@ -99,7 +99,7 @@ export function ProcessFrame({
         "concept-stage concept-theme-paper bg-concept-canvas text-concept-ink shadow-elev-2 border-concept-ink/15 relative w-full overflow-hidden border",
         phone
           ? "[--concept-height:532] [--concept-width:360]"
-          : "[--concept-height:960] [--concept-width:1200]",
+          : "[--concept-base:18] [--concept-height:960] [--concept-width:1200]",
       )}
     >
       <div
@@ -121,29 +121,29 @@ export function ProcessFrame({
         >
           <div className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(1-var(--e2))]">
             <span className="bg-concept-clay motion-reduce:animate-none size-[0.45em] animate-build-pulse rounded-full" />
-            <span className="font-label text-[0.6em] tracking-[0.18em]">
+            <span className="font-label text-[0.66em] tracking-[0.18em]">
               BUILDING
             </span>
-            <span className="text-concept-muted font-label truncate text-[0.6em] tracking-[0.12em]">
+            <span className="text-concept-muted font-label truncate text-[0.66em] tracking-[0.12em]">
               norvia / home
             </span>
             {!phone ? (
-              <span className="text-concept-muted font-label ml-auto text-[0.6em] tracking-[0.18em]">
+              <span className="text-concept-muted font-label ml-auto text-[0.66em] tracking-[0.18em]">
                 DESIGN AND BUILD, ONE PASS
               </span>
             ) : null}
           </div>
 
           <div className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(var(--e2)-var(--e3))]">
-            <span className="bg-concept-canvas border-concept-ink/15 text-concept-muted font-label flex min-w-0 items-center gap-2 border px-3 py-1 text-[0.6em] tracking-[0.12em]">
+            <span className="bg-concept-canvas border-concept-ink/15 text-concept-muted font-label flex min-w-0 items-center gap-2 border px-3 py-1 text-[0.66em] tracking-[0.12em]">
               <RiLinksLine className="text-concept-clay size-[1.1em] shrink-0" />
               <span className="truncate">norvia.com/preview</span>
             </span>
-            <span className="bg-concept-clay text-concept-canvas font-label shrink-0 px-2 py-1 text-[0.55em] tracking-[0.16em]">
+            <span className="bg-concept-clay text-concept-canvas font-label shrink-0 px-2 py-1 text-[0.62em] tracking-[0.16em]">
               ROUND 2
             </span>
             {!phone ? (
-              <span className="text-concept-muted font-label ml-auto text-[0.6em] tracking-[0.18em]">
+              <span className="text-concept-muted font-label ml-auto text-[0.66em] tracking-[0.18em]">
                 SHARED WITH MARA
               </span>
             ) : null}
@@ -160,14 +160,14 @@ export function ProcessFrame({
               : null}
             <span
               className={cn(
-                "bg-concept-canvas border-concept-ink/15 text-concept-muted font-label flex min-w-0 flex-1 items-center gap-2 border px-3 py-1 text-[0.6em] tracking-[0.12em]",
+                "bg-concept-canvas border-concept-ink/15 text-concept-muted font-label flex min-w-0 flex-1 items-center gap-2 border px-3 py-1 text-[0.66em] tracking-[0.12em]",
                 !phone && "ml-2",
               )}
             >
               <RiLock2Line className="text-concept-clay size-[1em] shrink-0" />
               <span className="truncate">https://norvia.com</span>
             </span>
-            <span className="bg-concept-clay text-concept-canvas font-label shrink-0 px-2.5 py-1 text-[0.55em] tracking-[0.18em]">
+            <span className="bg-concept-clay text-concept-canvas font-label shrink-0 px-2.5 py-1 text-[0.62em] tracking-[0.18em]">
               LIVE
             </span>
           </div>
@@ -202,10 +202,10 @@ export function ProcessFrame({
                   />
                 ))}
               </span>
-              <span className="text-concept-chalk/55 font-label text-[0.55em] tracking-[0.18em]">
+              <span className="text-concept-chalk/55 font-label text-[0.62em] tracking-[0.18em]">
                 ARCHIVO · GEIST
               </span>
-              <span className="text-concept-chalk/55 font-label ml-auto text-[0.55em] tracking-[0.18em]">
+              <span className="text-concept-chalk/55 font-label ml-auto text-[0.62em] tracking-[0.18em]">
                 ONE PASS
               </span>
             </div>
@@ -214,7 +214,7 @@ export function ProcessFrame({
               style={vars({ "--a": "var(--a2)" })}
               className="col-start-1 row-start-1 flex items-center gap-3 opacity-[calc(var(--e2)-var(--e3))]"
             >
-              <span className="text-concept-chalk/55 font-label text-[0.55em] tracking-[0.18em]">
+              <span className="text-concept-chalk/55 font-label text-[0.62em] tracking-[0.18em]">
                 ROUND 2
               </span>
               <span
@@ -251,7 +251,7 @@ export function ProcessFrame({
         {!phone ? (
           <div className="concept-scale bg-concept-scrim text-concept-chalk relative z-20 grid h-14 shrink-0 px-7">
             <div className="col-start-1 row-start-1 flex items-center gap-4 opacity-[calc(1-var(--e2))]">
-              <span className="text-concept-chalk/55 font-label text-[0.6em] tracking-[0.18em]">
+              <span className="text-concept-chalk/55 font-label text-[0.66em] tracking-[0.18em]">
                 HOME · SHOP · CLASSES · COMMISSIONS · VISIT
               </span>
               <span className="ml-auto flex items-center gap-3">
@@ -266,7 +266,7 @@ export function ProcessFrame({
                     />
                   ))}
                 </span>
-                <span className="text-concept-chalk/55 font-label text-[0.6em] tracking-[0.18em]">
+                <span className="text-concept-chalk/55 font-label text-[0.66em] tracking-[0.18em]">
                   ARCHIVO · GEIST
                 </span>
               </span>
@@ -276,7 +276,7 @@ export function ProcessFrame({
               style={vars({ "--a": "var(--a2)" })}
               className="col-start-1 row-start-1 flex items-center gap-6 opacity-[calc(var(--e2)-var(--e3))]"
             >
-              <span className="text-concept-chalk/55 font-label text-[0.6em] tracking-[0.18em]">
+              <span className="text-concept-chalk/55 font-label text-[0.66em] tracking-[0.18em]">
                 ROUND 2 — YOU ASKED FOR
               </span>
               {asked.map((change, index) => (
@@ -309,7 +309,7 @@ export function ProcessFrame({
                   </span>
                 </span>
               ))}
-              <span className="text-concept-chalk/55 font-label ml-auto text-[0.6em] tracking-[0.18em]">
+              <span className="text-concept-chalk/55 font-label ml-auto text-[0.66em] tracking-[0.18em]">
                 ALL YOURS
               </span>
             </div>

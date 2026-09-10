@@ -63,7 +63,7 @@ export function NorviaHomePhone() {
             type="button"
             onClick={() => show({ kind: "bag" })}
             className={cn(
-              "font-label flex items-center gap-2 border px-2.5 py-1 text-[0.55em] tracking-[0.2em] transition-colors duration-300",
+              "font-label flex items-center gap-2 border px-2.5 py-1 text-[0.6em] tracking-[0.2em] transition-colors duration-300",
               count
                 ? "bg-concept-clay border-concept-clay text-concept-canvas"
                 : "border-concept-ink/20",
@@ -88,7 +88,7 @@ export function NorviaHomePhone() {
         />
         <span className="from-concept-scrim/90 via-concept-scrim/30 absolute inset-0 bg-linear-to-t to-transparent" />
         <div className="text-concept-chalk absolute inset-x-4 bottom-4 flex flex-col gap-2.5">
-          <span className="build-act text-concept-chalk/80 font-label text-[0.55em] tracking-[0.2em]">
+          <span className="build-act text-concept-chalk/80 font-label text-[0.62em] tracking-[0.2em]">
             HUDSON, NEW YORK
           </span>
           <span className="font-concept-display max-w-[15ch] text-[1.6em] leading-[0.95]">
@@ -96,7 +96,7 @@ export function NorviaHomePhone() {
             <span className="text-concept-gold italic">a few dozen</span> at a
             time.
           </span>
-          <span className="bg-concept-clay text-concept-canvas font-label self-start px-3 py-1.5 text-[0.55em] tracking-[0.2em]">
+          <span className="bg-concept-clay text-concept-canvas font-label self-start px-3 py-1.5 text-[0.6em] tracking-[0.2em]">
             SHOP THE DROP
           </span>
         </div>
@@ -135,7 +135,7 @@ export function NorviaHomePhone() {
                     <span className="build-act bg-concept-canvas/55 absolute inset-0" />
                   ) : null}
                   {tag ? (
-                    <span className="build-act bg-concept-canvas/90 font-label absolute top-1 left-1 px-1 py-0.5 text-[0.45em] tracking-[0.14em]">
+                    <span className="build-act bg-concept-canvas/90 font-label absolute top-1 left-1 px-1 py-0.5 text-[0.55em] tracking-[0.14em]">
                       {tag}
                     </span>
                   ) : null}
@@ -167,7 +167,7 @@ export function NorviaHomePhone() {
             <div
               key={option.date}
               style={cue(0.52 + index * 0.05)}
-              className="stage-cue build-part flex flex-1 items-center gap-2.5 text-[0.66em]"
+              className="stage-cue build-part flex flex-1 items-center gap-2.5 text-[0.72em]"
             >
               <span className="flex min-w-0 flex-col gap-0.5">
                 <span className="flex items-baseline gap-2">
@@ -187,7 +187,7 @@ export function NorviaHomePhone() {
                 type="button"
                 disabled={!left}
                 onClick={() => show({ kind: "book", date: option.date })}
-                className="border-concept-ink/25 font-label ml-auto shrink-0 border px-2 py-0.5 text-[0.7em] tracking-[0.14em] transition-colors duration-300 disabled:opacity-40"
+                className="border-concept-ink/25 font-label ml-auto shrink-0 border px-2 py-0.5 text-[0.85em] tracking-[0.14em] transition-colors duration-300 disabled:opacity-40"
               >
                 {left ? "BOOK" : "FULL"}
               </button>
@@ -202,10 +202,10 @@ export function NorviaHomePhone() {
         style={cue(0.62)}
         className="stage-cue build-part border-concept-ink/10 flex h-8 shrink-0 items-center justify-between gap-3 border-t px-4 text-left"
       >
-        <span className="text-concept-muted font-label text-[0.5em] tracking-[0.2em]">
-          COMMISSIONS · FROM $480
+        <span className="text-concept-muted font-label shrink-0 text-[0.6em] tracking-[0.2em]">
+          COMMISSIONS
         </span>
-        <span className="flex items-center gap-1.5 text-[0.62em]">
+        <span className="flex items-center gap-1.5 text-[0.72em]">
           Tell us what you have in mind
           <RiArrowRightLine className="text-concept-clay size-[1.1em]" />
         </span>

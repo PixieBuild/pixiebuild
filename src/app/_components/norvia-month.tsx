@@ -50,7 +50,7 @@ export function NorviaMonth() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <span className="text-concept-muted font-label text-[0.6em] tracking-[0.2em]">
+          <span className="text-concept-muted font-label text-[0.66em] tracking-[0.2em]">
             WHAT WE DID
           </span>
           {done.map(item => (
@@ -64,7 +64,7 @@ export function NorviaMonth() {
         </div>
 
         <div className="flex flex-col gap-3">
-          <span className="text-concept-muted font-label text-[0.6em] tracking-[0.2em]">
+          <span className="text-concept-muted font-label text-[0.66em] tracking-[0.2em]">
             COMING UP
           </span>
           <span className="text-[0.9em]">

@@ -64,14 +64,14 @@ export function NorviaHome() {
             <span key={link}>{link}</span>
           ))}
         </nav>
-        <span className="text-concept-muted font-label ml-auto text-[0.58em] tracking-[0.18em]">
+        <span className="text-concept-muted font-label ml-auto text-[0.64em] tracking-[0.18em]">
           NEXT DROP · SAT 3 OCT · 9AM
         </span>
         <button
           type="button"
           onClick={() => show({ kind: "bag" })}
           className={cn(
-            "font-label flex items-center gap-2.5 border px-4 py-2 text-[0.62em] tracking-[0.2em] transition-colors duration-300",
+            "font-label flex items-center gap-2.5 border px-4 py-2 text-[0.66em] tracking-[0.2em] transition-colors duration-300",
             count
               ? "bg-concept-clay border-concept-clay text-concept-canvas"
               : "border-concept-ink/20 hover:bg-concept-shell",
@@ -86,7 +86,7 @@ export function NorviaHome() {
         <div className="flex flex-col justify-center px-9">
           <span
             style={cue(0.06)}
-            className="stage-cue build-part text-concept-muted font-label text-[0.6em] tracking-[0.2em]"
+            className="stage-cue build-part text-concept-muted font-label text-[0.66em] tracking-[0.2em]"
           >
             HUDSON, NEW YORK · SINCE 2019
           </span>
@@ -135,7 +135,7 @@ export function NorviaHome() {
             sizes="640px"
             className="object-cover"
           />
-          <span className="bg-concept-canvas/90 font-label absolute bottom-4 left-4 px-2.5 py-1.5 text-[0.52em] tracking-[0.18em]">
+          <span className="bg-concept-canvas/90 font-label absolute bottom-4 left-4 px-2.5 py-1.5 text-[0.62em] tracking-[0.18em]">
             MARA, AT THE WHEEL
           </span>
         </div>
@@ -145,7 +145,7 @@ export function NorviaHome() {
         <div className="col-span-5 flex min-h-0 flex-col p-6">
           <span
             style={cue(0.3)}
-            className="stage-cue build-part text-concept-clay font-label text-[0.6em] tracking-[0.2em]"
+            className="stage-cue build-part text-concept-clay font-label text-[0.66em] tracking-[0.2em]"
           >
             THIS MONTH&apos;S DROP · 24 PIECES
           </span>
@@ -175,19 +175,19 @@ export function NorviaHome() {
                       <span className="build-act bg-concept-canvas/55 absolute inset-0" />
                     ) : null}
                     {tag ? (
-                      <span className="build-act bg-concept-canvas/90 font-label absolute top-2 left-2 px-1.5 py-0.5 text-[0.52em] tracking-[0.16em]">
+                      <span className="build-act bg-concept-canvas/90 font-label absolute top-2 left-2 px-1.5 py-0.5 text-[0.62em] tracking-[0.16em]">
                         {tag}
                       </span>
                     ) : null}
                     {!gone ? (
-                      <span className="bg-concept-ink text-concept-canvas font-label absolute right-2 bottom-2 px-1.5 py-0.5 text-[0.52em] tracking-[0.16em] opacity-0 transition-opacity duration-300 group-hover/good:opacity-100">
+                      <span className="bg-concept-ink text-concept-canvas font-label absolute right-2 bottom-2 px-1.5 py-0.5 text-[0.62em] tracking-[0.16em] opacity-0 transition-opacity duration-300 group-hover/good:opacity-100">
                         + ADD
                       </span>
                     ) : null}
                   </span>
-                  <span className="mt-2.5 flex shrink-0 items-baseline justify-between gap-2 text-[0.78em]">
+                  <span className="mt-2.5 flex shrink-0 flex-col gap-0.5 text-[0.78em]">
                     <span className="truncate">{good.name}</span>
-                    <span className="tabular-nums">${good.price}</span>
+                    <span className="text-concept-muted tabular-nums">${good.price}</span>
                   </span>
                 </button>
               );
@@ -198,7 +198,7 @@ export function NorviaHome() {
         <div className="col-span-4 flex min-h-0 flex-col p-6">
           <span
             style={cue(0.48)}
-            className="stage-cue build-part text-concept-clay font-label text-[0.6em] tracking-[0.2em]"
+            className="stage-cue build-part text-concept-clay font-label text-[0.66em] tracking-[0.2em]"
           >
             AT THE WHEEL
           </span>
@@ -231,7 +231,7 @@ export function NorviaHome() {
                     type="button"
                     disabled={!left}
                     onClick={() => show({ kind: "book", date: option.date })}
-                    className="border-concept-ink/25 hover:bg-concept-shell font-label ml-auto shrink-0 border px-3 py-1.5 text-[0.7em] tracking-[0.16em] transition-colors duration-300 disabled:opacity-40"
+                    className="border-concept-ink/25 hover:bg-concept-shell font-label ml-auto shrink-0 border px-3 py-1.5 text-[0.8em] tracking-[0.16em] transition-colors duration-300 disabled:opacity-40"
                   >
                     {left ? "BOOK" : "FULL"}
                   </button>
@@ -256,7 +256,7 @@ export function NorviaHome() {
           />
           <span className="from-concept-scrim/85 absolute inset-0 bg-linear-to-b to-transparent" />
           <span className="text-concept-chalk absolute inset-x-6 top-5 flex flex-col gap-1.5">
-            <span className="font-label text-[0.58em] tracking-[0.2em] opacity-70">
+            <span className="font-label text-[0.66em] tracking-[0.2em] opacity-70">
               COMMISSIONS · FROM $480
             </span>
             <span className="font-concept-display flex items-center gap-2 text-[1.3em] leading-tight">
@@ -271,7 +271,7 @@ export function NorviaHome() {
         style={cue(0.66)}
         className="stage-cue build-part border-concept-ink/10 flex h-16 shrink-0 items-center gap-5 border-t px-9 text-[0.78em]"
       >
-        <span className="text-concept-muted font-label text-[0.78em] tracking-[0.2em]">
+        <span className="text-concept-muted font-label text-[0.85em] tracking-[0.2em]">
           FIND US IN PERSON
         </span>
         <span>

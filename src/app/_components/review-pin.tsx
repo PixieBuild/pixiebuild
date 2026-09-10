@@ -29,7 +29,7 @@ export function ReviewPin({ n, text, left, top, show, done, flip }: Pin) {
       </span>
       <span className="bg-concept-canvas border-concept-ink/15 shadow-elev-2 flex w-[15em] flex-col gap-1.5 border px-3 py-2.5">
         <span className="text-[0.72em] leading-snug">{text}</span>
-        <span className="text-concept-muted font-label flex items-center gap-2 text-[0.52em] tracking-[0.14em]">
+        <span className="text-concept-muted font-label flex items-center gap-2 text-[0.62em] tracking-[0.14em]">
           MARA · NORVIA
           <span
             style={cue(done, 0.1)}

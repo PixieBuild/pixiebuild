@@ -3,27 +3,45 @@
 import { RiLock2Line } from "@remixicon/react";
 
 import { NorviaBefore } from "@/app/_components/norvia-before";
+import { NorviaBeforePhone } from "@/app/_components/norvia-before-phone";
 import { NorviaFound } from "@/app/_components/norvia-found";
+import { NorviaFoundPhone } from "@/app/_components/norvia-found-phone";
 import { NorviaHome } from "@/app/_components/norvia-home";
+import { NorviaHomePhone } from "@/app/_components/norvia-home-phone";
 import { NorviaMonth } from "@/app/_components/norvia-month";
+import { NorviaMonthPhone } from "@/app/_components/norvia-month-phone";
 import { services } from "@/lib/services";
 import { cn } from "@/lib/utils";
 
 const scenes = [
-  { url: "norvia.com", scene: <NorviaHome /> },
-  { url: null, scene: <NorviaBefore /> },
-  { url: "google.com/search?q=ceramics+classes+near+hudson", scene: <NorviaFound /> },
-  { url: "mail — October at norvia.com", scene: <NorviaMonth /> },
+  { url: "norvia.com", page: <NorviaHome />, phone: <NorviaHomePhone /> },
+  {
+    url: "norvia — before and after",
+    page: <NorviaBefore />,
+    phone: <NorviaBeforePhone />,
+  },
+  {
+    url: "google.com/search?q=ceramics+classes+near+hudson",
+    page: <NorviaFound />,
+    phone: <NorviaFoundPhone />,
+  },
+  {
+    url: "mail — October at norvia.com",
+    page: <NorviaMonth />,
+    phone: <NorviaMonthPhone />,
+  },
 ];
 
 export function ServiceFrame({
   at,
   last = at,
   single = false,
+  phone = false,
 }: {
   at: number;
   last?: number;
   single?: boolean;
+  phone?: boolean;
 }) {
   const shown = single ? [at] : services.map((_, place) => place);
 
@@ -36,15 +54,34 @@ export function ServiceFrame({
   };
 
   return (
-    <div className="concept-stage concept-theme-cool bg-concept-shell text-concept-ink shadow-elev-2 border-concept-ink/15 relative flex w-full flex-col overflow-hidden border [--concept-height:800] [--concept-width:1200]">
-      <div className="concept-scale bg-concept-shell border-concept-ink/10 relative z-20 flex h-11 shrink-0 items-center gap-2 border-b px-4">
-        {[0, 1, 2].map(light => (
-          <span
-            key={light}
-            className="bg-concept-ink/20 size-[0.45em] shrink-0 rounded-full"
-          />
-        ))}
-        <span className="bg-concept-canvas border-concept-ink/15 text-concept-muted font-label ml-2 flex min-w-0 flex-1 items-center gap-2 border px-3 py-1 text-[0.6em] tracking-[0.12em]">
+    <div
+      className={cn(
+        "concept-stage concept-theme-cool bg-concept-shell text-concept-ink shadow-elev-2 border-concept-ink/15 relative flex w-full flex-col overflow-hidden border",
+        phone
+          ? "[--concept-height:500] [--concept-width:360]"
+          : "[--concept-base:18] [--concept-height:800] [--concept-width:1200]",
+      )}
+    >
+      <div
+        className={cn(
+          "concept-scale bg-concept-shell border-concept-ink/10 relative z-20 flex shrink-0 items-center gap-2 border-b",
+          phone ? "h-8 px-3" : "h-11 px-4",
+        )}
+      >
+        {!phone
+          ? [0, 1, 2].map(light => (
+              <span
+                key={light}
+                className="bg-concept-ink/20 size-[0.45em] shrink-0 rounded-full"
+              />
+            ))
+          : null}
+        <span
+          className={cn(
+            "bg-concept-canvas border-concept-ink/15 text-concept-muted font-label flex min-w-0 flex-1 items-center gap-2 border px-3 py-1 text-[0.66em] tracking-[0.12em]",
+            !phone && "ml-2",
+          )}
+        >
           <RiLock2Line className="text-concept-clay size-[1em] shrink-0" />
           <span className="grid min-w-0">
             {shown.map(place => (
@@ -55,12 +92,12 @@ export function ServiceFrame({
                   single || place === at ? "opacity-100" : "opacity-0",
                 )}
               >
-                {scenes[place].url ?? "norvia — before and after"}
+                {scenes[place].url}
               </span>
             ))}
           </span>
         </span>
-        <span className="text-concept-muted font-label grid shrink-0 text-[0.6em] tracking-[0.18em] uppercase">
+        <span className="text-concept-muted font-label grid shrink-0 text-[0.66em] tracking-[0.18em] uppercase">
           {shown.map(place => (
             <span
               key={place}
@@ -85,7 +122,7 @@ export function ServiceFrame({
               layer(place),
             )}
           >
-            {scenes[place].scene}
+            {phone ? scenes[place].phone : scenes[place].page}
           </div>
         ))}
       </div>
