@@ -263,7 +263,7 @@ export function HeroStage({
         stack.style.setProperty("--sway", `${across * 9}deg`);
         stack.style.setProperty("--lean", `${down * -5}deg`);
         stack.style.setProperty("--pull-x", `${clamp(pullX, 22)}px`);
-        stack.style.setProperty("--pull-y", `${clamp(pullY, 14)}px`);
+        stack.style.setProperty("--pull-y", `${clamp(pullY, 8)}px`);
       });
     };
 
@@ -469,7 +469,7 @@ export function HeroStage({
                       } as React.CSSProperties
                     }
                     className={cn(
-                      "build-arrive max-lg:build-card w-[78%] shrink-0 snap-center sm:w-[52%] md:w-[64%] lg:build-panel lg:absolute lg:inset-0 lg:flex lg:w-auto lg:items-center lg:justify-center lg:pt-10 lg:pr-[5%] lg:pb-4 lg:@container-size 2xl:pt-14 2xl:pr-[8%]",
+                      "build-arrive max-lg:build-card w-[78%] shrink-0 snap-center sm:w-[52%] md:w-[64%] lg:build-panel lg:absolute lg:inset-0 lg:flex lg:w-auto lg:items-center lg:justify-center lg:pt-10 lg:pr-[5%] lg:pb-8 lg:@container-size 2xl:pt-14 2xl:pr-[8%]",
                       step > 0 && "lg:build-back lg:pointer-events-none",
                     )}
                   >
