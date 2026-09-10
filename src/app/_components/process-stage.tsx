@@ -195,9 +195,9 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
         ))}
 
         <div ref={stage} style={rest} className="sticky top-0 flex h-svh flex-col">
-          <div className="mx-auto hidden w-full max-w-page flex-1 items-center px-16 pt-10 pb-22 lg:landscape:flex">
-            <div className="grid w-full grid-cols-12 gap-10 xl:gap-14">
-              <div className="col-span-5 flex flex-col xl:col-span-4 2xl:col-span-3">
+          <div className="mx-auto hidden w-full max-w-page flex-1 items-center px-16 pt-10 pb-22 2xl:pt-14 2xl:pb-26 lg:landscape:flex">
+            <div className="flex w-full gap-12 2xl:gap-16">
+              <div className="flex w-[32%] max-w-108 min-w-76 shrink-0 flex-col 2xl:w-[30%] 2xl:max-w-124">
                 {heading}
 
                 <span aria-hidden className="bg-foreground/12 mt-10 h-px w-full" />
@@ -217,13 +217,13 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
                             : "pointer-events-none translate-y-2 opacity-0",
                         )}
                       >
-                        <span className="text-primary font-label flex items-baseline gap-3 text-[0.6875rem] tracking-[0.16em] uppercase">
+                        <span className="text-primary font-label flex items-baseline gap-3 text-[0.6875rem] tracking-[0.16em] uppercase 2xl:text-xs">
                           <span className="tabular-nums">{mark.step}</span>
                           <span className="bg-primary/40 h-px w-6" />
                           {mark.name}
                         </span>
 
-                        <h3 className="mt-4 text-[1.75rem] leading-[1.15] font-medium tracking-tight text-balance">
+                        <h3 className="mt-4 text-[1.75rem] leading-[1.15] font-medium tracking-tight text-balance 2xl:text-[2.25rem]">
                           {mark.claim}
                         </h3>
 
@@ -234,7 +234,7 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
                                 <span
                                   key={tone}
                                   className={cn(
-                                    "border-foreground/10 size-5 rounded-sm border",
+                                    "border-foreground/10 size-5 rounded-sm border 2xl:size-6",
                                     tone,
                                   )}
                                 />
@@ -266,14 +266,14 @@ export function ProcessStage({ heading }: { heading: React.ReactNode }) {
                       />
                     </span>
                   ))}
-                  <span className="text-muted-foreground font-label ml-3 text-[0.625rem] tracking-[0.16em] tabular-nums">
+                  <span className="text-muted-foreground font-label ml-3 text-[0.625rem] tracking-[0.16em] tabular-nums 2xl:text-xs">
                     {beats[at].step} / {String(steps).padStart(2, "0")}
                   </span>
                 </div>
               </div>
 
-              <div className="col-span-7 flex items-center xl:col-span-8 2xl:col-span-9">
-                <div className="mx-auto w-[min(100%,calc((100svh-9rem)*1.25))]">
+              <div className="flex min-w-0 flex-1 items-center">
+                <div className="mx-auto w-[min(100%,calc((100svh-9rem)*1.25))] 2xl:w-[min(100%,calc((100svh-11rem)*1.25))]">
                   <ProcessFrame live={at === 3} />
                 </div>
               </div>

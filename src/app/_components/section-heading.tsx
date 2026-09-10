@@ -18,10 +18,12 @@ const onServer = () => false;
 export function SectionHeading({
   label,
   className,
+  headingClassName,
   children,
 }: {
   label: string;
   className?: string;
+  headingClassName?: string;
   children: React.ReactNode;
 }) {
   const head = useRef<HTMLElement>(null);
@@ -45,7 +47,12 @@ export function SectionHeading({
         {label}
       </motion.p>
 
-      <h2 className="mt-5 overflow-hidden pb-1 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+      <h2
+        className={cn(
+          "mt-5 overflow-hidden pb-1 text-3xl font-semibold tracking-tight text-balance md:text-4xl",
+          headingClassName,
+        )}
+      >
         <motion.span
           animate={{ y: shown ? 0 : "110%" }}
           initial={false}

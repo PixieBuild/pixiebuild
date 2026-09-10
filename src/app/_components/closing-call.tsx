@@ -21,9 +21,9 @@ export function ClosingCall() {
             size="lg"
             variant="outline"
             nativeButton={false}
-            render={<a href="#work" />}
+            render={<a href="#process" />}
           >
-            See our work
+            See how we work
           </Button>
         </div>
       </div>
