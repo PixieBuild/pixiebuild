@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { ContactButton } from "@/components/contact-button";
 import { MobileNav } from "@/components/mobile-nav";
 import PbLogo from "@/assets/pb-logo.svg";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -22,7 +21,7 @@ export function SiteHeader() {
       <div className="mx-auto flex w-full max-w-page items-center justify-between gap-4 px-6 pt-6 sm:px-8 md:px-12 lg:px-16">
         <Link
           href="/"
-          className="ease-interface flex shrink-0 items-center gap-2.5 transition-opacity duration-150 hover:opacity-75"
+          className="ease-interface flex shrink-0 items-center gap-2.5 transition-opacity duration-300 hover:opacity-75"
           aria-label="PixieBuild"
         >
           <PbLogo className="size-6" />
@@ -31,12 +30,12 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-0.5 md:flex">
           {links.map(link => (
             <a
               key={link.href}
               href={link.href}
-              className="text-muted-foreground hover:text-foreground after:bg-foreground ease-interface relative text-sm transition-colors duration-200 after:absolute after:-bottom-1.5 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out hover:after:scale-x-100"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted ease-interface rounded-full px-3.5 py-2 text-sm transition-colors duration-300"
             >
               {link.label}
             </a>
@@ -44,10 +43,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-1.5">
-          <ThemeToggle />
-          <ContactButton className="hidden md:inline-flex" size="sm">
-            Start a project
-          </ContactButton>
+          <ThemeToggle className="rounded-full" />
           <span className="md:hidden">
             <MobileNav links={links} />
           </span>

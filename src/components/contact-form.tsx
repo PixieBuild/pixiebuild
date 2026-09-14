@@ -161,7 +161,7 @@ export function ContactForm() {
       </FieldGroup>
 
       <div className="mt-6 flex items-center justify-end gap-3">
-        <span className="text-muted-foreground font-mono text-[0.625rem] tracking-widest uppercase">
+        <span className="text-muted-foreground font-label text-[0.625rem] tracking-widest uppercase">
           Or reach us
         </span>
 

@@ -18,10 +18,12 @@ const onServer = () => false;
 export function SectionHeading({
   label,
   className,
+  headingClassName,
   children,
 }: {
   label: string;
   className?: string;
+  headingClassName?: string;
   children: React.ReactNode;
 }) {
   const head = useRef<HTMLElement>(null);
@@ -39,12 +41,18 @@ export function SectionHeading({
         animate={{ opacity: shown ? 1 : 0, y: shown ? 0 : 6 }}
         initial={false}
         transition={{ duration: still ? 0 : 0.45, ease: entrance }}
-        className="text-muted-foreground text-xs font-medium tracking-widest uppercase"
+        className="text-muted-foreground font-label flex items-center gap-3 text-[0.6875rem] tracking-[0.16em] uppercase"
       >
+        <span aria-hidden className="bg-primary size-1.5" />
         {label}
       </motion.p>
 
-      <h2 className="mt-5 overflow-hidden pb-1 text-3xl font-semibold tracking-tight text-balance md:text-4xl">
+      <h2
+        className={cn(
+          "mt-5 overflow-hidden pb-1 text-3xl font-semibold tracking-tight text-balance md:text-4xl",
+          headingClassName,
+        )}
+      >
         <motion.span
           animate={{ y: shown ? 0 : "110%" }}
           initial={false}

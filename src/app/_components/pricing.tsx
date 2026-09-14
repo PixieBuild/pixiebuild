@@ -41,7 +41,7 @@ function Tier({
               {project.name}
             </h3>
             {project.featured ? (
-              <span className="bg-primary text-primary-foreground font-label shrink-0 rounded-full px-2.5 py-1 text-[0.625rem] tracking-[0.14em] uppercase">
+              <span className="bg-primary text-primary-foreground font-label shrink-0 rounded-full px-2.5 py-1 text-[0.625rem] tracking-[0.16em] uppercase">
                 Most picked
               </span>
             ) : null}
@@ -66,7 +66,7 @@ function Tier({
               </span>
             )}
           </p>
-          <p className="text-muted-foreground font-label mt-2.5 text-[0.6875rem] tracking-[0.14em] uppercase">
+          <p className="text-muted-foreground font-label mt-2.5 text-[0.6875rem] tracking-[0.16em] uppercase">
             {project.meta}
           </p>
         </div>
@@ -74,7 +74,7 @@ function Tier({
         <div className="mt-7 flex flex-1 flex-col md:mt-0 lg:mt-7">
           <ul
             className={cn(
-              "border-foreground/10 flex flex-col gap-3 border-t pt-6",
+              "flex flex-col gap-3 border-t pt-6",
               rule,
             )}
           >
@@ -131,7 +131,7 @@ const rules = [
 
 function Cells({ currency }: { currency: Currency }) {
   return projects.map((project, index) => (
-    <div key={project.name} className={cn("border-foreground/10", seams[index])}>
+    <div key={project.name} className={seams[index]}>
       <Tier
         project={project}
         split={splits[index]}

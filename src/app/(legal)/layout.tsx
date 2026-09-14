@@ -13,7 +13,7 @@ export default function LegalLayout({
         <div className="mx-auto flex w-full max-w-page items-center justify-between gap-4 px-6 pt-6 sm:px-8 md:px-12 lg:px-16">
           <Link
             href="/"
-            className="ease-interface flex shrink-0 items-center gap-2.5 transition-opacity duration-150 hover:opacity-75"
+            className="ease-interface flex shrink-0 items-center gap-2.5 transition-opacity duration-300 hover:opacity-75"
             aria-label="PixieBuild"
           >
             <PbLogo className="size-6" />

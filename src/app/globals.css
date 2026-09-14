@@ -154,6 +154,15 @@
   }
 }
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -241,6 +250,7 @@
 
 @theme {
   --animate-build-sweep: build-sweep 2.6s ease-in-out infinite;
+  --animate-fade-in: fade-in 320ms var(--ease-entrance) both;
   --animate-rise-in: rise-in 620ms var(--ease-entrance) both;
   --animate-set-line: set-line 1s var(--ease-entrance) both;
   --animate-glow-breathe: glow-breathe 9s ease-in-out infinite;
@@ -248,6 +258,119 @@
   --animate-build-drift: build-drift 11s var(--ease-interface) infinite alternate;
   --animate-build-pulse: build-pulse 2.4s ease-in-out infinite;
   --animate-build-tick: build-tick 3.6s ease-in-out infinite;
+  --animate-build-float: build-float 7s ease-in-out infinite;
+  --animate-build-spin: build-spin 28s linear infinite;
+  --animate-gallery-step: gallery-step 8s var(--ease-interface) infinite;
+  --animate-room-dusk: room-dusk 12s ease-in-out infinite;
+  --animate-room-lamp: room-lamp 12s ease-in-out infinite;
+  --animate-room-sun: room-sun 12s ease-in-out infinite;
+  --animate-cal-range: cal-range 12s ease-in-out infinite;
+  --animate-notify: notify 9s ease-in-out infinite;
+}
+
+@keyframes gallery-step {
+  0%,
+  20% {
+    transform: translateX(0);
+  }
+  25%,
+  45% {
+    transform: translateX(var(--pitch, 100%));
+  }
+  50%,
+  70% {
+    transform: translateX(calc(var(--pitch, 100%) * 2));
+  }
+  75%,
+  95% {
+    transform: translateX(calc(var(--pitch, 100%) * 3));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes cal-range {
+  0%,
+  8%,
+  92%,
+  100% {
+    transform: scaleX(0);
+  }
+  20%,
+  80% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes notify {
+  0% {
+    opacity: 0;
+    transform: translateY(-1.25rem) scale(0.96);
+  }
+  8%,
+  70% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  78%,
+  100% {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.98);
+  }
+}
+
+@keyframes room-dusk {
+  0%,
+  30%,
+  70%,
+  100% {
+    opacity: 0;
+  }
+  45%,
+  55% {
+    opacity: 0.62;
+  }
+}
+
+@keyframes room-lamp {
+  0%,
+  35%,
+  65%,
+  100% {
+    opacity: 0;
+  }
+  45%,
+  55% {
+    opacity: 1;
+  }
+}
+
+@keyframes room-sun {
+  0%,
+  100% {
+    left: 6%;
+  }
+  50% {
+    left: 94%;
+  }
+}
+
+
+@keyframes build-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -0.4rem;
+  }
+}
+
+@keyframes build-spin {
+  to {
+    rotate: 360deg;
+  }
 }
 
 @theme inline {
@@ -304,19 +427,51 @@
 
 @utility build-panel {
   transform: translate3d(
-      calc(var(--d, 0) * var(--fan, 10%) + (1 - var(--in, 1)) * 13%),
-      calc(var(--d, 0) * 2% + (1 - var(--in, 1)) * 4%),
-      calc(var(--d, 0) * var(--sink, -200px) + (1 - var(--in, 1)) * -340px)
+      calc(
+        var(--d, 0) * var(--fan, 10%) + (1 - var(--in, 1)) * 13% +
+          var(--out, 0) * 18%
+      ),
+      calc(
+        var(--d, 0) * 2% + (1 - var(--in, 1)) * 4% - var(--out, 0) * 12%
+      ),
+      calc(
+        var(--d, 0) * var(--sink, -200px) + (1 - var(--in, 1)) * -340px +
+          var(--out, 0) * 260px
+      )
     )
     rotateY(calc(var(--d, 0) * 2.5deg + (1 - var(--in, 1)) * 6deg))
+    rotateZ(calc(var(--out, 0) * 6deg))
     scale(calc(1 - var(--d, 0) * 0.035));
-  opacity: calc(var(--in, 1) / (1 + var(--d, 0) * 1.5));
+  opacity: calc(
+    var(--in, 1) / (1 + var(--d, 0) * 1.5) * (1 - var(--out, 0))
+  );
+}
+
+/* The frames stacked behind the front one, softened by how far back they sit so
+   the deck reads as one page with depth behind it rather than five pages asking
+   to be read at once. Never set on the front frame: filtering rasterises, and
+   that is the one page that has to stay crisp. */
+@utility build-back {
+  filter: blur(max(0px, calc((var(--d, 0) + var(--out, 0)) * 3px)));
 }
 
 @utility build-card {
   opacity: var(--in, 1);
   transform: translate3d(0, calc((1 - var(--in, 1)) * 2.25rem), 0)
     scale(calc(0.955 + 0.045 * var(--in, 1)));
+}
+
+@utility build-layer {
+  transform: translate3d(
+    calc(var(--pull-x, 0px) * var(--depth, 1) * max(0, 1 - var(--d, 0))),
+    calc(var(--pull-y, 0px) * var(--depth, 1) * max(0, 1 - var(--d, 0))),
+    0
+  );
+  transition: transform 700ms var(--ease-interface);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 1ms;
+  }
 }
 
 @utility concept-theme-paper {
@@ -403,6 +558,33 @@
   opacity: calc(1 - var(--act, 1));
 }
 
+/* How much of the front build's turn has been spent. Drives the mark under the
+   trade in the rail, so the line reads as the time left before the deck moves
+   on rather than as a static underline. */
+@utility build-run {
+  transform: scaleX(var(--run, 0));
+}
+
+/* Where a part stands in an act the scroll is scrubbing: nought until the act
+   reaches its cue, one once the act has run a span past it. The act arrives as
+   --a from the nearest wrapper, so one wrapper hands a whole layer to one step
+   of the scroll. Unset reads as arrived. */
+@utility stage-cue {
+  --step: clamp(
+    0,
+    calc((var(--a, 1) - var(--beat, 0)) / var(--span, 0.3)),
+    1
+  );
+}
+
+/* One layer of the process stage: drawn up as it arrives, and set back as the
+   next layer arrives over it. Both read as done when unset. */
+@utility stage-layer {
+  opacity: calc(var(--in, 1) * (1 - min(1, var(--gone, 0) * 1.6)));
+  transform: translateY(calc((1 - var(--in, 1)) * 6% - var(--gone, 0) * 3%))
+    scale(calc(0.96 + 0.04 * var(--in, 1) - 0.03 * var(--gone, 0)));
+}
+
 /* Nothing releases the parts, so they arrive themselves. Outside the utility
    layer to outrank what they inherit from the frame. */
 @media (prefers-reduced-motion: reduce) {
@@ -429,7 +611,17 @@
   --spacing: calc(4 * var(--u));
   width: 100%;
   height: 100%;
-  font-size: calc(16 * var(--u));
+  font-size: calc(var(--concept-base, 16) * var(--u));
+}
+
+/* The same rescaling for a layer that already has a size of its own — a bar
+   pinned to a share of the frame, or a view positioned inset-0. Without it the
+   layer measures in page pixels while the frame around it measures in its own,
+   so the two drift apart as the frame is drawn at other sizes. */
+@utility concept-scale {
+  --u: calc(100cqw / var(--concept-width, 1200));
+  --spacing: calc(4 * var(--u));
+  font-size: calc(var(--concept-base, 16) * var(--u));
 }
 
 @utility bg-brand-glow {
@@ -527,12 +719,3 @@
   --shadow-focus: var(--elevation-focus);
 }
 
-@utility reveal {
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      animation: rise-in linear both;
-      animation-timeline: view();
-      animation-range: entry 5% cover 22%;
-    }
-  }
-}

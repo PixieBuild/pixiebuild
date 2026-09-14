@@ -60,10 +60,10 @@ export function Hero() {
           <Button
             variant="outline"
             nativeButton={false}
-            render={<a href="#work" />}
+            render={<a href="#process" />}
             className="hidden h-12 shrink-0 px-5 text-sm min-[360px]:inline-flex sm:h-13 sm:px-7 sm:text-[0.9375rem]"
           >
-            See our work
+            See how we work
           </Button>
         </div>
       }

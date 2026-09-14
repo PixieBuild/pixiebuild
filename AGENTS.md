@@ -8,7 +8,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 Next.js 16 (App Router) · React 19 · TypeScript strict · Tailwind v4 · shadcn/ui on Base UI · npm
 
-Dark mode is class-based via `next-themes`, default `system`.
+Dark mode is class-based via `next-themes`, default `light`.
 
 ## Read first
 
