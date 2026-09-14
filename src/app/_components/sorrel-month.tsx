@@ -1,24 +1,24 @@
 import { RiCheckLine } from "@remixicon/react";
 
 const numbers = [
-  { value: "31", name: "orders" },
-  { value: "16", name: "class seats booked" },
-  { value: "5", name: "commission enquiries" },
-  { value: "1,240", name: "visits" },
+  { value: "412", name: "tables booked" },
+  { value: "91%", name: "of them online" },
+  { value: "27", name: "private dining enquiries" },
+  { value: "3,860", name: "visits" },
 ];
 
 const done = [
-  "Holiday hours added to the Visit page",
-  "November drop photos uploaded and live",
-  "Two small fixes on the checkout, nothing you would have noticed",
+  "Thanksgiving hours and the set menu added",
+  "The weekly menu went up every Tuesday, as usual",
+  "The booking form now takes parties of eight",
 ];
 
-export function NorviaMonth() {
+export function SorrelMonth() {
   return (
     <div className="concept-page concept-theme-cool bg-concept-canvas text-concept-ink font-display absolute top-0 left-0 flex flex-col">
       <div className="border-concept-ink/10 flex shrink-0 flex-col gap-2.5 border-b px-10 py-5">
         <div className="flex items-baseline justify-between gap-6">
-          <span className="text-[1.5em] font-medium">October at norvia.com</span>
+          <span className="text-[1.5em] font-medium">October at sorrel.com</span>
           <span className="text-concept-muted text-[0.75em]">Tue 4 Nov, 9:02</span>
         </div>
         <div className="flex items-center gap-3 text-[0.8em]">
@@ -27,14 +27,14 @@ export function NorviaMonth() {
           </span>
           <span>
             <span className="font-medium">Anurag at PixieBuild</span>
-            <span className="text-concept-muted"> to Mara</span>
+            <span className="text-concept-muted"> to Nadia</span>
           </span>
         </div>
       </div>
 
       <div className="flex min-h-0 flex-1 flex-col gap-6 px-10 py-7">
         <p className="max-w-[46ch] text-[0.95em] leading-relaxed">
-          Hi Mara — a quiet month, which is the good kind. Here is what
+          Hi Nadia — a full month, which is the good kind. Here is what
           happened on the site in October.
         </p>
 
@@ -68,17 +68,17 @@ export function NorviaMonth() {
             COMING UP
           </span>
           <span className="text-[0.9em]">
-            The November drop goes live Saturday 1 Nov at 9am. We will check it
-            the night before.
+            The New Year&apos;s Eve menu goes live Monday 1 Dec. We will put it
+            up the night before.
           </span>
         </div>
 
         <div className="mt-auto flex flex-col gap-2">
           <p className="text-[0.95em] font-medium">Nothing needs your attention.</p>
           <p className="text-concept-muted max-w-[52ch] text-[0.85em] leading-relaxed">
-            Reply to this email if anything comes up, or if you want the
-            December drop up early. Backups and updates are done, and the
-            hosting stays in your name.
+            Reply to this email if anything comes up, or if the December menu
+            is ready early. Backups and updates are done, and the hosting
+            stays in your name.
           </p>
         </div>
       </div>

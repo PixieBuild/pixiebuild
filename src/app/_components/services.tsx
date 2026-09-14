@@ -18,8 +18,8 @@ export function Services() {
             </SectionHeading>
 
             <p className="text-muted-foreground mt-4 max-w-md text-[0.9375rem] leading-relaxed text-pretty 2xl:mt-6 2xl:max-w-[40ch] 2xl:text-lg">
-              Shown on Norvia, the studio from above. Everything here is priced
-              in the next section.
+              Shown on Sorrel, a restaurant in Brooklyn. Everything here is
+              priced in the next section.
             </p>
           </div>
         }

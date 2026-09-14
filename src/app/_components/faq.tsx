@@ -18,13 +18,13 @@ export function Faq() {
 
           <Accordion
             multiple={false}
-            className="rounded-none border-0 border-t lg:col-span-8"
+            className="border-foreground/12 rounded-none border-0 border-t lg:col-span-8"
           >
             {questions.map((question, index) => (
               <AccordionItem
                 key={question.ask}
                 value={question.ask}
-                className="border-b data-open:bg-transparent"
+                className="border-foreground/12 border-b data-open:bg-transparent"
               >
                 <AccordionTrigger className="gap-6 px-0 py-5 hover:no-underline md:py-6">
                   <span className="flex items-start gap-4 md:gap-5">

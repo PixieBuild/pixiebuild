@@ -188,7 +188,7 @@ export function ServiceStage({ heading }: { heading: React.ReactNode }) {
     <div ref={track}>
       <div className="mx-auto hidden w-full max-w-page px-16 xl:landscape:block">
         <div className="flex gap-12 2xl:gap-16">
-          <div className="order-2 flex w-[34%] max-w-116 min-w-76 shrink-0 flex-col 2xl:w-[32%] 2xl:max-w-132">
+          <div className="flex w-[34%] max-w-116 min-w-76 shrink-0 flex-col 2xl:w-[32%] 2xl:max-w-132">
             {heading}
 
             <span aria-hidden className="bg-foreground/12 mt-10 h-px w-full" />
@@ -285,7 +285,7 @@ export function ServiceStage({ heading }: { heading: React.ReactNode }) {
             </div>
           </div>
 
-          <div className="order-1 flex min-w-0 flex-1 items-center">
+          <div className="flex min-w-0 flex-1 items-center">
             <div className="mx-auto w-[min(100%,calc((100svh-9rem)*1.5))]">
               <ServiceFrame at={at} last={last} />
             </div>

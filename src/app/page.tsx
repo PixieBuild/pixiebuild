@@ -5,7 +5,7 @@ import { HowWeWork } from "@/app/_components/how-we-work";
 import { PageGlow } from "@/app/_components/page-glow";
 import { Pricing } from "@/app/_components/pricing";
 import { Services } from "@/app/_components/services";
-import { TrackRecord } from "@/app/_components/track-record";
+import { Work } from "@/app/_components/work";
 import { ContactDialog } from "@/components/contact-dialog";
 import { SiteDock } from "@/components/site-dock";
 import { SiteFooter } from "@/components/site-footer";
@@ -18,7 +18,7 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <HowWeWork />
-        <TrackRecord />
+        <Work />
         <Services />
         <Pricing />
         <Faq />

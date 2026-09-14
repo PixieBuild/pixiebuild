@@ -1,85 +1,92 @@
-export type Job = {
+/* Business and place caption the frame; kind is the one line about what it
+   is. Nothing else is written about a project — the frame does the talking. */
+export type Project = {
   id: string;
-  client: string;
   business: string;
   place: string;
-  built: string;
-  days: number;
-  rating: number;
-  review?: string;
-  image?: string;
+  kind: string;
+  poster: string;
+  video?: string;
 };
 
-export const figures = [
-  { value: "12", name: "Projects delivered" },
-  { value: "5.0", name: "Average rating" },
-  { value: "14", name: "Days, on average" },
-  { value: "100%", name: "Delivered on time" },
+export type Review = {
+  id: string;
+  client: string;
+  role: string;
+  quote: string;
+};
+
+export const projects: Project[] = [
+  {
+    id: "tarnbeck",
+    business: "Tarnbeck",
+    place: "Cumbria",
+    kind: "Product site",
+    poster: "/record/tarnbeck.webp",
+  },
+  {
+    id: "skerry",
+    business: "Skerry",
+    place: "Leith",
+    kind: "Studio site",
+    poster: "/record/skerry.webp",
+  },
+  {
+    id: "ottoline",
+    business: "Ottoline",
+    place: "Grasse",
+    kind: "Brand site",
+    poster: "/record/ottoline.webp",
+  },
+  {
+    id: "saltmarsh",
+    business: "Saltmarsh",
+    place: "Suffolk",
+    kind: "Launch site",
+    poster: "/record/saltmarsh.webp",
+  },
 ];
 
-export const jobs: Job[] = [
+/* Short and long reviews alternate so the wall keeps a rhythm at every
+   column count. */
+export const reviews: Review[] = [
   {
     id: "coffee",
     client: "Daniel",
-    business: "Coffee house",
-    place: "Portland",
-    built: "Landing page, menu and booking",
-    days: 12,
-    rating: 5,
-    review:
-      "Quick to understand what the place is about, and the site feels like the room does. Bookings started the week it went live.",
-    image: "/record/sample.webp",
+    role: "Founder at Coffee house",
+    quote: "Bookings started the week it went live.",
   },
   {
     id: "grooming",
     client: "Marcus",
-    business: "Grooming lounge",
-    place: "Chicago",
-    built: "Company site with online booking",
-    days: 19,
-    rating: 5,
-    review:
-      "Communicated every step, delivered ahead of the date, and the booking flow just works. Our walk-ins turned into appointments.",
-  },
-  {
-    id: "florist",
-    client: "Ana",
-    business: "Florist",
-    place: "Austin",
-    built: "Shop with same-day delivery slots",
-    days: 24,
-    rating: 5,
-    review:
-      "Patient with a lot of changes from my side. The shop is easy to update myself, which was the whole point.",
-    image: "/record/sample.webp",
+    role: "Owner at Grooming lounge",
+    quote:
+      "Communicated every step and delivered ahead of the date. Our walk-ins turned into appointments.",
   },
   {
     id: "clinic",
     client: "Priya",
-    business: "Physiotherapy clinic",
-    place: "Toronto",
-    built: "Site refresh, faster and on phones",
-    days: 9,
-    rating: 5,
+    role: "Director at Physiotherapy clinic",
+    quote: "Fast, clear and easy to work with.",
   },
   {
     id: "saas",
     client: "Tom",
-    business: "Software startup",
-    place: "Berlin",
-    built: "Marketing site and docs",
-    days: 21,
-    rating: 5,
-    review:
-      "Strong eye for detail and genuinely good motion work. We got compliments on the site from investors.",
+    role: "Head of Product at Software startup",
+    quote:
+      "Strong eye for detail and genuinely good motion work. We scoped a few pages, it went well enough that we expanded the engagement, and we got compliments on the site from investors.",
   },
   {
-    id: "bakery",
-    client: "Sofia",
-    business: "Bakery",
-    place: "Lisbon",
-    built: "Landing page with pre-orders",
-    days: 8,
-    rating: 5,
+    id: "barber",
+    client: "Luis",
+    role: "Owner at Barber shop",
+    quote: "Quick to respond and shipped in a week.",
+  },
+  {
+    id: "florist",
+    client: "Ana",
+    role: "Owner at Florist",
+    quote:
+      "Patient with a lot of changes from my side. The shop is easy to update myself, which was the whole point.",
   },
 ];

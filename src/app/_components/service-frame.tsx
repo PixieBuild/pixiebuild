@@ -2,33 +2,33 @@
 
 import { RiLock2Line } from "@remixicon/react";
 
-import { NorviaBefore } from "@/app/_components/norvia-before";
-import { NorviaBeforePhone } from "@/app/_components/norvia-before-phone";
-import { NorviaFound } from "@/app/_components/norvia-found";
-import { NorviaFoundPhone } from "@/app/_components/norvia-found-phone";
-import { NorviaHome } from "@/app/_components/norvia-home";
-import { NorviaHomePhone } from "@/app/_components/norvia-home-phone";
-import { NorviaMonth } from "@/app/_components/norvia-month";
-import { NorviaMonthPhone } from "@/app/_components/norvia-month-phone";
+import { SorrelBefore } from "@/app/_components/sorrel-before";
+import { SorrelBeforePhone } from "@/app/_components/sorrel-before-phone";
+import { SorrelFound } from "@/app/_components/sorrel-found";
+import { SorrelFoundPhone } from "@/app/_components/sorrel-found-phone";
+import { SorrelHome } from "@/app/_components/sorrel-home";
+import { SorrelHomePhone } from "@/app/_components/sorrel-home-phone";
+import { SorrelMonth } from "@/app/_components/sorrel-month";
+import { SorrelMonthPhone } from "@/app/_components/sorrel-month-phone";
 import { services } from "@/lib/services";
 import { cn } from "@/lib/utils";
 
 const scenes = [
-  { url: "norvia.com", page: <NorviaHome />, phone: <NorviaHomePhone /> },
+  { url: "sorrel.com", page: <SorrelHome />, phone: <SorrelHomePhone /> },
   {
-    url: "norvia — before and after",
-    page: <NorviaBefore />,
-    phone: <NorviaBeforePhone />,
+    url: "sorrel — before and after",
+    page: <SorrelBefore />,
+    phone: <SorrelBeforePhone />,
   },
   {
-    url: "google.com/search?q=ceramics+classes+near+hudson",
-    page: <NorviaFound />,
-    phone: <NorviaFoundPhone />,
+    url: "google.com/search?q=dinner+near+fort+greene+tonight",
+    page: <SorrelFound />,
+    phone: <SorrelFoundPhone />,
   },
   {
-    url: "mail — October at norvia.com",
-    page: <NorviaMonth />,
-    phone: <NorviaMonthPhone />,
+    url: "mail — October at sorrel.com",
+    page: <SorrelMonth />,
+    phone: <SorrelMonthPhone />,
   },
 ];
 
